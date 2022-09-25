@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './proyecto-cursos/menu/menu.component';
 import { NavbarComponent } from './proyecto-cursos/navbar/navbar.component';
 import { ContenidoComponent } from './proyecto-cursos/contenido/contenido.component';
+import { AlumnosComponent } from './proyecto-cursos/alumnos/alumnos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     NavbarComponent,
-    ContenidoComponent
+    ContenidoComponent,
+    AlumnosComponent
   ],
   imports: [
     BrowserModule

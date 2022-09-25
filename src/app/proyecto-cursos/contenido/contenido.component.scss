@@ -29,3 +29,8 @@
     }
     
 }
+
+.muestreo-cards{
+    @extend .flex-row;
+    justify-content: center;
+}

@@ -1,1 +1,10 @@
-<p>Nuestros futuros programadores y sus proyectos</p>
+<p>Nuestros futuros programadores</p>
+<div *ngFor="let curso of listaCursos" [ngClass]="titulo===true?'titulo':''">
+  <ul >{{curso}}
+    <div *ngFor="let alumno of listaAlumnos">
+      <li *ngIf="alumno.curso=== curso" [ngClass]="alumno.nota===10?'top10':'cursada'">{{alumno.nombre | titlecase}} <br> Proyecto Final: {{alumno.nota}}</li>
+    </div>
+  </ul>
+</div>
+
+

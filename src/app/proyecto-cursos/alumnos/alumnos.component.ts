@@ -9,7 +9,6 @@ import { Alumnos } from '../models/alumnos';
 export class AlumnosComponent implements OnInit {
   top10: number = 10;
   titulo:boolean= true;
-  cursada:boolean= true;
 
 
   listaCursos: Array<string>=

@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { MenuComponent } from './proyecto-cursos/menu/menu.component';
-import { NavbarComponent } from './proyecto-cursos/navbar/navbar.component';
-import { ContenidoComponent } from './proyecto-cursos/contenido/contenido.component';
-import { AlumnosComponent } from './proyecto-cursos/alumnos/alumnos.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ContenidoComponent } from './components/contenido/contenido.component';
+import { AlumnosComponent } from './components/alumnos/alumnos.component';
+import { FormsModule } from '@angular/forms';
+import { FormsComponent } from './components/forms/forms.component';
+import { ComponentsComponent } from './components/components.component';
 
 @NgModule({
   declarations: [
@@ -13,10 +16,13 @@ import { AlumnosComponent } from './proyecto-cursos/alumnos/alumnos.component';
     MenuComponent,
     NavbarComponent,
     ContenidoComponent,
-    AlumnosComponent
+    AlumnosComponent,
+    FormsComponent,
+    ComponentsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,7 +6,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ContenidoComponent } from './components/contenido/contenido.component';
 import { AlumnosComponent } from './components/alumnos/alumnos.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormsComponent } from './components/forms/forms.component';
 import { ComponentsComponent } from './components/components.component';
 
@@ -18,11 +18,12 @@ import { ComponentsComponent } from './components/components.component';
     ContenidoComponent,
     AlumnosComponent,
     FormsComponent,
-    ComponentsComponent
+    ComponentsComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

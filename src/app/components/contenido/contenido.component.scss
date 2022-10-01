@@ -27,10 +27,11 @@
         background-image: url(../../../assets/images/black-concrete-wall.jpg);
         background-size: cover;
     }
-    
+
 }
 
 .muestreo-cards{
     @extend .flex-row;
     justify-content: center;
+    margin:0rem,
 }

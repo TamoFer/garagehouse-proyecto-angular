@@ -9,19 +9,15 @@
 
   <div class="col-auto">
     <label class=""  for="">Email</label>
-    <input type="email" class="form-control"  placeholder="Ingresa tu correo">
+    <input type="email" formControlName="email" class="form-control"  placeholder="Ingresa tu correo">
   </div>
 
   <div class="col-auto">
     <label class=""  >¿Por cual curso consultas?</label>
-    <select formControlName="curso" class="form-select" >
-      <option selected>Cursos</option>
-      <option value="1">Desarrollo Web</option>
-      <option value="2">JavaScript</option>
-      <option value="3">Angular</option>
-      <option value="4">React</option>
-      <option value="5">Python</option>
-      <option value="6">Backend</option>
+    <select formControlName="curso" class="form-select">
+      <option *ngFor="let curso of listaCursos" [ngValue]="curso">
+        {{ curso }}
+      </option>
     </select>
   </div>
 
@@ -33,7 +29,7 @@
   </div>
 
   <div class="form-check form-switch">
-    <input formControlName="ofertas" class="form-check-input" type="checkbox" role="switch" >
+    <input formControlName="suscripcion" class="form-check-input" type="checkbox" role="switch">
     <label class="form-check-label" for="">Recibir notificaciones de ofertas por correo</label>
   </div>
 

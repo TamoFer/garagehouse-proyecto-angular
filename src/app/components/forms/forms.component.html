@@ -1,4 +1,4 @@
-<h5>¿Queres saber mas? Mandanos tu consulta</h5>
+<h5>Mandanos tu consulta</h5>
 
 <form [formGroup]="formularioInformativo" class="row gy-2 gx-3 align-items-center" (ngSubmit)="mostrarDatos()">
 
@@ -49,6 +49,6 @@
   </div>
 
   <div class="col-auto">
-    <button type="submit" class="btn btn-primary">Enviar Consulta</button>
+    <button type="submit" class="btn btn-primary" [disabled]="formularioInformativo.invalid">Enviar Consulta</button>
   </div>
 </form>

@@ -1,5 +1,8 @@
+import { UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
+import Swal from'sweetalert2';
+
 
 @Component({
   selector: 'app-forms',
@@ -7,9 +10,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./forms.component.scss']
 })
 export class FormsComponent implements OnInit {
-
   formularioInformativo: FormGroup;
-
   listaCursos: Array<string>=
   [ 'Desarrollo Web',
     'JavaScript',
@@ -26,26 +27,12 @@ export class FormsComponent implements OnInit {
       nombre: new FormControl('',[Validators.required]),
       email: new FormControl('',[Validators.pattern('^[a-z]+@[a-z]+\\.[a-z]{2,3}$'), Validators.required]),
       curso: new FormControl('',[Validators.required]),
-      consulta: new FormControl('',[Validators.required]),
-      suscripcion: new FormControl(false,[])
+      consulta: new FormControl('',[Validators.required,Validators.minLength(10)]),
+      suscripcion: new FormControl(false,[Validators.required])
     })
   }
 
   ngOnInit(): void {
-  }
-
-  validadorDatos<elemento>(elemento:any){
-    switch(elemento){
-      case 'nombre':
-        (this.formularioInformativo.get('nombre')?.touched && this.formularioInformativo.get('nombre')?.errors?.['required']? true:false);
-        break;
-      case 'email':
-        (this.formularioInformativo.get('email')?.touched && this.formularioInformativo.get('email')?.errors?.['required'] && this.formularioInformativo.get('correo')?.errors?.['pattern']? true:false);
-        break;
-      case 'curso':
-        (this.formularioInformativo.get('curso')?.touched && this.formularioInformativo.get('curso')?.errors?.['required']? true:false);
-        break;
-    }
   }
 
   mostrarDatos(): void{
@@ -54,7 +41,13 @@ export class FormsComponent implements OnInit {
     const curso= this.formularioInformativo.value.curso;
     const consulta= this.formularioInformativo.value.consulta;
     const oferta= this.formularioInformativo.value.suscripcion;
-    const consultor= {nombre, correo, curso, consulta, oferta}
+    const datoConsulta=[nombre, correo,curso,consulta,oferta];
+    Swal.fire({
+      title: "Consulta recibida",
+      text: `Muchas gracias ${nombre} por estar interesado en nuestros cursos, en breve contestaremos tu respuesta! Esta misma llegara al correo: ${correo}`,
+      timer: 4000,
+      icon: "success",
+    })
+    localStorage.setItem("Consulta", JSON.stringify(datoConsulta));
   }
-
 }

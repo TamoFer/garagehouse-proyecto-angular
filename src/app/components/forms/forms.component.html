@@ -5,13 +5,14 @@
   <div class="col-auto">
     <label class="" for="">Nombre</label>
     <input type="text" formControlName="nombre" class="form-control"  placeholder="Ingresa tu nombre">
-    <!-- <p *ngIf="validadorDatos('nombre')===true">Campo necesario, completarlo</p> -->
-
+    <small *ngIf="formularioInformativo.get('nombre')?.touched && formularioInformativo.get('nombre')?.errors?.['required']">Datos requeridos</small>
   </div>
 
   <div class="col-auto">
     <label class=""  for="">Email</label>
     <input type="email" formControlName="email" class="form-control"  placeholder="Ingresa tu correo">
+    <small *ngIf="formularioInformativo.get('email')?.touched && formularioInformativo.get('email')?.errors?.['required']">El campo email es requerido</small>
+    <small *ngIf="formularioInformativo.get('email')?.touched && formularioInformativo.get('email')?.errors?.['pattern']">El formato del email no es correcto</small>
   </div>
 
   <div class="col-auto">
@@ -21,6 +22,7 @@
         {{ curso }}
       </option>
     </select>
+    <small *ngIf="formularioInformativo.get('curso')?.touched && formularioInformativo.get('curso')?.errors?.['required']">Elija una de las opciones</small>
   </div>
 
   <div class="col-10">
@@ -28,11 +30,13 @@
       Dejanos tu consulta
     </label>
     <textarea formControlName="consulta" class="form-control"  rows="3"></textarea>
+    <small *ngIf="formularioInformativo.get('consulta')?.touched && formularioInformativo.get('consulta')?.errors?.['required']">Deja la consulta escrita</small>
+    <small *ngIf="formularioInformativo.get('consulta')?.touched && formularioInformativo.get('consulta')?.errors?.['minlength']">Tu consulta debe tener mas de 10 caracteres</small>
   </div>
 
   <div class="form-check form-switch">
     <input formControlName="suscripcion" class="form-check-input" type="checkbox" role="switch">
-    <label class="form-check-label" for="">Recibir notificaciones de ofertas por correo</label>
+    <label class="form-check-label" for="">Recibir notificaciones de ofertas por email</label>
   </div>
 
   <div class="col-auto">

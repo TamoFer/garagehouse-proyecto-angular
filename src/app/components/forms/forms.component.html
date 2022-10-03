@@ -4,34 +4,43 @@
 
   <div class="col-auto">
     <label class="" for="">Nombre</label>
-    <input type="text" formControlName="nombre" class="form-control"  placeholder="Ingresa tu nombre">
-    <small *ngIf="formularioInformativo.get('nombre')?.touched && formularioInformativo.get('nombre')?.errors?.['required']">Datos requeridos</small>
+    <input type="text" id="nombre" formControlName="nombre"  class="form-control"  placeholder="Ingresa tu nombre" [ngClass]="{'is-invalid': formularioInformativo.get('nombre')?.errors && formularioInformativo.get('nombre')?.touched}" >
+    <div class="invalid-feedback">
+      <small>El campo es requerido</small>
+    </div>
   </div>
 
   <div class="col-auto">
     <label class=""  for="">Email</label>
-    <input type="email" formControlName="email" class="form-control"  placeholder="Ingresa tu correo">
-    <small *ngIf="formularioInformativo.get('email')?.touched && formularioInformativo.get('email')?.errors?.['required']">El campo email es requerido</small>
-    <small *ngIf="formularioInformativo.get('email')?.touched && formularioInformativo.get('email')?.errors?.['pattern']">El formato del email no es correcto</small>
+    <input type="email" formControlName="email" class="form-control"  placeholder="Ingresa tu correo" [ngClass]="{'is-invalid':formularioInformativo.get('email')?.touched && formularioInformativo.get('email')?.errors?.['required'] || formularioInformativo.get('email')?.errors?.['pattern'] }">
+    <div class="invalid-feedback">
+      <small *ngIf="formularioInformativo.get('email')?.touched && formularioInformativo.get('email')?.errors?.['required']">El campo email es requerido</small>
+      <small *ngIf="formularioInformativo.get('email')?.touched && formularioInformativo.get('email')?.errors?.['pattern']">El formato del email no es correcto</small>
+    </div>
   </div>
 
   <div class="col-auto">
     <label class=""  >¿Por cual curso consultas?</label>
-    <select formControlName="curso" class="form-select">
+    <select formControlName="curso" class="form-select" [ngClass]="{'is-invalid':formularioInformativo.get('curso')?.touched && formularioInformativo.get('curso')?.errors?.['required']}">
       <option *ngFor="let curso of listaCursos" [ngValue]="curso">
         {{ curso }}
       </option>
     </select>
-    <small *ngIf="formularioInformativo.get('curso')?.touched && formularioInformativo.get('curso')?.errors?.['required']">Elija una de las opciones</small>
+    <div class="invalid-feedback">
+      Elija una opcion
+    </div>
   </div>
 
   <div class="col-10">
     <label for="" class="form-label">
       Dejanos tu consulta
     </label>
-    <textarea formControlName="consulta" class="form-control"  rows="3"></textarea>
-    <small *ngIf="formularioInformativo.get('consulta')?.touched && formularioInformativo.get('consulta')?.errors?.['required']">Deja la consulta escrita</small>
-    <small *ngIf="formularioInformativo.get('consulta')?.touched && formularioInformativo.get('consulta')?.errors?.['minlength']">Tu consulta debe tener mas de 10 caracteres</small>
+    <textarea formControlName="consulta" class="form-control"  rows="3" [ngClass]="{'is-invalid':formularioInformativo.get('consulta')?.touched && formularioInformativo.get('consulta')?.errors?.['required'] || formularioInformativo.get('consulta')?.errors?.['minlength'] }"></textarea>
+    <div class="invalid-feedback">
+      <small *ngIf="formularioInformativo.get('consulta')?.touched && formularioInformativo.get('consulta')?.errors?.['required']">Deja la consulta escrita</small>
+      <small *ngIf="formularioInformativo.get('consulta')?.touched && formularioInformativo.get('consulta')?.errors?.['minlength']">Tu consulta debe tener mas de 10 caracteres</small>
+    </div>
+
   </div>
 
   <div class="form-check form-switch">

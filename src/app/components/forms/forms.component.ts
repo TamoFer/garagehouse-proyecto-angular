@@ -24,8 +24,8 @@ export class FormsComponent implements OnInit {
     private formsConstructor: FormBuilder
   ) {
     this.formularioInformativo =formsConstructor.group({
-      nombre: new FormControl('',[Validators.required]),
-      email: new FormControl('',[Validators.pattern('^[a-z]+@[a-z]+\\.[a-z]{2,3}$'), Validators.required]),
+      nombre: new FormControl('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+      email: new FormControl('',[Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$'), Validators.required]),
       curso: new FormControl('',[Validators.required]),
       consulta: new FormControl('',[Validators.required,Validators.minLength(10)]),
       suscripcion: new FormControl(false,[Validators.required])
@@ -49,5 +49,7 @@ export class FormsComponent implements OnInit {
       icon: "success",
     })
     localStorage.setItem("Consulta", JSON.stringify(datoConsulta));
+    console.log(localStorage.getItem("Consulta"));
+
   }
 }

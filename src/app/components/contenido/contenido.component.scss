@@ -1,37 +1,42 @@
-.flex-row{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2rem;
-    margin: 1rem;
-}
+// .flex-row{
+//     display: flex;
+//     flex-direction: row;
+//     flex-wrap: wrap;
+//     gap: 2rem;
+//     margin: 1rem;
+// }
 
-.flex-column{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
+// .flex-column{
+//     display: flex;
+//     flex-direction: column;
+//     flex-wrap: wrap;
+//     gap: 2rem;
+// }
 
-.card{
-    .img-icon{
-        width: 80px;
-        height: 80px;
-    }
-    &-imagen{
-        @extend .flex-row;
-        gap: 0rem;
-        margin: 0rem;
-        justify-content: center;
-        align-items: center;
-        background-image: url(../../../assets/images/black-concrete-wall.jpg);
-        background-size: cover;
-    }
+// .card{
+//     .img-icon{
+//         width: 80px;
+//         height: 80px;
+//     }
+//     &-imagen{
+//         @extend .flex-row;
+//         gap: 0rem;
+//         margin: 0rem;
+//         justify-content: center;
+//         align-items: center;
+//         background-image: url(../../../assets/images/black-concrete-wall.jpg);
+//         background-size: cover;
+//     }
 
-}
+// }
 
-.muestreo-cards{
-    @extend .flex-row;
-    justify-content: center;
-    margin:0rem,
+// .muestreo-cards{
+//     @extend .flex-row;
+//     justify-content: center;
+//     margin:0rem,
+// }
+
+.sizesImg{
+  width: 15rem;
+  height: 15rem;
 }

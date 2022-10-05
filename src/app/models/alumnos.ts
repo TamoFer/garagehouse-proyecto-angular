@@ -1,5 +1,7 @@
+import { Curso } from './curso';
 export interface Alumnos{
     nombre: string;
-    curso: string;
-    nota: number;
+    apellido: string;
+    correo: string;
+    cursoActual:Curso;
 }

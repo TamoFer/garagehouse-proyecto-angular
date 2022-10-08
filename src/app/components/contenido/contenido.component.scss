@@ -1,42 +1,31 @@
-// .flex-row{
-//     display: flex;
-//     flex-direction: row;
-//     flex-wrap: wrap;
-//     gap: 2rem;
-//     margin: 1rem;
-// }
-
-// .flex-column{
-//     display: flex;
-//     flex-direction: column;
-//     flex-wrap: wrap;
-//     gap: 2rem;
-// }
-
-// .card{
-//     .img-icon{
-//         width: 80px;
-//         height: 80px;
-//     }
-//     &-imagen{
-//         @extend .flex-row;
-//         gap: 0rem;
-//         margin: 0rem;
-//         justify-content: center;
-//         align-items: center;
-//         background-image: url(../../../assets/images/black-concrete-wall.jpg);
-//         background-size: cover;
-//     }
-
-// }
-
-// .muestreo-cards{
-//     @extend .flex-row;
-//     justify-content: center;
-//     margin:0rem,
-// }
-
 .sizesImg{
-  width: 15rem;
+  width: 20rem;
   height: 15rem;
+}
+
+
+mat-card{
+  width: 20rem;
+  background: #c2185b;
+  &-actions{
+    gap: 0.5rem;
+    button{
+      text-transform:capitalize;
+      &:hover{
+        color: black;
+      }
+    }
+  }
+
+  &-content{
+    text-align: center;
+    color: black;
+  }
+
+  &-title{
+    text-transform: uppercase;
+    color: black;
+    text-decoration: underline;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
 }

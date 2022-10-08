@@ -1,8 +1,9 @@
-import { Clase } from './clase';
 export interface Curso{
+  id: number;
   nombre:string;
+  profesor: string;
   finicio:Date;
   ftermino:Date;
   descripcion:string;
-  clase:Clase;
+  disponibilidad:boolean;
 }

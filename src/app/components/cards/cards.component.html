@@ -1,0 +1,19 @@
+<h1>Cursos de programacoder</h1>
+<div class="row gap-1">
+  <div *ngFor="let curso of cursos" class="col-md-3">
+    <mat-card>
+          <mat-card-title>{{ curso.nombre }}</mat-card-title>
+          <mat-card-subtitle>Profesor:  {{ curso.profesor }}</mat-card-subtitle>
+          <mat-card-subtitle>Fecha {{curso.finicio | date: 'dd/MM/YYYY'}} - {{curso.ftermino | date: 'dd/MM/YY'}} </mat-card-subtitle>
+          <img mat-card-image src="" alt="IMG">
+          <mat-card-content>{{ curso.descripcion }}</mat-card-content>
+          <mat-card-actions align="end">
+              <button mat-flat-button>Compartir</button>
+              <div [ngSwitch]="curso.disponibilidad">
+                <button *ngSwitchCase="true" mat-flat-button> Inscribirme</button>
+                <button *ngSwitchCase="false" mat-flat-button disabled> Inscripciones cerradas</button>
+              </div>
+          </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

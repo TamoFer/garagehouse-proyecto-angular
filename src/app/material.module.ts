@@ -6,8 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogsComponent } from './components/dialogs/dialogs.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from "@angular/material/select";
+import { BrowserModule } from "@angular/platform-browser";
+import { AgregarAlumnoComponent } from './components/dialogs/agregar-alumno/agregar-alumno.component';
+import { EditarAlumnoComponent } from './components/dialogs/editar-alumno/editar-alumno.component';
 
 @NgModule({
     imports: [
@@ -19,7 +22,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         MatIconModule,
         MatDialogModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSelectModule,
+        BrowserModule
+
     ],
     exports: [
         MatButtonModule,
@@ -30,10 +36,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         MatIconModule,
         MatDialogModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSelectModule
+
     ],
     declarations: [
-      DialogsComponent
+      AgregarAlumnoComponent,
+      EditarAlumnoComponent
     ]
 })
 export class MaterialModule {}

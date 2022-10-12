@@ -1,7 +1,9 @@
+import { DialogsComponent } from './../dialogs/dialogs.component';
 import { Curso } from './../../models/curso';
 import { Alumnos } from './../../models/alumnos';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component,EventEmitter,OnInit, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tables',
@@ -9,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./tables.component.scss']
 })
 export class TablesComponent implements OnInit {
+
   curso!:Curso;
 
   listaAlumnos: Alumnos[]=[
@@ -27,18 +30,39 @@ export class TablesComponent implements OnInit {
   columnas: string[] = ['nombre', 'correo', 'cursando', 'actions'];
   data: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>(this.listaAlumnos);
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
   }
 
   agregarAlumno(){
+      let dialog = this.dialog.open(DialogsComponent, {
+        width: '50%',
+        height: '50%',
+      });
+      dialog.beforeClosed().subscribe(res => {
+        this.listaAlumnos.push(
+          {
+            ...res,
+            idAlumno:this.listaAlumnos.length+1
+          }
+        )
+        this.data.data = this.listaAlumnos
+      })
 
   }
-  editAlumno(id:number){}
-  deleteAlumno(id:number){}
 
-  filtrarNombre(event: Event){
+  editAlumno(id:number){}
+
+  deleteAlumno(id:number){
+    let indice = this.listaAlumnos.findIndex(alumno => alumno.idAlumno == id)
+    this.listaAlumnos.splice(indice, 1)
+    this.data.data = this.listaAlumnos
+  }
+
+  buscarXNombre(event: Event){
     const valorObtenido = (event.target as HTMLInputElement).value;
     this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
       return alumno.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
@@ -46,7 +70,7 @@ export class TablesComponent implements OnInit {
     this.data.filter = valorObtenido.trim().toLowerCase();
   }
 
-  filtrarCurso(event: Event){
+  buscarXCurso(event: Event){
     const valorObtenido = (event.target as HTMLInputElement).value;
     this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
       return alumno.cursoActual.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
@@ -55,3 +79,7 @@ export class TablesComponent implements OnInit {
   }
 
 }
+function openDialog() {
+  throw new Error('Function not implemented.');
+}
+

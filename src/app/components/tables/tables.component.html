@@ -3,15 +3,15 @@
 <div class="row">
       <mat-form-field class="col-4">
         <p>Filtrar por nombre del alumno</p>
-        <input type="text" matInput (keyup)="filtrarNombre($event)">
+        <input type="text" matInput (keyup)="buscarXNombre($event)">
       </mat-form-field>
 
       <mat-form-field class="col-4">
         <p>Filtrar por nombre del curso</p>
-        <input type="text" matInput (keyup)="filtrarCurso($event)">
+        <input type="text" matInput (keyup)="buscarXCurso($event)">
       </mat-form-field>
 
-      <button mat-raised-button color="primary" class="col-4 mt-4 btnAddAlumno" (click)="agregarAlumno()">Agregar alumno</button>
+      <button mat-raised-button color="primary" class="mt-4 btnAddAlumno" (click)="agregarAlumno()">Agregar alumno</button>
 </div>
 
 

@@ -9,14 +9,18 @@ import { Datos } from 'src/app/data/data';
   templateUrl: './editar-alumno.component.html',
   styleUrls: ['./editar-alumno.component.scss']
 })
+
+
 export class EditarAlumnoComponent implements OnInit {
   cursos: Curso[]=Datos.cursos;
+
   editandoAlumno: FormGroup = this.fb.group(
     {
-      nombre:['',Validators.required],
-      apellido:['',Validators.required],
-      correo:['',Validators.required],
-      cursoActual:['',Validators.required]
+      idAlumno:[''],
+      nombre:[''],
+      apellido:[''],
+      correo:[''],
+      cursoActual:['']
     }
   )
 
@@ -27,9 +31,20 @@ export class EditarAlumnoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.editandoAlumno.value);
   }
 
-  close(){}
-  save(){}
+  close(){
+    this.dialogRef.close(this.editandoAlumno.value)
+  }
 
+  save() {
+    this.asociarCurso();
+    this.dialogRef.close(this.editandoAlumno.value)
+  }
+  asociarCurso(){
+    const cursoListado= this.cursos.find(curso=>curso.nombre.toLocaleLowerCase()===this.editandoAlumno.value.cursoActual.toLocaleLowerCase());
+
+    return this.editandoAlumno.value.cursoActual=cursoListado;
+  }
 }

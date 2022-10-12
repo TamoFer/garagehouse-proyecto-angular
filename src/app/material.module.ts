@@ -11,6 +11,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { BrowserModule } from "@angular/platform-browser";
 import { AgregarAlumnoComponent } from './components/dialogs/agregar-alumno/agregar-alumno.component';
 import { EditarAlumnoComponent } from './components/dialogs/editar-alumno/editar-alumno.component';
+import { InscribirAlumnoComponent } from './components/dialogs/inscribir-alumno/inscribir-alumno.component';
 
 @NgModule({
     imports: [
@@ -42,7 +43,8 @@ import { EditarAlumnoComponent } from './components/dialogs/editar-alumno/editar
     ],
     declarations: [
       AgregarAlumnoComponent,
-      EditarAlumnoComponent
+      EditarAlumnoComponent,
+      InscribirAlumnoComponent
     ]
 })
 export class MaterialModule {}

@@ -21,9 +21,11 @@ export class TablesComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog
+
   ) { }
 
   ngOnInit(): void {
+
   }
 
   agregarAlumno(){
@@ -46,12 +48,20 @@ export class TablesComponent implements OnInit {
       })
   }
 
-  editAlumno(id:number){
+  editAlumno(alumno:Alumnos){
     let dialog = this.dialog.open(EditarAlumnoComponent, {
       width: '50%',
       height: '50%',
     });
 
+    dialog.beforeClosed().subscribe(res => {
+        res.nombre===''?(res.nombre=alumno.nombre):(alumno.nombre=res.nombre);
+        res.apellido===''?(res.apellido=alumno.apellido):(alumno.apellido=res.apellido);
+        res.correo===''?(res.correo=alumno.correo):(alumno.correo=res.correo);
+        res.cursoActual===''?(res.cursoActual=alumno.cursoActual):(alumno.cursoActual=res.cursoActual);
+        res.idAlumno=alumno.idAlumno;
+        this.data.data = this.listaAlumnos;
+      });
   }
 
   deleteAlumno(id:number){

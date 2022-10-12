@@ -19,6 +19,7 @@ export class TablesComponent implements OnInit {
   columnas: string[] = ['nombre', 'correo', 'cursando', 'actions'];
   data: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>(this.listaAlumnos);
 
+
   constructor(
     private dialog: MatDialog
 

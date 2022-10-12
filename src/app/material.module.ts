@@ -38,7 +38,8 @@ import { InscribirAlumnoComponent } from './components/dialogs/inscribir-alumno/
         MatDialogModule,
         FormsModule,
         ReactiveFormsModule,
-        MatSelectModule
+        MatSelectModule,
+        BrowserModule
 
     ],
     declarations: [

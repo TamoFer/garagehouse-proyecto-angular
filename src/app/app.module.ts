@@ -18,7 +18,7 @@ import { CardsComponent } from './components/cards/cards.component';
     NavbarComponent,
     ComponentsComponent,
     CardsComponent,
-    TablesComponent
+    TablesComponent,
   ],
   imports: [
     BrowserModule,

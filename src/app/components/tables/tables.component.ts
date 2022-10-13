@@ -1,7 +1,7 @@
-import { Datos } from '../../data/data';
+import { Configuracion, token } from './../../config';
 import { Curso } from './../../models/curso';
 import { Alumnos } from './../../models/alumnos';
-import { Component,OnInit,} from '@angular/core';
+import { Component,Inject,OnInit,} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarAlumnoComponent } from '../dialogs/agregar-alumno/agregar-alumno.component';
@@ -13,21 +13,21 @@ import { EditarAlumnoComponent } from '../dialogs/editar-alumno/editar-alumno.co
   styleUrls: ['./tables.component.scss']
 })
 export class TablesComponent implements OnInit {
-  cursos:Curso[]=Datos.cursos;
-  listaAlumnos: Alumnos[]=Datos.listaAlumnos;
-
+  cursos!:Curso[];
+  listaAlumnos: Alumnos[]=this.config.alumnos.obtenerListaAlumnos();
   columnas: string[] = ['nombre', 'correo', 'cursando', 'actions'];
-  data: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>(this.listaAlumnos);
-
 
   constructor(
-    private dialog: MatDialog
-
+    private dialog: MatDialog,
+    @Inject(token) private config:Configuracion
   ) { }
 
   ngOnInit(): void {
-
+    this.cursos=this.config.cursos.obtenerCursos();
+    this.listaAlumnos=this.config.alumnos.obtenerListaAlumnos();
   }
+
+  data: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>(this.listaAlumnos);
 
   agregarAlumno(){
       let dialog = this.dialog.open(AgregarAlumnoComponent, {

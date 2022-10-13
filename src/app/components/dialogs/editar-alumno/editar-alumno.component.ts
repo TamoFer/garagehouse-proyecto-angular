@@ -1,8 +1,8 @@
+import { Configuracion, token } from './../../../config';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Curso } from 'src/app/models/curso';
-import { Datos } from 'src/app/data/data';
 
 @Component({
   selector: 'app-editar-alumno',
@@ -12,7 +12,7 @@ import { Datos } from 'src/app/data/data';
 
 
 export class EditarAlumnoComponent implements OnInit {
-  cursos: Curso[]=Datos.cursos;
+  cursos!: Curso[];
 
   editandoAlumno: FormGroup = this.fb.group(
     {
@@ -27,21 +27,23 @@ export class EditarAlumnoComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditarAlumnoComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    @Inject(token) private config:Configuracion
   ) { }
 
   ngOnInit(): void {
-    console.log(this.editandoAlumno.value);
+    this.cursos=this.config.cursos.obtenerCursos();
   }
 
   close(){
-    this.dialogRef.close(this.editandoAlumno.value)
+    this.dialogRef.close()
   }
 
   save() {
     this.asociarCurso();
     this.dialogRef.close(this.editandoAlumno.value)
   }
+
   asociarCurso(){
     const cursoListado= this.cursos.find(curso=>curso.nombre.toLocaleLowerCase()===this.editandoAlumno.value.cursoActual.toLocaleLowerCase());
 

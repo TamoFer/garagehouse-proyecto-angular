@@ -1,3 +1,4 @@
+import { config, token } from './config';
 import { TablesComponent } from './components/tables/tables.component';
 import { MaterialModule } from './material.module';
 import { NgModule } from '@angular/core';
@@ -28,7 +29,9 @@ import { CardsComponent } from './components/cards/cards.component';
     MaterialModule,
 
   ],
-  providers: [],
+  providers: [
+    {provide:token, useValue:config}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

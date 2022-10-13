@@ -1,6 +1,6 @@
-import { Datos } from '../../../data/data';
+import { Configuracion, token } from './../../../config';
 import { Curso } from '../../../models/curso';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {MatDialogRef } from '@angular/material/dialog';
 
@@ -12,7 +12,7 @@ import {MatDialogRef } from '@angular/material/dialog';
 })
 
 export class AgregarAlumnoComponent implements OnInit {
-  cursos: Curso[]=Datos.cursos;
+  cursos!: Curso[];
 
   AlumnoNuevo: FormGroup = this.fb.group(
     {
@@ -25,12 +25,14 @@ export class AgregarAlumnoComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AgregarAlumnoComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    @Inject(token) private config:Configuracion
 
   ) {
   }
 
   ngOnInit(): void {
+    this.cursos=this.config.cursos.obtenerCursos();
   }
 
   close(){

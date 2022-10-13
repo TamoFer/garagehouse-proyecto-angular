@@ -1,9 +1,9 @@
+import { Configuracion, token } from './../../../config';
 import { Alumnos } from './../../../models/alumnos';
 import { Curso } from './../../../models/curso';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component,Inject,OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Datos } from 'src/app/data/data';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DialogData } from 'src/app/models/dialogs';
 
 @Component({
@@ -14,10 +14,8 @@ import { DialogData } from 'src/app/models/dialogs';
 
 
 export class InscribirAlumnoComponent implements OnInit {
-  alumnos:Alumnos[]=Datos.listaAlumnos;
-  cursos:Curso[]=Datos.cursos;
-
-
+  alumnos!:Alumnos[];
+  cursos!:Curso[];
 
   inscripcion: FormGroup = this.fb.group(
     {
@@ -31,10 +29,14 @@ export class InscribirAlumnoComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<InscribirAlumnoComponent>,
     private fb:FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(token) private config: Configuracion,
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cursos=this.config.cursos.obtenerCursos();
+    this.alumnos=this.config.alumnos.obtenerListaAlumnos();
+  }
 
   close(){
     this.dialogRef.close()
@@ -42,7 +44,8 @@ export class InscribirAlumnoComponent implements OnInit {
 
   save() {
     this.asociarCurso();
-    this.dialogRef.close(this.alumnos)
+    this.config.alumnos.agregarAlumnoNuevo(this.inscripcion.value);
+    this.dialogRef.close(this.alumnos);
   }
 
   asociarCurso(){

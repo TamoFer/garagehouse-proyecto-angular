@@ -1,8 +1,8 @@
-<h1>Cursos de programacoder</h1>
+<p appSizesTitulos>Cursos de programacoder</p>
 <div class="row gap-1">
   <div *ngFor="let curso of cursos" class="col-auto">
     <mat-card class="">
-          <mat-card-title>{{ curso.nombre }}</mat-card-title>
+          <mat-card-title appSizesTitulos>{{ curso.nombre }}</mat-card-title>
           <mat-card-subtitle>Profesor:  {{ curso.profesor }}</mat-card-subtitle>
           <mat-card-subtitle>Fecha {{curso.finicio | date: 'dd/MM/YYYY'}} - {{curso.ftermino | date: 'dd/MM/YY'}} </mat-card-subtitle>
           <img mat-card-image src={{curso.img}} alt="IMG">

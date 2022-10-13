@@ -10,8 +10,6 @@ import { Component,Inject,OnInit } from '@angular/core';
   styleUrls: ['./cards.component.scss']
 })
 
-
-
 export class CardsComponent implements OnInit {
   cursos!:Curso[];
 
@@ -25,30 +23,10 @@ export class CardsComponent implements OnInit {
     this.cursos=this.config.cursos.obtenerCursos();
   }
 
-
   inscribir(curso:Curso){
     let dialog= this.dialog.open(InscribirAlumnoComponent,{
-      width: '50%',
-      height: '50%',
-      data: {name:curso.nombre, curso:curso.id}
+      data: {name:curso.nombre,fecha:curso.finicio}
     });
-
-    // dialog.beforeClosed().subscribe(res => {
-    //   console.log(res);
-    //   this.dataInicial.push(
-    //     {
-    //       ...res,
-    //       id:this.dataInicial.length+1
-    //     }
-    //   )
-    //   this.ELEMENT_DATA.data = this.dataInicial
-    // })
-
   }
-
-
-
-
-
 
 }

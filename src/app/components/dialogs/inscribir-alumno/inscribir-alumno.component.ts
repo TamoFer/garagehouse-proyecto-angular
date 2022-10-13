@@ -45,7 +45,7 @@ export class InscribirAlumnoComponent implements OnInit {
   save() {
     this.asociarCurso();
     this.config.alumnos.agregarAlumnoNuevo(this.inscripcion.value);
-    this.dialogRef.close(this.alumnos);
+    this.dialogRef.close();
   }
 
   asociarCurso(){

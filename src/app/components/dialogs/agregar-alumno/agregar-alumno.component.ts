@@ -39,7 +39,7 @@ export class AgregarAlumnoComponent implements OnInit {
     this.dialogRef.close(this.AlumnoNuevo.value)
   }
 
-  save() {
+  save(): void {
     this.asociarCurso();
     this.dialogRef.close(this.AlumnoNuevo.value)
   }

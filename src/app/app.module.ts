@@ -1,3 +1,4 @@
+import { NombreApellidoPipe } from './pipes/nombre-apellido.pipe';
 import { config, token } from './config';
 import { TablesComponent } from './components/tables/tables.component';
 import { MaterialModule } from './material.module';
@@ -11,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsComponent } from './components/components.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardsComponent } from './components/cards/cards.component';
+import { SizesTitulosDirective } from './directives/sizes-titulos.directive';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { CardsComponent } from './components/cards/cards.component';
     ComponentsComponent,
     CardsComponent,
     TablesComponent,
+    NombreApellidoPipe,
+    SizesTitulosDirective
   ],
   imports: [
     BrowserModule,

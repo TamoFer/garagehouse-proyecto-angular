@@ -14,8 +14,9 @@ import { EditarAlumnoComponent } from '../dialogs/editar-alumno/editar-alumno.co
 })
 export class TablesComponent implements OnInit {
   cursos!:Curso[];
-  listaAlumnos: Alumnos[]=this.config.alumnos.obtenerListaAlumnos();
+  listaAlumnos!: Alumnos[];
   columnas: string[] = ['nombre', 'correo', 'cursando', 'actions'];
+  data: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>(this.listaAlumnos);
 
   constructor(
     private dialog: MatDialog,
@@ -27,12 +28,13 @@ export class TablesComponent implements OnInit {
     this.listaAlumnos=this.config.alumnos.obtenerListaAlumnos();
   }
 
-  data: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>(this.listaAlumnos);
+  ngAfterContentChecked(): void{
+    this.data.data=this.listaAlumnos;
+  }
+
 
   agregarAlumno(){
       let dialog = this.dialog.open(AgregarAlumnoComponent, {
-        width: '50%',
-        height: '50%',
       });
       dialog.beforeClosed().subscribe(res => {
         if (res.nombre!=''){
@@ -51,15 +53,13 @@ export class TablesComponent implements OnInit {
 
   editAlumno(alumno:Alumnos){
     let dialog = this.dialog.open(EditarAlumnoComponent, {
-      width: '50%',
-      height: '50%',
+      data: {name:alumno.nombre, curso:alumno.cursoActual}
     });
-
     dialog.beforeClosed().subscribe(res => {
-        res.nombre===''?(res.nombre=alumno.nombre):(alumno.nombre=res.nombre);
-        res.apellido===''?(res.apellido=alumno.apellido):(alumno.apellido=res.apellido);
-        res.correo===''?(res.correo=alumno.correo):(alumno.correo=res.correo);
-        res.cursoActual===''?(res.cursoActual=alumno.cursoActual):(alumno.cursoActual=res.cursoActual);
+        res.nombre==='' && !res.nombre?(res.nombre=alumno.nombre):(alumno.nombre=res.nombre);
+        res.apellido===''&& !res.apellido?(res.apellido=alumno.apellido):(alumno.apellido=res.apellido);
+        res.correo===''&& !res.correo?(res.correo=alumno.correo):(alumno.correo=res.correo);
+        res.cursoActual ==='' || res.cursoActual===undefined? (res.cursoActual=alumno.cursoActual) : (alumno.cursoActual=res.cursoActual);
         res.idAlumno=alumno.idAlumno;
         this.data.data = this.listaAlumnos;
       });

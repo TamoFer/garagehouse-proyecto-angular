@@ -1,8 +1,9 @@
 import { Configuracion, token } from './../../../config';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, Inject, inject, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { FormGroup, FormBuilder} from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Curso } from 'src/app/models/curso';
+import { DialogData } from 'src/app/models/dialogs';
 
 @Component({
   selector: 'app-editar-alumno',
@@ -28,6 +29,7 @@ export class EditarAlumnoComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EditarAlumnoComponent>,
     private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     @Inject(token) private config:Configuracion
   ) { }
 
@@ -36,7 +38,7 @@ export class EditarAlumnoComponent implements OnInit {
   }
 
   close(){
-    this.dialogRef.close()
+    this.dialogRef.close(this.editandoAlumno.value)
   }
 
   save() {

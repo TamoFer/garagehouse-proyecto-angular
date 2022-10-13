@@ -11,8 +11,5 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  imprimirConsola(){
-    console.log('hace algo');
 
-  }
 }

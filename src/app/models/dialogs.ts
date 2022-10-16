@@ -1,4 +1,5 @@
 export interface DialogData {
-  name: string
-  finicio:Date
+  name: string;
+  finicio:Date;
+  curso:number;
 }

@@ -28,11 +28,11 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    of(this.cursos).pipe(
-      map((cursos: Curso[]) => cursos.filter((curso:Curso) => curso.profesor === 'Abner'))
-    ).subscribe((cursos) => {
-      console.log('Usando el of:', cursos);
-    });
+    // of(this.cursos).pipe(
+    //   map((cursos: Curso[]) => cursos.filter((curso:Curso) => curso.profesor === 'Abner'))
+    // ).subscribe((cursos) => {
+    //   console.log('Usando el of:', cursos);
+    // });
   }
 
 

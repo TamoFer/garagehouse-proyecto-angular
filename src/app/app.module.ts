@@ -13,6 +13,7 @@ import { ComponentsComponent } from './components/components.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardsComponent } from './components/cards/cards.component';
 import { SizesTitulosDirective } from './directives/sizes-titulos.directive';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { SizesTitulosDirective } from './directives/sizes-titulos.directive';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
+    AppRoutingModule,
 
   ],
   providers: [

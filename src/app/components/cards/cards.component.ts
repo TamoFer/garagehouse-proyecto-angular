@@ -1,8 +1,8 @@
 import { CursosService } from './../../services/cursos.service';
 import { InscribirAlumnoComponent } from './../dialogs/inscribir-alumno/inscribir-alumno.component';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Curso } from './../../models/curso';
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map, Observable, of} from 'rxjs';
 
 @Component({
@@ -12,10 +12,9 @@ import { map, Observable, of} from 'rxjs';
 })
 
 export class CardsComponent implements OnInit {
-  cursos:Curso[]=this.cursosService.obtenerCursos();
 
+  cursos!:Curso[];
   cursos$: Observable<Curso[]>;
-  sub: any;
   promises: any;
 
   constructor(
@@ -23,39 +22,32 @@ export class CardsComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.cursos$ = cursosService.getCursosObservable();
-    this.promises= cursosService.getCursosPromise();
-
+    this.promises = cursosService.getCursosPromise();
+    this.cursos= cursosService.obtenerCursos();
   }
 
   ngOnInit(): void {
-    // of(this.cursos).pipe(
-    //   map((cursos: Curso[]) => cursos.filter((curso:Curso) => curso.profesor === 'Abner'))
-    // ).subscribe((cursos) => {
-    //   console.log('Usando el of:', cursos);
-    // });
   }
 
 
-  inscribir(curso:Curso){
-    let dialog= this.dialog.open(InscribirAlumnoComponent,{
-      data: {name:curso.nombre,fecha:curso.finicio}
+  inscribir(curso: Curso) {
+    let dialog = this.dialog.open(InscribirAlumnoComponent, {
+      data: { name: curso.nombre, fecha: curso.finicio }
     });
   }
 
-  // buscarXProfesor(event:Event){
-  //   const valorObtenido = (event.target as HTMLInputElement).value.toLowerCase();
-  //   console.log(valorObtenido);
+  buscarXProfesor(event: Event) {
+    const valorObtenido = (event.target as HTMLInputElement).value;
+    of(this.cursos).pipe(
+      map((cursos: Curso[]) => cursos.filter((curso: Curso) => curso.profesor.toLowerCase() === valorObtenido))
+    ).subscribe((cursos) => {
+      if(cursos.length>0)
+        console.log(cursos);
+      else{
+        console.log('Ingresa nombre y apellido del profesor buscado');
 
-  //   of(this.cursos).pipe(
-  //     map((cursos: Curso[]) => cursos.filter((curso:Curso) => curso.profesor === 'Abner'))
-  //   ).subscribe((cursos) => {
-  //     console.log('Usando el of:', cursos);
-  //   });
-  // }
-
-    // this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
-    //   return alumno.cursoActual.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
-    // };
-    // this.data.filter = valorObtenido.trim().toLowerCase();
+      }
+    });
+  }
 
 }

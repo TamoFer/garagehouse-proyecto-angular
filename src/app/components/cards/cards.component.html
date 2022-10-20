@@ -20,20 +20,12 @@
   </div>
 </div>
 
-<!-- <div>
-  <div class="row justify-content-between">
-        <mat-form-field class="col-4">
-          <p>Filtrar por profesor del curso</p>
-          <input type="text" matInput (keyup)="buscarXProfesor($event)">
-        </mat-form-field>
-
-        <mat-form-field class="col-4">
-          <p>Filtrar por nombre del curso</p>
-          <input type="text" matInput (keyup)="buscarXCurso($event)">
-        </mat-form-field>
-
-  </div>
-</div> -->
+<div class="row justify-content-between">
+      <mat-form-field class="col-4">
+        <p>Filtrar por profesor del curso (resultado por consola)</p>
+        <input type="text"  matInput (keyup.enter)="buscarXProfesor($event)">
+      </mat-form-field>
+</div>
 
 <p>Renderizandolos desde Promise</p>
 <div class="row gap-1">

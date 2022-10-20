@@ -12,6 +12,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AgregarAlumnoComponent } from './components/dialogs/agregar-alumno/agregar-alumno.component';
 import { EditarAlumnoComponent } from './components/dialogs/editar-alumno/editar-alumno.component';
 import { InscribirAlumnoComponent } from './components/dialogs/inscribir-alumno/inscribir-alumno.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 
 @NgModule({
     imports: [
@@ -25,7 +27,8 @@ import { InscribirAlumnoComponent } from './components/dialogs/inscribir-alumno/
         FormsModule,
         ReactiveFormsModule,
         MatSelectModule,
-        BrowserModule
+        BrowserModule,
+        MatToolbarModule
 
     ],
     exports: [
@@ -39,7 +42,8 @@ import { InscribirAlumnoComponent } from './components/dialogs/inscribir-alumno/
         FormsModule,
         ReactiveFormsModule,
         MatSelectModule,
-        BrowserModule
+        BrowserModule,
+        MatToolbarModule
 
     ],
     declarations: [

@@ -2,7 +2,7 @@
 
 
 <p>Renderizandolos desde Observable</p>
-<div class="row gap-1">
+<div class="row gap-1 justify-content-center">
   <div *ngFor="let curso of cursos$ |async" class="col-auto">
     <mat-card class="">
           <mat-card-title appSizesTitulos>{{ curso.nombre }}</mat-card-title>

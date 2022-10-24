@@ -1,0 +1,47 @@
+<p appSizesTitulos>Cursos de programacoder</p>
+
+
+<p>Renderizandolos desde Observable</p>
+<div class="row gap-1">
+  <div *ngFor="let curso of cursos$ |async" class="col-auto">
+    <mat-card class="">
+          <mat-card-title appSizesTitulos>{{ curso.nombre }}</mat-card-title>
+          <mat-card-subtitle>Profesor:  {{ curso.profesor }}</mat-card-subtitle>
+          <mat-card-subtitle>Fecha {{curso.finicio | date: 'dd/MM/YYYY'}} - {{curso.ftermino | date: 'dd/MM/YY'}} </mat-card-subtitle>
+          <img mat-card-image src={{curso.img}} alt="IMG">
+          <mat-card-content>{{ curso.descripcion }}</mat-card-content>
+          <mat-card-actions align="end">
+              <div [ngSwitch]="curso.disponibilidad">
+                <button *ngSwitchCase="true" mat-flat-button color="primary" (click)="inscribir(curso)"> Inscribirme</button>
+                <button *ngSwitchCase="false" mat-flat-button disabled color="primary"> Inscripciones cerradas</button>
+              </div>
+          </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row justify-content-between">
+      <mat-form-field class="col-4">
+        <p>Filtrar por profesor del curso (resultado por consola)</p>
+        <input type="text"  matInput (keyup.enter)="buscarXProfesor($event)">
+      </mat-form-field>
+</div>
+
+<p>Renderizandolos desde Promise</p>
+<div class="row gap-1">
+  <div *ngFor="let curso of promises |async" class="col-auto">
+    <mat-card class="">
+          <mat-card-title appSizesTitulos>{{ curso.nombre }}</mat-card-title>
+          <mat-card-subtitle>Profesor:  {{ curso.profesor }}</mat-card-subtitle>
+          <mat-card-subtitle>Fecha {{curso.finicio | date: 'dd/MM/YYYY'}} - {{curso.ftermino | date: 'dd/MM/YY'}} </mat-card-subtitle>
+          <img mat-card-image src={{curso.img}} alt="IMG">
+          <mat-card-content>{{ curso.descripcion }}</mat-card-content>
+          <mat-card-actions align="end">
+              <div [ngSwitch]="curso.disponibilidad">
+                <button *ngSwitchCase="true" mat-flat-button color="primary" (click)="inscribir(curso)"> Inscribirme</button>
+                <button *ngSwitchCase="false" mat-flat-button disabled color="primary"> Inscripciones cerradas</button>
+              </div>
+          </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -9,6 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from "@angular/material/select";
 import { BrowserModule } from "@angular/platform-browser";
+import { MatToolbarModule } from "@angular/material/toolbar";
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { BrowserModule } from "@angular/platform-browser";
         FormsModule,
         ReactiveFormsModule,
         MatSelectModule,
-        BrowserModule
+        BrowserModule,
+        MatToolbarModule
 
     ],
     exports: [
@@ -36,7 +38,8 @@ import { BrowserModule } from "@angular/platform-browser";
         FormsModule,
         ReactiveFormsModule,
         MatSelectModule,
-        BrowserModule
+        BrowserModule,
+        MatToolbarModule
 
     ],
     declarations: [

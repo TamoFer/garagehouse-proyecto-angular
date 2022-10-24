@@ -1,8 +1,7 @@
-import { Configuracion, token } from './../../../config';
-import { Curso } from '../../../models/curso';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {MatDialogRef } from '@angular/material/dialog';
+import { Curso } from 'src/app/models/curso';
 
 
 @Component({
@@ -26,13 +25,10 @@ export class AgregarAlumnoComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AgregarAlumnoComponent>,
     private fb: FormBuilder,
-    @Inject(token) private config:Configuracion
-
   ) {
   }
 
   ngOnInit(): void {
-    this.cursos=this.config.cursos.obtenerCursos();
   }
 
   close(){

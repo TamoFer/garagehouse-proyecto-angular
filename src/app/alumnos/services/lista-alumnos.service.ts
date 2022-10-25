@@ -1,3 +1,4 @@
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Alumnos } from '../../models/alumnos';
 import { Injectable } from '@angular/core';
 
@@ -6,6 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class ListaAlumnosService {
 
+  private Alumnos$!: Observable<Alumnos[]>;
   private listaAlumnos: Alumnos[]=[
     {idAlumno: 1,
       nombre: 'Ijak',
@@ -20,14 +22,18 @@ export class ListaAlumnosService {
         cursoActual:{id: 2, nombre:'JavaScript', profesor: 'Anthony Lopez', finicio: new Date(2022,5,29), ftermino: new Date(2022,7,10), descripcion: 'Curso donde aprenderas a potenciar tus conocimientos de maquetacion con Javascript', disponibilidad:true,img:'../../assets/images/js.jpg'}}
   ];
 
-  constructor() { }
-
-  obtenerListaAlumnos(): Alumnos[]{
-    return this.listaAlumnos;
+  constructor() {
+    this.Alumnos$= new Observable<Alumnos[]>((sub)=>{
+      sub.next(this.listaAlumnos)
+    })
   }
 
-  agregarAlumnoNuevo(alumno:Alumnos){
-    this.listaAlumnos.push(alumno)
+  getAlumnosObservable(){
+    return this.Alumnos$
   }
+
+
+
+
 
 }

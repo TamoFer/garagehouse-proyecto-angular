@@ -1,7 +1,7 @@
 <p>lista-alumnos works</p>
-<!-- <p appSizesTitulos>Tabla de Alumnos</p>
+<p>Tabla de Alumnos</p>
 <div>
-  <div class="row justify-content-between">
+  <!-- <div class="row justify-content-between">
         <mat-form-field class="col-4">
           <p>Filtrar por nombre del alumno</p>
           <input type="text" matInput (keyup)="buscarXNombre($event)">
@@ -13,15 +13,12 @@
         </mat-form-field>
 
         <button mat-raised-button color="primary" class="btnAddAlumno" (click)="agregarAlumno()">Agregar alumno</button>
-  </div>
-
-
+  </div> -->
   <div class="row">
       <table mat-table [dataSource]="data" class="col-md-12">
           <ng-container matColumnDef="nombre">
               <th mat-header-cell *matHeaderCellDef>Nombre</th>
               <td mat-cell *matCellDef="let alumno">{{ alumno.nombre}}</td>
-              <td mat-cell *matCellDef="let alumno">{{ alumno | nombreApellido}}</td>  Dejo comentado como habia implementado el pipe
           </ng-container>
 
           <ng-container matColumnDef="correo">
@@ -34,7 +31,7 @@
               <td mat-cell *matCellDef="let alumno ">{{ alumno.cursoActual.nombre }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="actions">
+          <!-- <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef>Acciones</th>
               <td mat-cell *matCellDef="let alumno">
                   <button mat-icon-button >
@@ -44,10 +41,10 @@
                       <mat-icon (click)="deleteAlumno(alumno.idAlumno)" >delete_forever</mat-icon>
                   </button>
               </td>
-          </ng-container>
+          </ng-container> -->
 
           <tr mat-header-row *matHeaderRowDef="columnas"></tr>
           <tr mat-row *matRowDef="let row; columns: columnas"></tr>
       </table>
   </div>
-</div> -->
+</div>

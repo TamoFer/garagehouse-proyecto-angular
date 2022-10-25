@@ -6,7 +6,7 @@ import { EliminarAlumnoComponent } from './eliminar-alumno/eliminar-alumno.compo
 import { AgregarAlumnoComponent } from './agregar-alumno/agregar-alumno.component';
 import { EditarAlumnoComponent } from './editar-alumno/editar-alumno.component';
 import { MaterialModule } from '../material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +19,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     AlumnosRoutingModule,
     MaterialModule,
+    FormsModule,
     ReactiveFormsModule
+
   ]
 })
 export class AlumnosModule { }

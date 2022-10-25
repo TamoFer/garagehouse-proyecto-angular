@@ -1,8 +1,11 @@
+import { Observable } from 'rxjs/internal/Observable';
 import { Curso } from '../../models/curso';
 import { Alumnos } from '../../models/alumnos';
 import { Component,OnInit,} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
+// import { MatDialog } from '@angular/material/dialog';
+import { ListaAlumnosService } from '../services/lista-alumnos.service';
+import { CursosService } from 'src/app/cursos/services/cursos.service';
 
 @Component({
   selector: 'app-tables',
@@ -10,21 +13,32 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./tables.component.scss']
 })
 export class TablesComponent implements OnInit {
-  cursos!:Curso[];
-  listaAlumnos!: Alumnos[];
+  cursos$!:Observable<Curso[]>;
+  listaAlumnos$!: Observable<Alumnos[]>;
   columnas: string[] = ['nombre', 'correo', 'cursando', 'actions'];
-  data: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>(this.listaAlumnos);
+  data!: MatTableDataSource<Alumnos>;
+
 
   constructor(
-    private dialog: MatDialog
-  ) { }
+    // private dialog: MatDialog
+    private cursosService: CursosService,
+    private alumnosService: ListaAlumnosService
+  ) {
+
+  }
 
   ngOnInit(): void {
+    this.cursos$= this.cursosService.getCursosObservable(),
+    this.listaAlumnos$.subscribe(
+      (alumnos:Alumnos[])=> this.data.data= alumnos
+    )
   }
 
-  ngAfterContentChecked(): void{
-    this.data.data=this.listaAlumnos;
-  }
+
+
+  // ngAfterContentChecked(): void{
+  //   this.data.data=this.listaAlumnos;
+  // }
 
 
   // agregarAlumno(){
@@ -59,27 +73,27 @@ export class TablesComponent implements OnInit {
   //     });
   // }
 
-  deleteAlumno(id:number){
-    let indice = this.listaAlumnos.findIndex(alumno => alumno.idAlumno == id)
-    this.listaAlumnos.splice(indice, 1)
-    this.data.data = this.listaAlumnos
-  }
+  // deleteAlumno(id:number){
+  //   let indice = this.listaAlumnos.findIndex(alumno => alumno.idAlumno == id)
+  //   this.listaAlumnos.splice(indice, 1)
+  //   this.data.data = this.listaAlumnos
+  // }
 
-  buscarXNombre(event: Event){
-    const valorObtenido = (event.target as HTMLInputElement).value;
-    this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
-      return alumno.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
-    };
-    this.data.filter = valorObtenido.trim().toLowerCase();
-  }
+  // buscarXNombre(event: Event){
+  //   const valorObtenido = (event.target as HTMLInputElement).value;
+  //   this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
+  //     return alumno.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
+  //   };
+  //   this.data.filter = valorObtenido.trim().toLowerCase();
+  // }
 
-  buscarXCurso(event: Event){
-    const valorObtenido = (event.target as HTMLInputElement).value;
-    this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
-      return alumno.cursoActual.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
-    };
-    this.data.filter = valorObtenido.trim().toLowerCase();
-  }
+  // buscarXCurso(event: Event){
+  //   const valorObtenido = (event.target as HTMLInputElement).value;
+  //   this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
+  //     return alumno.cursoActual.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
+  //   };
+  //   this.data.filter = valorObtenido.trim().toLowerCase();
+  // }
 
 }
 

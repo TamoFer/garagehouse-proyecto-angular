@@ -40,7 +40,6 @@ import { MatToolbarModule } from "@angular/material/toolbar";
         MatSelectModule,
         BrowserModule,
         MatToolbarModule
-
     ],
     declarations: [
     ]

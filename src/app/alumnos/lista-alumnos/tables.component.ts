@@ -1,11 +1,12 @@
+import { Alumnos } from './../../models/alumnos';
 import { Observable } from 'rxjs/internal/Observable';
 import { Curso } from '../../models/curso';
-import { Alumnos } from '../../models/alumnos';
 import { Component,OnInit,} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 // import { MatDialog } from '@angular/material/dialog';
 import { ListaAlumnosService } from '../services/lista-alumnos.service';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-tables',
@@ -16,22 +17,30 @@ export class TablesComponent implements OnInit {
   cursos$!:Observable<Curso[]>;
   listaAlumnos$!: Observable<Alumnos[]>;
   columnas: string[] = ['nombre', 'correo', 'cursando', 'actions'];
-  data!: MatTableDataSource<Alumnos>;
-
+  info!:Array<any>;
+  data: MatTableDataSource<Alumnos>= new MatTableDataSource<Alumnos>(this.info);
 
   constructor(
     // private dialog: MatDialog
     private cursosService: CursosService,
     private alumnosService: ListaAlumnosService
   ) {
-
   }
 
   ngOnInit(): void {
     this.cursos$= this.cursosService.getCursosObservable(),
+    this.listaAlumnos$=this.alumnosService.getAlumnosObservable(),
     this.listaAlumnos$.subscribe(
       (alumnos:Alumnos[])=> this.data.data= alumnos
     )
+    this.listaAlumnos$.pipe(
+      map((alumnos:Alumnos[])=>{
+        alumnos.forEach(alumno=>this.info.push({alumno}))
+      })
+    )
+    console.log(this.data.data);
+
+
   }
 
 

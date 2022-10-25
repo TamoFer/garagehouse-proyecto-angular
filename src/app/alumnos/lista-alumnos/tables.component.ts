@@ -17,8 +17,7 @@ export class TablesComponent implements OnInit {
   cursos$!:Observable<Curso[]>;
   listaAlumnos$!: Observable<Alumnos[]>;
   columnas: string[] = ['nombre', 'correo', 'cursando', 'actions'];
-  info!:Array<any>;
-  data: MatTableDataSource<Alumnos>= new MatTableDataSource<Alumnos>(this.info);
+  data: MatTableDataSource<Alumnos>= new MatTableDataSource<Alumnos>();
 
   constructor(
     // private dialog: MatDialog
@@ -33,21 +32,7 @@ export class TablesComponent implements OnInit {
     this.listaAlumnos$.subscribe(
       (alumnos:Alumnos[])=> this.data.data= alumnos
     )
-    this.listaAlumnos$.pipe(
-      map((alumnos:Alumnos[])=>{
-        alumnos.forEach(alumno=>this.info.push({alumno}))
-      })
-    )
-    console.log(this.data.data);
-
-
   }
-
-
-
-  // ngAfterContentChecked(): void{
-  //   this.data.data=this.listaAlumnos;
-  // }
 
 
   // agregarAlumno(){

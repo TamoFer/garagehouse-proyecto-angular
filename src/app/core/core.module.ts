@@ -9,7 +9,8 @@ import { MaterialModule } from '../material.module';
 @NgModule({
   declarations: [
     InicioComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+
   ],
   imports: [
     CommonModule,

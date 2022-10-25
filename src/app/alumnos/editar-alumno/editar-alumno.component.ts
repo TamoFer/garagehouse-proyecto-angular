@@ -1,4 +1,3 @@
-import { Configuracion, token } from './../../../config';
 import { FormGroup, FormBuilder} from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -30,11 +29,9 @@ export class EditarAlumnoComponent implements OnInit {
     public dialogRef: MatDialogRef<EditarAlumnoComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    @Inject(token) private config:Configuracion
   ) { }
 
   ngOnInit(): void {
-    this.cursos=this.config.cursos.obtenerCursos();
   }
 
   close(){

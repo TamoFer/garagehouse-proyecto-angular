@@ -6,7 +6,6 @@ import { EliminarAlumnoComponent } from './eliminar-alumno/eliminar-alumno.compo
 import { AgregarAlumnoComponent } from './agregar-alumno/agregar-alumno.component';
 import { EditarAlumnoComponent } from './editar-alumno/editar-alumno.component';
 import { MaterialModule } from '../material.module';
-import { ListaAlumnosService } from '../services/lista-alumnos.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -14,8 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     EliminarAlumnoComponent,
     AgregarAlumnoComponent,
-    EditarAlumnoComponent,
-    ListaAlumnosService
+    EditarAlumnoComponent
   ],
   imports: [
     CommonModule,

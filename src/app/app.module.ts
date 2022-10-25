@@ -5,7 +5,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
 import { CoreModule } from './core/core.module';
-import { CursosModule } from './cursos/cursos.module';
 import { SharedModule } from './shared/shared.module';
 
 
@@ -17,7 +16,6 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     BrowserModule,
     CoreModule,
-    CursosModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule

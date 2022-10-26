@@ -31,5 +31,9 @@ export class CursosService {
   getCursosObservable() {
     return this.cursos$;
   }
+
+  agregarCurso(curso:Curso){
+    this.cursos.push(curso)
+  }
 }
 

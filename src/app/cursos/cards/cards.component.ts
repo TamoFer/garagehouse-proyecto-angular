@@ -27,13 +27,6 @@ export class CardsComponent implements OnInit {
     })
   }
 
-
-  // inscribir(curso: Curso) {
-  //   let dialog = this.dialog.open(InscribirAlumnoComponent, {
-  //     data: { name: curso.nombre, fecha: curso.finicio }
-  //   });
-  // }
-
   agregarAlumno(){
     this.router.navigate(['cursos/agregar-curso'])
   }
@@ -64,6 +57,14 @@ export class CardsComponent implements OnInit {
 
       }
     });
+  }
+
+  editarDatos(){
+
+  }
+  eliminarCurso(curso:Curso){
+
+
   }
 
 }

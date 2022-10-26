@@ -4,17 +4,17 @@ import { CommonModule } from '@angular/common';
 import { CursosRoutingModule } from './cursos-routing.module';
 import { AgregarCursoComponent } from './agregar-curso/agregar-curso.component';
 import { EditarCursoComponent } from './editar-curso/editar-curso.component';
-import { EliminarCursoComponent } from './eliminar-curso/eliminar-curso.component';
 import { MaterialModule } from '../material.module';
-import { CardsComponent } from '../components/cards/cards.component';
+import { InicioCursosComponent } from './inicio-cursos/inicio-cursos.component';
+import { CardsComponent } from './cards/cards.component';
 
 
 @NgModule({
   declarations: [
-    CardsComponent,
     AgregarCursoComponent,
     EditarCursoComponent,
-    EliminarCursoComponent
+    InicioCursosComponent,
+    CardsComponent
   ],
   imports: [
     CommonModule,

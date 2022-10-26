@@ -3,17 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { AgregarCursoComponent } from './agregar-curso/agregar-curso.component';
 import { CardsComponent } from './cards/cards.component';
 import { EditarCursoComponent } from './editar-curso/editar-curso.component';
-import { EliminarCursoComponent } from './eliminar-curso/eliminar-curso.component';
+import { InicioCursosComponent } from './inicio-cursos/inicio-cursos.component';
 
 const routes: Routes = [
-  {path:'cursos', component: CardsComponent, children:[
-    {path:'cursos/agregar-curso', component: AgregarCursoComponent},
-    {path:'cursos/eliminar-curso', component: EliminarCursoComponent},
-    {path:'cursos/editar-curso', component: EditarCursoComponent},
-
-  ]},
-
-];
+  { path: 'cursos', component: InicioCursosComponent, children: [
+    { path: 'cursos-cards', component: CardsComponent },
+    { path: 'agregar-curso', component: AgregarCursoComponent },
+    { path: 'editar-curso', component: EditarCursoComponent }]
+  }
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

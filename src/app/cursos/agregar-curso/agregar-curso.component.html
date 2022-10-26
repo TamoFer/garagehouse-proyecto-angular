@@ -1,1 +1,44 @@
-<p>agregar-curso works!</p>
+<div>
+  <div>
+    <form [formGroup]="cursoNuevo">
+      <mat-form-field >
+        <mat-label>Nombre del curso</mat-label>
+        <input matInput type="text" formControlName="nombre" placeholder="Ingrese un nombre">
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Apellido</mat-label>
+        <input matInput type="text" formControlName="apellido" placeholder="Ingrese un apellido">
+      </mat-form-field>
+      <mat-form-field >
+          <mat-label>Correo</mat-label>
+          <input matInput type="email" formControlName="correo" placeholder="Ingrese un email">
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Curso</mat-label>
+        <mat-select formControlName="cursoActual">
+          <mat-option  *ngFor="let curso of cursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+  <div>
+    <div class="cards-org">
+      <div *ngFor="let curso of cursos$ | async">
+        <mat-card class="">
+          <mat-card-title>{{ curso.nombre }}</mat-card-title>
+          <mat-card-subtitle>Profesor: {{ curso.profesor }}</mat-card-subtitle>
+          <mat-card-subtitle
+            >Fechas: {{ curso.finicio | date: "dd/MM/YYYY" }} -
+            {{ curso.ftermino | date: "dd/MM/YY" }}
+          </mat-card-subtitle>
+          <img mat-card-image src="{{ curso.img }}" alt="IMG" />
+          <mat-card-content>{{ curso.descripcion }}</mat-card-content>
+          <mat-card-actions align="end">
+            <mat-icon>edit</mat-icon>
+            <mat-icon>delete</mat-icon>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

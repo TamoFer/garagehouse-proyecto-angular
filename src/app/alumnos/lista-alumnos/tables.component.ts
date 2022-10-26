@@ -34,6 +34,10 @@ export class TablesComponent implements OnInit {
     )
   }
 
+  ngOnDestroy(): void {
+    // this.listaAlumnos$.unsuscribe()
+  }
+
 
   // agregarAlumno(){
   //     let dialog = this.dialog.open(AgregarAlumnoComponent, {
@@ -73,21 +77,29 @@ export class TablesComponent implements OnInit {
   //   this.data.data = this.listaAlumnos
   // }
 
-  // buscarXNombre(event: Event){
-  //   const valorObtenido = (event.target as HTMLInputElement).value;
-  //   this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
-  //     return alumno.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
-  //   };
-  //   this.data.filter = valorObtenido.trim().toLowerCase();
-  // }
+  buscarXNombre(event: Event){
+    const valorObtenido = (event.target as HTMLInputElement).value;
+    this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
+      return alumno.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
+    };
+    this.data.filter = valorObtenido.trim().toLowerCase();
+  }
 
-  // buscarXCurso(event: Event){
-  //   const valorObtenido = (event.target as HTMLInputElement).value;
-  //   this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
-  //     return alumno.cursoActual.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
-  //   };
-  //   this.data.filter = valorObtenido.trim().toLowerCase();
-  // }
+  buscarXCurso(event: Event){
+    const valorObtenido = (event.target as HTMLInputElement).value;
+    this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
+      return alumno.cursoActual.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
+    };
+    this.data.filter = valorObtenido.trim().toLowerCase();
+  }
+
+  buscarXApellido(event: Event){
+    const valorObtenido = (event.target as HTMLInputElement).value;
+    this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
+      return alumno.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
+    };
+    this.data.filter = valorObtenido.trim().toLowerCase();
+  }
 
 }
 

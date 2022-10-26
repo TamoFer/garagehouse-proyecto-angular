@@ -10,8 +10,8 @@ import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

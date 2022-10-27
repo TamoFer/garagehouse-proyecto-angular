@@ -1,7 +1,7 @@
 import { CursosService } from '../services/cursos.service';
 import { Curso } from './../../models/curso';
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, of} from 'rxjs';
+import { map, Observable, of, Subscription} from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 
 export class CardsComponent implements OnInit {
   cursos$: Observable<Curso[]>;
-  cursos!: any
+  cursos!: any;
+  suscripcion!: Subscription;
 
   constructor(
     private cursosService: CursosService,
@@ -22,49 +23,60 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cursos$.subscribe((cursos)=>{
+    this.suscripcion= this.cursos$.subscribe((cursos)=>{
       this.cursos=cursos
     })
   }
 
-  agregarAlumno(){
+  ngOnDestroy(): void {
+    this.suscripcion.unsubscribe()
+  }
+
+  agregarCurso(){
     this.router.navigate(['cursos/agregar-curso'])
   }
 
   buscarXProfesor(event: Event) {
     const valorObtenido = (event.target as HTMLInputElement).value;
-    of(this.cursos).pipe(
-      map((cursos: Curso[]) => cursos.filter((curso: Curso) => curso.profesor.toLowerCase() === valorObtenido))
-    ).subscribe((cursos) => {
-      if(cursos.length>0)
-        console.log(cursos);
-      else{
-        console.log('Ingresa nombre y apellido del profesor buscado');
+    if(valorObtenido===''){
+      this.cursos$ = new Observable<Curso[]>((sub) => {
+        sub.next(this.cursos)
+      });
+    }else{
+      of(this.cursos).pipe(
+        map((cursos: Curso[]) => cursos.filter((curso: Curso) => curso.profesor.toLowerCase() === valorObtenido))
+      ).subscribe((cursos) => {
+        this.cursos$ = new Observable<Curso[]>((sub) => {
+          sub.next(cursos)
+        });
+      });
+    }
 
-      }
-    });
   }
 
   buscarXNombre(event: Event) {
     const valorObtenido = (event.target as HTMLInputElement).value;
-    of(this.cursos).pipe(
-      map((cursos: Curso[]) => cursos.filter((curso: Curso) => curso.profesor.toLowerCase() === valorObtenido))
-    ).subscribe((cursos) => {
-      if(cursos.length>0)
-        console.log(cursos);
-      else{
-        console.log('Ingresa nombre y apellido del profesor buscado');
-
-      }
-    });
+    if(valorObtenido===''){
+      this.cursos$ = new Observable<Curso[]>((sub) => {
+        sub.next(this.cursos)
+      });
+    }else{
+      of(this.cursos).pipe(
+        map((cursos: Curso[]) => cursos.filter((curso: Curso) => curso.nombre.toLowerCase() === valorObtenido))
+      ).subscribe((cursos) => {
+        this.cursos$ = new Observable<Curso[]>((sub) => {
+          sub.next(cursos)
+        });
+      });
+    }
   }
 
-  editarDatos(){
-
+  editarDatos(curso:Curso){
+    this.router.navigate(['cursos/editar-curso',curso])
   }
-  eliminarCurso(curso:Curso){
 
-
+  eliminarCurso(id:number){
+    this.cursosService.eliminarCurso(id)
   }
 
 }

@@ -11,8 +11,6 @@ import { CursosService } from '../services/cursos.service';
 })
 export class AgregarCursoComponent implements OnInit {
 
-
-
   constructor(
     private fb: FormBuilder,
     private cursosService:CursosService,
@@ -34,17 +32,6 @@ export class AgregarCursoComponent implements OnInit {
     }
   )
 
-  cursos:Array<any>=[{
-    id: Math.round(Math.random() * 1000),
-    nombre: this.cursoNuevo.value.nombre,
-    profesor: this.cursoNuevo.value.profe,
-    finicio: this.cursoNuevo.value.inicio,
-    ftermino: this.cursoNuevo.value.fin,
-    descripcion: this.cursoNuevo.value.descripcion,
-    disponibilidad: this.cursoNuevo.value.disponibilidad,
-    img: '../../../assets/images/webdesing.jpg',
-  }]
-
   agregarCurso(){
     const curso: Curso = {
       id: Math.round(Math.random() * 1000),
@@ -57,21 +44,11 @@ export class AgregarCursoComponent implements OnInit {
       img: '../../../assets/images/webdesing.jpg',
     };
     this.cursosService.agregarCurso(curso);
-    this.route.navigate(['cursos/cursos-cards']); // localhost/cursos/listar
+    this.route.navigate(['cursos/cursos-cards']);
   }
 
-  vistaPrevia(){
-    let curso: Curso = {
-      id: Math.round(Math.random() * 1000),
-      nombre: this.cursoNuevo.value.nombre,
-      profesor: this.cursoNuevo.value.profe,
-      finicio: this.cursoNuevo.value.inicio,
-      ftermino: this.cursoNuevo.value.fin,
-      descripcion: this.cursoNuevo.value.descripcion,
-      disponibilidad: this.cursoNuevo.value.disponibilidad,
-      img: '../../../assets/images/webdesing.jpg',
-    };
-    this.cursos.push(curso)
+  retroceder(){
+    this.route.navigate(['cursos/cursos-cards']);
   }
 
 }

@@ -32,8 +32,36 @@ export class CursosService {
     return this.cursos$;
   }
 
-  agregarCurso(curso:Curso){
+  agregarCurso(curso: Curso) {
     this.cursos.push(curso)
   }
+
+  eliminarCurso(id: number) {
+    let indice = this.cursos.findIndex((c: Curso) => c.id === id);
+
+    if (indice > -1) {
+      this.cursos.splice(indice, 1);
+    }
+
+    this.cursos$ = new Observable<Curso[]>((sub) => {
+      sub.next(this.cursos)
+    });
+
+  }
+
+  editarCurso(curso: Curso) {
+    let indice = this.cursos.findIndex((c: Curso) => c.id === curso.id);
+
+    if (indice > -1) {
+      this.cursos[indice]=curso;
+    }
+
+    this.cursos$ = new Observable<Curso[]>((sub) => {
+      sub.next(this.cursos)
+    });
+
+  }
+
 }
+
 

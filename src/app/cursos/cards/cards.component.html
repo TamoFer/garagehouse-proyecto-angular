@@ -17,8 +17,8 @@
           </div>
         </mat-card-actions>
         <mat-card-actions align="end">
-          <mat-icon type="button" (click)="editarDatos()">edit</mat-icon>
-          <mat-icon type="button" (click)="eliminarCurso(curso)">delete</mat-icon>
+          <mat-icon type="button" (click)="editarDatos(curso)">edit</mat-icon>
+          <mat-icon type="button" (click)="eliminarCurso(curso.id)">delete</mat-icon>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -27,7 +27,7 @@
     <div class="tools-elements">
       <h3>Cursos Actions</h3>
       <div>
-        <button mat-raised-button color="primary" (click)="agregarAlumno()" >Nuevo Curso</button>
+        <button mat-raised-button color="primary" (click)="agregarCurso()" >Nuevo Curso</button>
       </div>
       <div class="">
         <mat-form-field appearance="fill" class="fill">

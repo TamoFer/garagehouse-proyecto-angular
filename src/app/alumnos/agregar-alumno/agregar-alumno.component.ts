@@ -1,8 +1,11 @@
+import { Curso } from './../../models/curso';
+import { Observable } from 'rxjs/internal/Observable';
 import { Alumnos } from './../../models/alumnos';
 import { ListaAlumnosService } from './../services/lista-alumnos.service';
 import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CursosService } from 'src/app/cursos/services/cursos.service';
 
 
 @Component({
@@ -13,13 +16,23 @@ import { Router } from '@angular/router';
 
 export class AgregarAlumnoComponent implements OnInit {
 
+  cursosActuales$!: Observable<Curso[]>;
+  listaCursos:Array<any>=[]
+
   constructor(
     private fb: FormBuilder,
+    private cursosService:CursosService,
     private alumnosService:ListaAlumnosService,
     private route: Router
   ) { }
 
   ngOnInit(): void {
+    this.cursosActuales$= this.cursosService.getCursosObservable(),
+    this.listaCursos.push(this.cursosActuales$.subscribe((data)=>{
+      this.listaCursos=data
+    })
+    )
+
   }
 
   alumnoNuevo: FormGroup = this.fb.group(
@@ -32,15 +45,22 @@ export class AgregarAlumnoComponent implements OnInit {
     }
   )
 
+  asociarCurso(){
+    const cursoListado= this.listaCursos.find(curso=>curso.nombre.toLocaleLowerCase()===this.alumnoNuevo.value.curso.toLocaleLowerCase());
+
+    return this.alumnoNuevo.value.curso=cursoListado;
+  }
+
+
   agregarAlumno(){
     const alumno: Alumnos = {
       idAlumno: Math.round(Math.random() * 1000),
       nombre: this.alumnoNuevo.value.nombre,
       apellido: this.alumnoNuevo.value.apellido,
       correo: this.alumnoNuevo.value.correo,
-      cursoActual: this.alumnoNuevo.value.curso
-
+      cursoActual: this.asociarCurso()
     };
+
     this.alumnosService.agregarAlumno(alumno);
     this.route.navigate(['alumnos/lista-alumnos']);
   }

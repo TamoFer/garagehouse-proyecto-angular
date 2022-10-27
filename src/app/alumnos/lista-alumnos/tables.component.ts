@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class TablesComponent implements OnInit {
   lista!: any;
   suscripcion!: Subscription;
+  susData!:Subscription;
   listaAlumnos$!: Observable<Alumnos[]>;
   columnas: string[] = ['nombre', 'apellido', 'correo', 'cursando', 'actions'];
   data: MatTableDataSource<Alumnos>= new MatTableDataSource<Alumnos>();
@@ -29,7 +30,7 @@ export class TablesComponent implements OnInit {
 
   ngOnInit(): void {
     this.listaAlumnos$=this.alumnosService.getAlumnosObservable(),
-    this.listaAlumnos$.subscribe(
+    this.susData=this.listaAlumnos$.subscribe(
       (alumnos:Alumnos[])=> this.data.data= alumnos
     ),
     this.suscripcion= this.listaAlumnos$.subscribe((alumnos)=>{
@@ -39,6 +40,7 @@ export class TablesComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.suscripcion.unsubscribe()
+    this.susData.unsubscribe()
   }
 
   buscarXApellido(event:Event){
@@ -53,6 +55,7 @@ export class TablesComponent implements OnInit {
       });
     }
   }
+
   buscarXCurso(event:Event){
     const valorObtenido = (event.target as HTMLInputElement).value;
     if(valorObtenido===''){
@@ -65,9 +68,24 @@ export class TablesComponent implements OnInit {
       });
     }
   }
+
   addAlumno(){
     this.ruta.navigate(['alumnos/add-alumno'])
   }
+
+  editarAlumno(alumno:Alumnos[]){
+    this.ruta.navigate(['alumnos/editar-alumno',alumno])
+
+  }
+
+  borrarAlumno(id:number){
+    this.alumnosService.eliminarAlumno(id),
+    this.data.data=this.lista
+
+  }
+
+
+
 
 }
 

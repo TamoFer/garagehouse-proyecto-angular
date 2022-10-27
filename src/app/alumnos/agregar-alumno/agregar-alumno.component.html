@@ -1,5 +1,5 @@
 <div>
-  <form [formGroup]="alumnoNuevo" (ngSubmit)="agregarAlumno()" class="row">
+  <form [formGroup]="alumnoNuevo" (ngSubmit)="agregarAlumno()" >
 
     <div class="row">
       <div class="col-6">
@@ -26,12 +26,21 @@
 
     <div class="col-6">
       <mat-form-field appearance="fill">
-        <mat-label>Cursos</mat-label>
+        <mat-label>Cursos Disponibles</mat-label>
         <mat-select formControlName="curso">
-          <mat-option value="one">First option</mat-option>
-          <mat-option value="two">Second option</mat-option>
+          <mat-option  *ngFor="let curso of listaCursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
+    <div>
+      <div class="botones">
+        <div class="">
+          <button mat-raised-button color="primary" type="submit" >Agregar curso</button>
+        </div>
+        <div class="">
+          <button mat-raised-button color="primary" (click)="retroceder()" >Cancelar</button>
+        </div>
+      </div>
     </div>
 
   </form>

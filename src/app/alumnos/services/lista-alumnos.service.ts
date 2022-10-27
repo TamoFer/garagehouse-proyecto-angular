@@ -33,10 +33,20 @@ export class ListaAlumnosService {
   }
 
   agregarAlumno(alumno:Alumnos){
-
+    this.listaAlumnos.push(alumno)
   }
 
+  eliminarAlumno(id:number){
+    let indice = this.listaAlumnos.findIndex((alumn: Alumnos) => alumn.idAlumno === id);
 
+    if (indice > -1) {
+      this.listaAlumnos.splice(indice, 1);
+    }
+
+    this.Alumnos$ = new Observable<Alumnos[]>((sub) => {
+      sub.next(this.listaAlumnos)
+    });
+  }
 
 
 }

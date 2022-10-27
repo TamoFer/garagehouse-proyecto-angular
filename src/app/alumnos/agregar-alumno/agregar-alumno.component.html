@@ -1,29 +1,38 @@
-<h1 mat-dialog-title>NUEVO ALUMNO</h1>
-<div class="dialog">
-  <div mat-dialog-content>
-    <form [formGroup]="AlumnoNuevo">
-      <mat-form-field >
-        <mat-label>Nombre</mat-label>
-        <input matInput type="text" formControlName="nombre" placeholder="Ingrese un nombre">
+<div>
+  <form [formGroup]="alumnoNuevo" (ngSubmit)="agregarAlumno()" class="row">
+
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="fill" >
+          <mat-label>Nombre del alumno</mat-label>
+          <input matInput type="text" formControlName="nombre" />
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="fill" >
+          <mat-label>Apellido del alumno</mat-label>
+          <input matInput type="text" formControlName="apellido" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <mat-form-field appearance="fill">
+        <mat-label>Email del alumno</mat-label>
+        <input matInput formControlName="correo" required>
+        <!-- <mat-error *ngIf="correo.invalid">{{getErrorMessage()}}</mat-error> -->
       </mat-form-field>
-      <mat-form-field >
-        <mat-label>Apellido</mat-label>
-        <input matInput type="text" formControlName="apellido" placeholder="Ingrese un apellido">
-      </mat-form-field>
-      <mat-form-field >
-          <mat-label>Correo</mat-label>
-          <input matInput type="email" formControlName="correo" placeholder="Ingrese un email">
-      </mat-form-field>
-      <mat-form-field >
-        <mat-label>Curso</mat-label>
-        <mat-select formControlName="cursoActual">
-          <mat-option  *ngFor="let curso of cursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
+    </div>
+
+    <div class="col-6">
+      <mat-form-field appearance="fill">
+        <mat-label>Cursos</mat-label>
+        <mat-select formControlName="curso">
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
         </mat-select>
       </mat-form-field>
-    </form>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-flat-button color="primary" (click)="close()">Cancelar</button>
-    <button mat-flat-button color="primary" (click)="save()">Guardar</button>
-  </div>
+    </div>
+
+  </form>
 </div>

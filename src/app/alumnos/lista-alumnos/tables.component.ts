@@ -6,7 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 // import { MatDialog } from '@angular/material/dialog';
 import { ListaAlumnosService } from '../services/lista-alumnos.service';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
-import { map } from 'rxjs';
+import { map, of, Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tables',
@@ -14,91 +15,58 @@ import { map } from 'rxjs';
   styleUrls: ['./tables.component.scss']
 })
 export class TablesComponent implements OnInit {
-  cursos$!:Observable<Curso[]>;
+  lista!: any;
+  suscripcion!: Subscription;
   listaAlumnos$!: Observable<Alumnos[]>;
-  columnas: string[] = ['nombre', 'correo', 'cursando', 'actions'];
+  columnas: string[] = ['nombre', 'apellido', 'correo', 'cursando', 'actions'];
   data: MatTableDataSource<Alumnos>= new MatTableDataSource<Alumnos>();
 
   constructor(
-    // private dialog: MatDialog
-    private cursosService: CursosService,
-    private alumnosService: ListaAlumnosService
+    private alumnosService: ListaAlumnosService,
+    private ruta: Router
   ) {
   }
 
   ngOnInit(): void {
-    this.cursos$= this.cursosService.getCursosObservable(),
     this.listaAlumnos$=this.alumnosService.getAlumnosObservable(),
     this.listaAlumnos$.subscribe(
       (alumnos:Alumnos[])=> this.data.data= alumnos
-    )
+    ),
+    this.suscripcion= this.listaAlumnos$.subscribe((alumnos)=>{
+      this.lista=alumnos
+    })
   }
 
   ngOnDestroy(): void {
-    // this.listaAlumnos$.unsuscribe()
+    this.suscripcion.unsubscribe()
   }
 
-
-  // agregarAlumno(){
-  //     let dialog = this.dialog.open(AgregarAlumnoComponent, {
-  //     });
-  //     dialog.beforeClosed().subscribe(res => {
-  //       if (res.nombre!=''){
-  //         this.listaAlumnos.push(
-  //           {
-  //             ...res,
-  //             idAlumno:this.listaAlumnos.length+1
-  //           }
-  //         )
-  //         this.data.data = this.listaAlumnos
-  //       }else{
-  //         this.data.data = this.listaAlumnos
-  //       }
-  //     })
-  // }
-
-  // editAlumno(alumno:Alumnos){
-  //   let dialog = this.dialog.open(EditarAlumnoComponent, {
-  //     data: {name:alumno.nombre, curso:alumno.cursoActual}
-  //   });
-  //   dialog.beforeClosed().subscribe(res => {
-  //       res.nombre==='' && !res.nombre?(res.nombre=alumno.nombre):(alumno.nombre=res.nombre);
-  //       res.apellido===''&& !res.apellido?(res.apellido=alumno.apellido):(alumno.apellido=res.apellido);
-  //       res.correo===''&& !res.correo?(res.correo=alumno.correo):(alumno.correo=res.correo);
-  //       res.cursoActual ==='' || res.cursoActual===undefined? (res.cursoActual=alumno.cursoActual) : (alumno.cursoActual=res.cursoActual);
-  //       res.idAlumno=alumno.idAlumno;
-  //       this.data.data = this.listaAlumnos;
-  //     });
-  // }
-
-  // deleteAlumno(id:number){
-  //   let indice = this.listaAlumnos.findIndex(alumno => alumno.idAlumno == id)
-  //   this.listaAlumnos.splice(indice, 1)
-  //   this.data.data = this.listaAlumnos
-  // }
-
-  buscarXNombre(event: Event){
+  buscarXApellido(event:Event){
     const valorObtenido = (event.target as HTMLInputElement).value;
-    this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
-      return alumno.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
-    };
-    this.data.filter = valorObtenido.trim().toLowerCase();
+    if(valorObtenido==''){
+      this.data.data=this.lista
+    }else{
+      of(this.lista).pipe(
+        map((alumnos:Alumnos[]) => alumnos.filter((alumno: Alumnos) => alumno.apellido.toLowerCase() === valorObtenido))
+      ).subscribe((alumnos) => {
+        this.data.data= alumnos
+      });
+    }
   }
-
-  buscarXCurso(event: Event){
+  buscarXCurso(event:Event){
     const valorObtenido = (event.target as HTMLInputElement).value;
-    this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
-      return alumno.cursoActual.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
-    };
-    this.data.filter = valorObtenido.trim().toLowerCase();
+    if(valorObtenido===''){
+      this.data.data=this.lista
+    }else{
+      of(this.lista).pipe(
+        map((alumnos:Alumnos[]) => alumnos.filter((alumno: Alumnos) => alumno.cursoActual.nombre.toLowerCase() === valorObtenido))
+      ).subscribe((alumnos) => {
+        this.data.data= alumnos
+      });
+    }
   }
-
-  buscarXApellido(event: Event){
-    const valorObtenido = (event.target as HTMLInputElement).value;
-    this.data.filterPredicate = function(alumno: Alumnos, filtro: string){
-      return alumno.nombre.toLocaleLowerCase().includes(filtro.toLocaleLowerCase());
-    };
-    this.data.filter = valorObtenido.trim().toLowerCase();
+  addAlumno(){
+    this.ruta.navigate(['alumnos/add-alumno'])
   }
 
 }

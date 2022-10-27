@@ -1,7 +1,8 @@
+import { Alumnos } from './../../models/alumnos';
+import { ListaAlumnosService } from './../services/lista-alumnos.service';
 import { Component,OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {MatDialogRef } from '@angular/material/dialog';
-import { Curso } from 'src/app/models/curso';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,39 +12,43 @@ import { Curso } from 'src/app/models/curso';
 })
 
 export class AgregarAlumnoComponent implements OnInit {
-  cursos!: Curso[];
-
-  AlumnoNuevo: FormGroup = this.fb.group(
-    {
-      nombre:['',Validators.required],
-      apellido:['',Validators.required],
-      correo:['',Validators.required],
-      cursoActual:['',Validators.required],
-    }
-  )
 
   constructor(
-    public dialogRef: MatDialogRef<AgregarAlumnoComponent>,
     private fb: FormBuilder,
-  ) {
-  }
+    private alumnosService:ListaAlumnosService,
+    private route: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
-  close(){
-    this.dialogRef.close(this.AlumnoNuevo.value)
+  alumnoNuevo: FormGroup = this.fb.group(
+    {
+      nombre:['',Validators.required],
+      apellido: ['',Validators.required],
+      correo:['',Validators.required],
+      curso:['',Validators.required]
+
+    }
+  )
+
+  agregarAlumno(){
+    const alumno: Alumnos = {
+      idAlumno: Math.round(Math.random() * 1000),
+      nombre: this.alumnoNuevo.value.nombre,
+      apellido: this.alumnoNuevo.value.apellido,
+      correo: this.alumnoNuevo.value.correo,
+      cursoActual: this.alumnoNuevo.value.curso
+
+    };
+    this.alumnosService.agregarAlumno(alumno);
+    this.route.navigate(['alumnos/lista-alumnos']);
   }
 
-  save(): void {
-    this.asociarCurso();
-    this.dialogRef.close(this.AlumnoNuevo.value)
+  retroceder(){
+    this.route.navigate(['alumnos/lista-alumnos']);
   }
 
-  asociarCurso(){
-    const cursoListado= this.cursos.find(curso=>curso.nombre.toLocaleLowerCase()===this.AlumnoNuevo.value.cursoActual.toLocaleLowerCase());
 
-    return this.AlumnoNuevo.value.cursoActual=cursoListado;
-  }
 
 }

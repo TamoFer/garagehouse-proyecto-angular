@@ -32,6 +32,9 @@ export class ListaAlumnosService {
     return this.Alumnos$
   }
 
+  agregarAlumno(alumno:Alumnos){
+
+  }
 
 
 

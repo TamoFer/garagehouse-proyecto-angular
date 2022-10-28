@@ -3,8 +3,6 @@ import { InicioComponent } from './core/components/inicio/inicio.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { AlumnosRoutingModule } from './alumnos/alumnos-routing.module';
-import { CursosRoutingModule } from './cursos/cursos-routing.module';
 
 
 const routes: Routes = [
@@ -15,9 +13,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),
-    AlumnosRoutingModule,
-    CursosRoutingModule],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

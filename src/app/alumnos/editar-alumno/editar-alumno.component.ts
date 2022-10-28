@@ -1,8 +1,11 @@
-import { FormGroup, FormBuilder} from '@angular/forms';
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Curso } from 'src/app/models/curso';
-import { DialogData } from 'src/app/models/dialogs';
+import { Curso } from './../../models/curso';
+import { CursosService } from 'src/app/cursos/services/cursos.service';
+import { ListaAlumnosService } from './../services/lista-alumnos.service';
+import { Alumnos } from './../../models/alumnos';
+import { FormGroup, FormControl} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-editar-alumno',
@@ -12,40 +15,60 @@ import { DialogData } from 'src/app/models/dialogs';
 
 
 export class EditarAlumnoComponent implements OnInit {
-  cursos!: Curso[];
 
-  editandoAlumno: FormGroup = this.fb.group(
-    {
-      idAlumno:[''],
-      nombre:[''],
-      apellido:[''],
-      correo:[''],
-      cursoActual:['']
-    }
-  )
-
+  form!:FormGroup;
+  alumno!:Alumnos;
+  idAlumno: string = String(Math.round(Math.random() * 1000));
+  listaCursos: Array<any>=[];
+  cursosActuales$!: Observable<Curso[]>;
 
   constructor(
-    public dialogRef: MatDialogRef<EditarAlumnoComponent>,
-    private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private cursosService: CursosService,
+    private alumnosService: ListaAlumnosService,
+    private rutas:Router,
+    private rutaActivada: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.cursosActuales$= this.cursosService.getCursosObservable(),
+    this.listaCursos.push(this.cursosActuales$.subscribe((data)=>{
+      this.listaCursos=data
+    })
+    )
+
+    this.rutaActivada.paramMap.subscribe((parametros)=>{
+      this.alumno={
+        idAlumno: parseInt(parametros.get('id') || this.idAlumno),
+        nombre: parametros.get('nombre') || '',
+        apellido: parametros.get('apellido') || '',
+        correo: parametros.get('correo') || '',
+        cursoActual: parametros.get('cursoActual')
+      }
+    })
+
+    this.form= new FormGroup({
+      nombre: new FormControl(this.alumno.nombre),
+      apellido: new FormControl(this.alumno.apellido),
+      correo: new FormControl(this.alumno.correo),
+      cursoActual: new FormControl(this.alumno.cursoActual.nombre)
+  })
   }
 
-  close(){
-    this.dialogRef.close(this.editandoAlumno.value)
+  editarCurso(){
+    let alumno:Alumnos={
+        idAlumno: this.alumno.idAlumno,
+        nombre: this.form.value.nombre,
+        apellido: this.form.value.apellido,
+        correo: this.form.value.correo,
+        cursoActual: this.form.value.cursoActual.nombre,
+    }
+
+    this.alumnosService.editarCurso(alumno)
+    this.rutas.navigate(['alumnos/lista-alumnos'])
   }
 
-  save() {
-    this.asociarCurso();
-    this.dialogRef.close(this.editandoAlumno.value)
+  retroceder(){
+    this.rutas.navigate(['alumnos/lista-alumnos']);
   }
 
-  asociarCurso(){
-    const cursoListado= this.cursos.find(curso=>curso.nombre.toLocaleLowerCase()===this.editandoAlumno.value.cursoActual.toLocaleLowerCase());
-
-    return this.editandoAlumno.value.cursoActual=cursoListado;
-  }
 }

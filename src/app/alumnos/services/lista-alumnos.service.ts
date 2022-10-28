@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { audit, Observable } from 'rxjs';
 import { Alumnos } from '../../models/alumnos';
 import { Injectable } from '@angular/core';
 
@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 export class ListaAlumnosService {
 
   private Alumnos$!: Observable<Alumnos[]>;
+
   private listaAlumnos: Alumnos[]=[
     {idAlumno: 1,
       nombre: 'Ijak',
@@ -48,5 +49,17 @@ export class ListaAlumnosService {
     });
   }
 
+  editarCurso(alumno:Alumnos) {
+    let indice = this.listaAlumnos.findIndex((alumn: Alumnos) => alumn.idAlumno === alumno.idAlumno);
+
+    if (indice > -1) {
+      this.listaAlumnos[indice]=alumno;
+    }
+
+    this.Alumnos$ = new Observable<Alumnos[]>((sub) => {
+      sub.next(this.listaAlumnos)
+    });
+
+  }
 
 }

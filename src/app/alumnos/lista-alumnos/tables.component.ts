@@ -1,11 +1,10 @@
-import { Curso } from './../../models/curso';
 import { Alumnos } from './../../models/alumnos';
 import { Observable } from 'rxjs/internal/Observable';
 import { Component,OnInit,} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListaAlumnosService } from '../services/lista-alumnos.service';
 import { map, of, Subscription } from 'rxjs';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tables',
@@ -72,7 +71,11 @@ export class TablesComponent implements OnInit {
   }
 
   editarAlumno(alumno:Alumnos){
-    this.ruta.navigate(['alumnos/edit-alumno',alumno])
+    const datos={
+      ...alumno,
+      cursoActual: JSON.stringify(alumno.cursoActual)
+    }
+    this.ruta.navigate(['alumnos/edit-alumno', datos])
   }
 
   borrarAlumno(id:number){

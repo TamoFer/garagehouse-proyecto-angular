@@ -1,21 +1,21 @@
-// .btnAddAlumno{
-//   width: auto;
-//   height: 2rem;
-//   margin-top: 3.5rem;
-// }
+table{
+  width: 100%;
+}
 
-// p{
-//   margin-top: 2rem;
-//   text-align: center;
-//   font-weight:500;
-// }
+h1{
+  text-align: center;
+  font-size: 3rem;
+  padding: 1rem;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+mat-icon{
+  font-size: 1.7rem;
+}
 
 .table{
   margin: 0.75rem;
-}
-
-table{
-  width: 100%;
 }
 
 .contenido{
@@ -24,18 +24,22 @@ table{
   height: 100vh;
 }
 
-
 .tools{
   background-color: #f5f5f5;
   padding: 1rem;
   div{
-    margin: 0.5rem 0rem 0.5rem 0rem;
+    margin: 0.5rem 0rem 1rem 0rem;
+  }
+  &-elements{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h3{
+      text-transform: uppercase;
+      font-weight: 800;
+      text-decoration: underline;
+
+    }
   }
 }
 
-.tools-elements{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-}

@@ -4,7 +4,7 @@ import { ListaAlumnosService } from './../services/lista-alumnos.service';
 import { Alumnos } from './../../models/alumnos';
 import { FormGroup, FormControl} from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,7 +18,6 @@ export class EditarAlumnoComponent implements OnInit {
 
   form!:FormGroup;
   alumno!:Alumnos;
-  idAlumno: string = String(Math.round(Math.random() * 1000));
   listaCursos: Array<any>=[];
   cursosActuales$!: Observable<Curso[]>;
 
@@ -38,11 +37,11 @@ export class EditarAlumnoComponent implements OnInit {
 
     this.rutaActivada.paramMap.subscribe((parametros)=>{
       this.alumno={
-        idAlumno: parseInt(parametros.get('id') || this.idAlumno),
-        nombre: parametros.get('nombre') || '',
-        apellido: parametros.get('apellido') || '',
-        correo: parametros.get('correo') || '',
-        cursoActual: parametros.get('cursoActual')
+        idAlumno: parseInt(parametros.get('idAlumno') as string),
+        nombre: (parametros.get('nombre') || ''),
+        apellido: (parametros.get('apellido') || ''),
+        correo: (parametros.get('correo') || ''),
+        cursoActual: JSON.parse(parametros.get('cursoActual') as string)
       }
     })
 
@@ -55,13 +54,17 @@ export class EditarAlumnoComponent implements OnInit {
   }
 
   editarCurso(){
-    let alumno:Alumnos={
+    const alumno:Alumnos={
         idAlumno: this.alumno.idAlumno,
         nombre: this.form.value.nombre,
         apellido: this.form.value.apellido,
         correo: this.form.value.correo,
-        cursoActual: this.form.value.cursoActual.nombre,
+        cursoActual: this.form.value.cursoActual,
     }
+
+    const cursoListado= this.listaCursos.find(curso=>curso.nombre=== alumno.cursoActual);
+
+    alumno.cursoActual=cursoListado;
 
     this.alumnosService.editarCurso(alumno)
     this.rutas.navigate(['alumnos/lista-alumnos'])

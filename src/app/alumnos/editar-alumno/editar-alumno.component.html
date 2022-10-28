@@ -24,21 +24,23 @@
           <input matInput type="email" formControlName="correo" />
         </mat-form-field>
       </div>
-      <div class="col-6">
-
-        <mat-form-field appearance="fill" >
+      <div class="col-6 ">
+        <mat-form-field appearance="fill"  >
           <mat-label>Curso actual del alumno</mat-label>
-          <input matInput type="text" formControlName="cursoActual" />
+          <input matInput type="text" formControlName="cursoActual" readonly/>
         </mat-form-field>
-
-        <!-- <mat-form-field appearance="fill">
-          <mat-label>Cursos Disponibles</mat-label>
-          <mat-select formControlName="curso">
-            <mat-option  *ngFor="let curso of listaCursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
-          </mat-select>
-        </mat-form-field> -->
       </div>
     </div>
+
+      <div>
+        <p>Elegi el curso a cambiar</p>
+        <mat-form-field appearance="fill">
+          <mat-label>Cursos Disponibles</mat-label>
+          <mat-select formControlName="cursoActual">
+            <mat-option  *ngFor="let curso of listaCursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
     <div class="row">
       <div class="botones">

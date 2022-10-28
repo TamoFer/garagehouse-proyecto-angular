@@ -54,7 +54,7 @@ export class AgregarAlumnoComponent implements OnInit {
 
   agregarAlumno(){
     const alumno: Alumnos = {
-      idAlumno: Math.round(Math.random() * 1000),
+      idAlumno: Math.round(Math.random() * 100),
       nombre: this.alumnoNuevo.value.nombre,
       apellido: this.alumnoNuevo.value.apellido,
       correo: this.alumnoNuevo.value.correo,

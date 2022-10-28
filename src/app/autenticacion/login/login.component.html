@@ -1,0 +1,23 @@
+<div class="contenido">
+  <h1>Iniciar sesion</h1>
+  <form [formGroup]="inicioSesion" (ngSubmit)="login()">
+    <mat-form-field appearance="fill" class="fill">
+      <mat-label>Ingresa tu email</mat-label>
+      <input matInput formControlName="email" type="email" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="fill">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="contrasena" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Vos sos:</mat-label>
+      <mat-select formControlName="cursoActual">
+        <mat-option *ngFor="let usuario of opcUsers" [value]="usuario">{{
+          usuario
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary">Login</button>
+    <button type="submit" mat-raised-button color="primary">Vaciar campos</button>
+  </form>
+</div>

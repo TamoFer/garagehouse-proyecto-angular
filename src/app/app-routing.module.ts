@@ -2,13 +2,17 @@ import { NgModule } from '@angular/core';
 import { InicioComponent } from './core/components/inicio/inicio.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { AutenticacionGuard } from './core/guards/autenticacion.guard';
+import { LoginComponent } from './autenticacion/login/login.component';
 
 
 const routes: Routes = [
-  { path: 'inicio', component: InicioComponent },
-  { path: '**', component: PageNotFoundComponent },
-  { path: '', component: AppComponent }
+  { path: 'inicio', component: InicioComponent, canActivate: [AutenticacionGuard] },
+  { path: 'cursos', loadChildren: ()=> import('./cursos/cursos.module').then((m)=> m.CursosModule), canActivate: [AutenticacionGuard] },
+  { path: 'autenticacion', loadChildren: ()=> import('./autenticacion/autenticacion.module').then((m)=> m.AutenticacionModule), canActivate: [AutenticacionGuard] },
+  { path: 'login', component: LoginComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '**', component: PageNotFoundComponent }
 
 ];
 
@@ -17,3 +21,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

@@ -1,0 +1,43 @@
+.body{
+  width: 100vw;
+  height: 100vh;
+  background-color: aquamarine;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 20px;
+  mat-form-field{
+    width: 100%;
+  }
+  h1{
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+}
+
+.botones{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+
+.login{
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+  height: 40rem;
+}

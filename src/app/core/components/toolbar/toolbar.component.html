@@ -1,8 +1,13 @@
-<mat-toolbar>
-  <div class="contenido">
-    <h3>Menú</h3>
-    <a mat-button routerLink="inicio">Inicio</a>
-    <a mat-button routerLink="alumnos/lista-alumnos">Alumnos</a>
-    <a mat-button routerLink="cursos/cursos-cards">Cursos</a>
+<ng-container *ngIf="sesion$ |async as sesion">
+  <div *ngIf="sesion.sesionActiva" >
+    <mat-toolbar>
+      <div class="contenido">
+        <h3>Menú</h3>
+        <a mat-button routerLink="inicio">Inicio</a>
+        <a mat-button routerLink="autenticacion/login">Login</a>
+        <a mat-button routerLink="alumnos/lista-alumnos" *ngIf="sesion.usuarioActivo?.perfil==='Profesor'">Alumnos</a>
+        <a mat-button routerLink="cursos/cursos-cards">Cursos</a>
+      </div>
+    </mat-toolbar>
   </div>
-</mat-toolbar>
+</ng-container>

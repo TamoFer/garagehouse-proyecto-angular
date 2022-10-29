@@ -1,5 +1,4 @@
-import { Usuario } from './../../../models/usuario';
-import { Sesion } from './../../../models/sesion';
+import { Sesion } from '../../models/sesion';
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
 
@@ -10,27 +9,9 @@ export class SesionService {
 
   sesion$!: Observable<Sesion>;
 
-  bd: Usuario[] = [
-    {
-      email: 'alumno@gmail.com',
-      contrasena: 'alumno123',
-      perfil: 'alumno'
-    },
-    {
-      email: 'profesor@gmail.com',
-      contrasena: 'profesor123',
-      perfil: 'profesor'
-    }]
-
-
   constructor() {
     const sesion: Sesion = {
-      sesionActiva: false,
-      usuarioActivo:{
-        email: '',
-        contrasena: '',
-        perfil: ''
-      }
+      sesionActiva: false
     };
     this.actualizarSesion(sesion)
   }
@@ -58,8 +39,5 @@ export class SesionService {
     return this.sesion$;
   }
 
-  chequearBD(usuario:Usuario){
-
-  }
 
 }

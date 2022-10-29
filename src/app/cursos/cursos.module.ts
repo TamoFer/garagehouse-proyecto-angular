@@ -7,6 +7,7 @@ import { EditarCursoComponent } from './editar-curso/editar-curso.component';
 import { MaterialModule } from '../material.module';
 import { InicioCursosComponent } from './inicio-cursos/inicio-cursos.component';
 import { CardsComponent } from './cards/cards.component';
+import { CursosService } from './services/cursos.service';
 
 
 @NgModule({
@@ -20,6 +21,9 @@ import { CardsComponent } from './cards/cards.component';
     CommonModule,
     CursosRoutingModule,
     MaterialModule
+  ],
+  providers: [
+    CursosService
   ]
 })
 export class CursosModule { }

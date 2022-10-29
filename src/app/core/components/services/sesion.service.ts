@@ -2,7 +2,6 @@ import { Usuario } from './../../../models/usuario';
 import { Sesion } from './../../../models/sesion';
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
-import { UrlSerializer } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,12 @@ export class SesionService {
 
   constructor() {
     const sesion: Sesion = {
-      sesionActiva: false
+      sesionActiva: false,
+      usuarioActivo:{
+        email: '',
+        contrasena: '',
+        perfil: ''
+      }
     };
     this.actualizarSesion(sesion)
   }
@@ -55,9 +59,7 @@ export class SesionService {
   }
 
   chequearBD(usuario:Usuario){
-    this.bd.forEach((user)=>{
 
-    })
   }
 
 }

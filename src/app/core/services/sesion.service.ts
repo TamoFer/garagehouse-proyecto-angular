@@ -1,6 +1,7 @@
 import { Sesion } from '../../models/sesion';
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,10 @@ export class SesionService {
     this.actualizarSesion(sesion)
   }
 
-  login(email: string, contrasena: string, perfil: string) {
+  login(usuario:Usuario) {
     const sesion: Sesion = {
       sesionActiva: true,
-      usuarioActivo: {
-        email: email,
-        contrasena: contrasena,
-        perfil: perfil
-      }
+      usuarioActivo: usuario
     }
 
     this.actualizarSesion(sesion)

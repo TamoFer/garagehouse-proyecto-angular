@@ -9,7 +9,7 @@ import { LoginComponent } from './autenticacion/login/login.component';
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent, canActivate: [AutenticacionGuard] },
   { path: 'cursos', loadChildren: ()=> import('./cursos/cursos.module').then((m)=> m.CursosModule), canActivate: [AutenticacionGuard] },
-  { path: 'autenticacion', loadChildren: ()=> import('./autenticacion/autenticacion.module').then((m)=> m.AutenticacionModule), canActivate: [AutenticacionGuard] },
+  { path: 'autenticacion', loadChildren: ()=> import('./autenticacion/autenticacion.module').then((m)=> m.AutenticacionModule)},
   { path: 'login', component: LoginComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }

@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
     private ruta: Router
   ) {
     this.inicioSesion = new FormGroup({
-      email: new FormControl(''),
-      contrasena: new FormControl(''),
-      perfil: new FormControl('')
+      email: new FormControl('juancito@gmail.com'),
+      contrasena: new FormControl('1234'),
+      perfil: new FormControl('Profesor')
     })
   }
 
@@ -28,14 +28,15 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    console.log(this.inicioSesion.value);
-    this.sesionService.login(this.inicioSesion.value.email, this.inicioSesion.value.contrasena, this.inicioSesion.value.perfil);
+    this.sesionService.login(this.inicioSesion.value);
     this.ruta.navigate(['inicio']);
   }
 
   vaciarCampos(){
-    this.inicioSesion.value.email='',
-    this.inicioSesion.value.contrasena='',
-    this.inicioSesion.value.perfil=''
+    this.inicioSesion = new FormGroup({
+      email: new FormControl(''),
+      contrasena: new FormControl(''),
+      perfil: new FormControl('')
+    })
   }
 }

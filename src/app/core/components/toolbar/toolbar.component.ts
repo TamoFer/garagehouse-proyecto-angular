@@ -14,10 +14,17 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private sesionService:SesionService
-  ) { }
+  ) {
+    let sesion= this.sesionService.obtenerSesion()
+
+  }
 
   ngOnInit(): void {
     this.sesion$= this.sesionService.obtenerSesion()
+
   }
+
+
+
 
 }

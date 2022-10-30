@@ -10,7 +10,7 @@ import { SesionService } from './services/sesion.service';
 @NgModule({
   declarations: [
     InicioComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,

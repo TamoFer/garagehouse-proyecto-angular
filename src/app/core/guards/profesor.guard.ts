@@ -18,7 +18,7 @@ export class ProfesorGuard implements CanActivate, CanActivateChild, CanDeactiva
   canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return this.sesion.obtenerSesion().pipe(
         map((sesion: Sesion) => {
-          if((sesion.usuarioActivo?.perfil)?.toLocaleLowerCase() ==='profesor'){
+          if((sesion.usuarioActivo?.perfil)==='Profesor'){
             return true;
           }else{
             alert("No tiene permisos para acceder a este sitio");

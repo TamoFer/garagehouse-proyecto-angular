@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CursosModule } from '../cursos/cursos.module';
 import { AlumnosModule } from '../alumnos/alumnos.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -10,7 +11,8 @@ import { AlumnosModule } from '../alumnos/alumnos.module';
   imports: [
     CommonModule,
     CursosModule,
-    AlumnosModule
+    AlumnosModule,
+    HttpClientModule
   ]
 })
 export class SharedModule { }

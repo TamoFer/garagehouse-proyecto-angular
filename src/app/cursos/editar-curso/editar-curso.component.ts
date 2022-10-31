@@ -57,6 +57,8 @@ export class EditarCursoComponent implements OnInit {
         img:this.form.value.img
     }
     this.cursosService.editarCurso(curso)
+    console.log(curso);
+
     this.rutas.navigate(['cursos/cursos-cards'])
   }
 

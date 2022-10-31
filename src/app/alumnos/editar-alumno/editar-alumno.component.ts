@@ -29,7 +29,7 @@ export class EditarAlumnoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cursosActuales$= this.cursosService.getCursosObservable(),
+    this.cursosActuales$= this.cursosService.getCursos(),
     this.listaCursos.push(this.cursosActuales$.subscribe((data)=>{
       this.listaCursos=data
     })
@@ -62,11 +62,15 @@ export class EditarAlumnoComponent implements OnInit {
         cursoActual: this.form.value.cursoActual,
     }
 
+    console.log(alumno);
+
     const cursoListado= this.listaCursos.find(curso=>curso.nombre=== alumno.cursoActual);
+
+    console.log(cursoListado);
 
     alumno.cursoActual=cursoListado;
 
-    this.alumnosService.editarCurso(alumno)
+    this.alumnosService.editarAlumno(alumno)
     this.rutas.navigate(['alumnos/lista-alumnos'])
   }
 

@@ -1,5 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Curso } from '../../models/curso';
 
 @Injectable({
@@ -7,58 +9,37 @@ import { Curso } from '../../models/curso';
 })
 export class CursosService {
 
-  private cursos$: Observable<Curso[]>;
-  private cursos: Curso[] = [
-    { id: 1, nombre: 'Desarrollo Web', profesor: 'Matias Cordoba', finicio: new Date(2022, 3, 15), ftermino: new Date(2022, 5, 15), descripcion: 'Curso incial de programacion web donde veras HTML 5 y CSS3 entre demas cosas', disponibilidad: true, img: '../../assets/images/webdesing.jpg' },
 
-    { id: 2, nombre: 'JavaScript', profesor: 'Anthony Lopez', finicio: new Date(2022, 5, 29), ftermino: new Date(2022, 7, 10), descripcion: 'Aprenderas a potenciar tus conocimientos de maquetacion con Javascript', disponibilidad: true, img: '../../assets/images/webdesing.jpg' },
+  constructor(
+    private http:HttpClient
+  ) {
 
-    { id: 3, nombre: 'React Js', profesor: 'Abner Garcia', finicio: new Date(2022, 7, 29), ftermino: new Date(2022, 9, 15), descripcion: 'Aprenderas uno de los frameworks mas populares de programacion front-end', disponibilidad: true, img: '../../assets/images/webdesing.jpg' },
-
-    { id: 4, nombre: 'Angular', profesor: 'Abner Garcia', finicio: new Date(2022, 7, 29), ftermino: new Date(2022, 9, 15), descripcion: 'Aprenderas uno de los frameworks mas populares de programacion front-end', disponibilidad: false, img: '../../assets/images/webdesing.jpg' },
-
-    { id: 5, nombre: 'Backend', profesor: 'Juan Pablo Guerrero', finicio: new Date(2022, 9, 29), ftermino: new Date(2022, 11, 15), descripcion: 'Curso donde aprenderas todo lo relacionado con el desarrollo backend de una APP web', disponibilidad: false, img: '../../assets/images/webdesing.jpg' },
-
-    { id: 6, nombre: 'Python', profesor: 'Jacksito Gonzalez', finicio: new Date(2022, 8, 10), ftermino: new Date(2022, 10, 10), descripcion: 'Curso donde aprenderas a manejar el lenguaje de programacion mas versatil de la actualidad', disponibilidad: true, img: '../../assets/images/webdesing.jpg' }
-  ]
-
-  constructor() {
-    this.cursos$ = new Observable<Curso[]>((sub) => {
-      sub.next(this.cursos)
-    });
   }
 
-  getCursosObservable() {
-    return this.cursos$;
+  getCursos():Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${environment.api}/Cursos`, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    })
   }
 
   agregarCurso(curso: Curso) {
-    this.cursos.push(curso)
+    this.http.post(`${environment.api}/Cursos/`, curso, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).subscribe()
   }
 
   eliminarCurso(id: number) {
-    let indice = this.cursos.findIndex((c: Curso) => c.id === id);
-
-    if (indice > -1) {
-      this.cursos.splice(indice, 1);
-    }
-
-    this.cursos$ = new Observable<Curso[]>((sub) => {
-      sub.next(this.cursos)
-    });
-
+    this.http.delete<Curso>(`${environment.api}/Cursos/${id}`).subscribe()
   }
 
   editarCurso(curso: Curso) {
-    let indice = this.cursos.findIndex((c: Curso) => c.id === curso.id);
-
-    if (indice > -1) {
-      this.cursos[indice]=curso;
-    }
-
-    this.cursos$ = new Observable<Curso[]>((sub) => {
-      sub.next(this.cursos)
-    });
+    this.http.put<Curso>(`${environment.api}/Cursos/${curso.id}`, curso).subscribe()
 
   }
 

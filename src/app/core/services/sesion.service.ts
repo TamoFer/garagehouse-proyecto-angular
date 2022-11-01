@@ -22,7 +22,6 @@ export class SesionService {
       sesionActiva: true,
       usuarioActivo: usuario
     }
-
     this.actualizarSesion(sesion)
   }
 

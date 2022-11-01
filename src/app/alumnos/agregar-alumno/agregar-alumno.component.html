@@ -16,20 +16,21 @@
       </div>
     </div>
 
-    <div class="col-6">
-      <mat-form-field appearance="fill">
-        <mat-label>Email del alumno</mat-label>
-        <input matInput formControlName="correo" required>
-      </mat-form-field>
-    </div>
-
-    <div class="col-6">
-      <mat-form-field appearance="fill">
-        <mat-label>Cursos Disponibles</mat-label>
-        <mat-select formControlName="curso">
-          <mat-option  *ngFor="let curso of listaCursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Email del alumno</mat-label>
+          <input matInput formControlName="correo" required>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Cursos Disponibles</mat-label>
+          <mat-select formControlName="curso">
+            <mat-option  *ngFor="let curso of listaCursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
     <div>
       <div class="botones">

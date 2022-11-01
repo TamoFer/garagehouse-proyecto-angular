@@ -16,9 +16,16 @@
             <span *ngSwitchCase="false" > No disponible </span>
           </div>
         </mat-card-actions>
-        <mat-card-actions align="end">
-          <mat-icon  type="button" (click)="editarDatos(curso)" color="primary">edit_note</mat-icon>
-          <mat-icon type="button" (click)="eliminarCurso(curso.id)" color="warn">delete</mat-icon>
+        <mat-card-actions align="end" >
+          <div [ngSwitch]="valorSesion.usuarioActivo.perfil">
+            <div *ngSwitchCase="'Profesor'">
+              <mat-icon  type="button" (click)="editarDatos(curso)" color="primary">edit_note</mat-icon>
+              <mat-icon type="button" (click)="eliminarCurso(curso.id)" color="warn">delete</mat-icon>
+            </div>
+            <div *ngSwitchCase="'Alumno'">
+              <button mat-raised-button color="primary" *ngIf="curso.disponibilidad" >Inscribirme</button>
+            </div>
+          </div>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -26,7 +33,7 @@
   <div class="tools">
     <div class="tools-elements">
       <h3>Cursos Actions</h3>
-      <div>
+      <div *ngIf="valorSesion.usuarioActivo.perfil==='Profesor'">
         <button mat-raised-button color="primary" (click)="agregarCurso()" >Nuevo Curso</button>
       </div>
       <div class="">

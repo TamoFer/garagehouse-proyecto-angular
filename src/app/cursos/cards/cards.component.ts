@@ -3,6 +3,8 @@ import { Curso } from './../../models/curso';
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, of, Subscription} from 'rxjs';
 import { Router } from '@angular/router';
+import { Sesion } from 'src/app/models/sesion';
+import { SesionService } from 'src/app/core/services/sesion.service';
 
 @Component({
   selector: 'app-cards',
@@ -14,8 +16,11 @@ export class CardsComponent implements OnInit {
   cursos$: Observable<Curso[]>;
   cursos!: any;
   suscripcion!: Subscription;
+  sesion$!:Observable<Sesion>;
+  valorSesion!: any;
 
   constructor(
+    private sesionService: SesionService,
     private cursosService: CursosService,
     private router: Router
   ) {
@@ -28,8 +33,21 @@ export class CardsComponent implements OnInit {
     })
   }
 
+  ngAfterContentInit(): void {
+    this.comprobarSesion()
+  }
+
   ngOnDestroy(): void {
     this.suscripcion.unsubscribe()
+  }
+
+  comprobarSesion(){
+    this.sesion$=this.sesionService.obtenerSesion()
+    this.sesion$.subscribe((dato:Sesion)=>{
+      if(dato.sesionActiva){
+        this.valorSesion=dato
+      }
+    })
   }
 
   agregarCurso(){

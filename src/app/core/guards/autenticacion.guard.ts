@@ -29,11 +29,23 @@ export class AutenticacionGuard implements CanActivate, CanActivateChild, CanDea
         })
       );
   }
+
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return true
+      return this.sesion.obtenerSesion().pipe(
+        map((sesion: Sesion) => {
+          if(sesion.sesionActiva){
+            return true;
+          }else{
+            this.ruta.navigate(['autenticacion/login']);
+            return false;
+          }
+        })
+      );
   }
+
+
   canDeactivate(
     component: unknown,
     currentRoute: ActivatedRouteSnapshot,
@@ -41,6 +53,8 @@ export class AutenticacionGuard implements CanActivate, CanActivateChild, CanDea
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return true;
   }
+
+
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

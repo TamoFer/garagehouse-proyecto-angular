@@ -1,3 +1,4 @@
+import { Sesion } from 'src/app/models/sesion';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { SesionService } from 'src/app/core/services/sesion.service';
 })
 export class LoginComponent implements OnInit {
 
-  inicioSesion: FormGroup;
+  inicioSesion!: FormGroup;
   opcUsers: Array<any>= ['Alumno','Profesor'];
 
   constructor(
@@ -33,10 +34,11 @@ export class LoginComponent implements OnInit {
   }
 
   vaciarCampos(){
-    this.inicioSesion = new FormGroup({
-      email: new FormControl(''),
-      contrasena: new FormControl(''),
-      perfil: new FormControl('')
+    this.inicioSesion.reset({
+      email:'',
+      contrasena:'',
+      perfil:''
     })
+    this.ruta.navigate(['login']);
   }
 }

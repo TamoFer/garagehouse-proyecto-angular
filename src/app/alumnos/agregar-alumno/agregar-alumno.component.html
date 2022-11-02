@@ -5,13 +5,19 @@
       <div class="col-6">
         <mat-form-field appearance="fill" >
           <mat-label>Nombre del alumno</mat-label>
-          <input matInput type="text" formControlName="nombre" />
+          <input matInput type="text" formControlName="nombre" [ngClass]="{'is-invalid': alumnoNuevo.get('nombre')?.errors && alumnoNuevo.get('nombre')?.touched}"/>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
         </mat-form-field>
       </div>
       <div class="col-6">
         <mat-form-field appearance="fill" >
           <mat-label>Apellido del alumno</mat-label>
-          <input matInput type="text" formControlName="apellido" />
+          <input matInput type="text" formControlName="apellido" [ngClass]="{'is-invalid': alumnoNuevo.get('apellido')?.errors && alumnoNuevo.get('apellido')?.touched}" />
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
         </mat-form-field>
       </div>
     </div>
@@ -20,22 +26,28 @@
       <div class="col-6">
         <mat-form-field appearance="fill">
           <mat-label>Email del alumno</mat-label>
-          <input matInput formControlName="correo" required>
+          <input matInput formControlName="correo" [ngClass]="{'is-invalid':alumnoNuevo.get('correo')?.touched && alumnoNuevo.get('correo')?.errors?.['required'] || alumnoNuevo.get('correo')?.errors?.['pattern'] }">
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
         </mat-form-field>
       </div>
       <div class="col-6">
         <mat-form-field appearance="fill">
           <mat-label>Cursos Disponibles</mat-label>
-          <mat-select formControlName="curso">
+          <mat-select formControlName="curso" [ngClass]="{'is-invalid':alumnoNuevo.get('curso')?.errors?.['required']}" >
             <mat-option  *ngFor="let curso of listaCursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
           </mat-select>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
         </mat-form-field>
       </div>
     </div>
     <div>
       <div class="botones">
         <div class="">
-          <button mat-raised-button color="primary" type="submit" >Agregar curso</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="alumnoNuevo.invalid">Agregar curso</button>
         </div>
         <div class="">
           <button mat-raised-button color="primary" (click)="retroceder()" >Cancelar</button>

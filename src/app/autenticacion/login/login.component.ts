@@ -1,6 +1,6 @@
 import { Sesion } from 'src/app/models/sesion';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SesionService } from 'src/app/core/services/sesion.service';
 
@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
     private ruta: Router
   ) {
     this.inicioSesion = new FormGroup({
-      email: new FormControl('juancito@gmail.com'),
-      contrasena: new FormControl('1234'),
-      perfil: new FormControl('Profesor')
+      email: new FormControl('juancito@gmail.com',[Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$'), Validators.required]),
+      contrasena: new FormControl('1234', [Validators.required]),
+      perfil: new FormControl('Profesor',[Validators.required])
     })
   }
 
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
+
     this.sesionService.login(this.inicioSesion.value);
     this.ruta.navigate(['inicio']);
   }

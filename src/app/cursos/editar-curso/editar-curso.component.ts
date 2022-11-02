@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Curso } from 'src/app/models/curso';
 import { CursosService } from '../services/cursos.service';
@@ -35,11 +35,13 @@ export class EditarCursoComponent implements OnInit {
     })
 
     this.form= new FormGroup({
-        nombre: new FormControl(this.curso.nombre),
-        profe: new FormControl(this.curso.profesor),
-        inicio: new FormControl(this.curso.finicio),
-        fin: new FormControl(this.curso.ftermino),
-        descripcion: new FormControl(this.curso.descripcion),
+        nombre: new FormControl(this.curso.nombre, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+        profe: new FormControl(this.curso.profesor, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+        inicio: new FormControl(this.curso.finicio, [Validators.required
+        ]),
+        fin: new FormControl(this.curso.ftermino, [Validators.required
+        ]),
+        descripcion: new FormControl(this.curso.descripcion, [Validators.required,Validators.minLength(10), Validators.maxLength(25)]),
         disponibilidad:new FormControl(this.curso.disponibilidad) ,
         img:new FormControl(this.curso.img)
     })

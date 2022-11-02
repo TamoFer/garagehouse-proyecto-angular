@@ -41,6 +41,11 @@ export class CardsComponent implements OnInit {
     this.suscripcion.unsubscribe()
   }
 
+  inscripcion(){
+    alert('Funcion en desarrollo, disculpe las molestias')
+  }
+
+
   comprobarSesion(){
     this.sesion$=this.sesionService.obtenerSesion()
     this.sesion$.subscribe((dato:Sesion)=>{

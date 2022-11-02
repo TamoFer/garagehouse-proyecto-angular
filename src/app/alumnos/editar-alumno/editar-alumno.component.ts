@@ -2,7 +2,7 @@ import { Curso } from './../../models/curso';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
 import { ListaAlumnosService } from './../services/lista-alumnos.service';
 import { Alumnos } from './../../models/alumnos';
-import { FormGroup, FormControl} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { Observable } from 'rxjs';
@@ -46,10 +46,11 @@ export class EditarAlumnoComponent implements OnInit {
     })
 
     this.form= new FormGroup({
-      nombre: new FormControl(this.alumno.nombre),
-      apellido: new FormControl(this.alumno.apellido),
-      correo: new FormControl(this.alumno.correo),
-      cursoActual: new FormControl(this.alumno.cursoActual.nombre)
+      nombre: new FormControl(this.alumno.nombre, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+      apellido: new FormControl(this.alumno.apellido, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+      correo: new FormControl(this.alumno.correo,[Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$'), Validators.required]),
+      cursoActual: new FormControl(this.alumno.cursoActual.nombre, [Validators.required
+      ])
   })
   }
 

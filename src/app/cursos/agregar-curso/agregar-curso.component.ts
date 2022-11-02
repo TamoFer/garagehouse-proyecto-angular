@@ -22,13 +22,13 @@ export class AgregarCursoComponent implements OnInit {
 
   cursoNuevo: FormGroup = this.fb.group(
     {
-      nombre:['',Validators.required],
-      profe: ['',Validators.required],
-      inicio:['',Validators.required],
-      fin:['',Validators.required],
-      descripcion:['',Validators.required],
-      disponibilidad:['',Validators.required],
-      img:['',Validators.required]
+      nombre:['',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]],
+      profe: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]],
+      inicio:['',[Validators.required]],
+      fin:['',[Validators.required]],
+      descripcion:['',[Validators.required,Validators.minLength(10), Validators.maxLength(50)]],
+      disponibilidad:['',[Validators.required]],
+      img:['']
     }
   )
 

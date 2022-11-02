@@ -23,7 +23,7 @@
               <mat-icon type="button" (click)="eliminarCurso(curso.id)" color="warn">delete</mat-icon>
             </div>
             <div *ngSwitchCase="'Alumno'">
-              <button mat-raised-button color="primary" *ngIf="curso.disponibilidad" >Inscribirme</button>
+              <button mat-raised-button color="primary" *ngIf="curso.disponibilidad" (click)="inscripcion()" >Inscribirme</button>
             </div>
           </div>
         </mat-card-actions>

@@ -5,13 +5,19 @@
       <div class="col-6">
         <mat-form-field appearance="fill" >
           <mat-label>Nombre del curso</mat-label>
-          <input matInput type="text" formControlName="nombre" />
+          <input matInput type="text" formControlName="nombre" [ngClass]="{'is-invalid': cursoNuevo.get('nombre')?.errors && cursoNuevo.get('nombre')?.touched}" />
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
         </mat-form-field>
       </div>
       <div class="col-6">
         <mat-form-field appearance="fill" >
           <mat-label>Nombre del profesor</mat-label>
-          <input matInput type="text" formControlName="profe" />
+          <input matInput type="text" formControlName="profe" [ngClass]="{'is-invalid': cursoNuevo.get('profe')?.errors && cursoNuevo.get('profe')?.touched}"/>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
         </mat-form-field>
       </div>
     </div>
@@ -20,17 +26,23 @@
       <div class="col-6">
         <mat-form-field appearance="fill" >
           <mat-label>Inicio del curso</mat-label>
-          <input matInput [matDatepicker]="fechaInicio" formControlName="inicio"/>
+          <input matInput [matDatepicker]="fechaInicio" formControlName="inicio" [ngClass]="{'is-invalid':cursoNuevo.get('inicio')?.errors?.['required']}"/>
           <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
           <mat-datepicker #fechaInicio></mat-datepicker>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
         </mat-form-field>
       </div>
       <div class="col-6">
         <mat-form-field appearance="fill" >
           <mat-label>Fin del curso</mat-label>
-          <input matInput [matDatepicker]="fechaFin" formControlName="fin"/>
+          <input matInput [matDatepicker]="fechaFin" formControlName="fin" [ngClass]="{'is-invalid':cursoNuevo.get('fin')?.errors?.['required']}"  />
           <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
           <mat-datepicker #fechaFin></mat-datepicker>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
         </mat-form-field>
       </div>
     </div>
@@ -38,7 +50,10 @@
     <div class="col-12">
       <mat-form-field appearance="fill" >
         <mat-label>Descripcion del curso</mat-label>
-        <textarea matInput formControlName="descripcion"></textarea>
+        <textarea matInput formControlName="descripcion" [ngClass]="{'is-invalid': cursoNuevo.get('descripcion')?.errors && cursoNuevo.get('descripcion')?.touched}"></textarea>
+        <div class="invalid-feedback">
+          <small>El campo es requerido</small>
+        </div>
       </mat-form-field>
     </div>
 
@@ -48,7 +63,7 @@
       </div>
       <div class="botones">
         <div class="">
-          <button mat-raised-button color="primary" type="submit" >Agregar curso</button>
+          <button mat-raised-button color="primary" type="submit"[disabled]="cursoNuevo.invalid" >Agregar curso</button>
         </div>
         <div class="">
           <button mat-raised-button color="primary" (click)="retroceder()" >Cancelar</button>

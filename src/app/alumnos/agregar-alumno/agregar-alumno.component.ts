@@ -37,9 +37,9 @@ export class AgregarAlumnoComponent implements OnInit {
 
   alumnoNuevo: FormGroup = this.fb.group(
     {
-      nombre:['',Validators.required],
-      apellido: ['',Validators.required],
-      correo:['',Validators.required],
+      nombre:['',Validators.required,Validators.minLength(3), Validators.maxLength(25)],
+      apellido: ['',Validators.required,Validators.minLength(3), Validators.maxLength(25)],
+      correo:['',Validators.required,Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$')],
       curso:['',Validators.required]
 
     }
@@ -62,6 +62,7 @@ export class AgregarAlumnoComponent implements OnInit {
     };
 
     this.alumnosService.agregarAlumno(alumno);
+    this.alumnosService.getAlumnos();
     this.route.navigate(['alumnos/lista-alumnos']);
   }
 

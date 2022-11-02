@@ -63,11 +63,7 @@ export class EditarAlumnoComponent implements OnInit {
         cursoActual: this.form.value.cursoActual,
     }
 
-    console.log(alumno);
-
     const cursoListado= this.listaCursos.find(curso=>curso.nombre=== alumno.cursoActual);
-
-    console.log(cursoListado);
 
     alumno.cursoActual=cursoListado;
 

@@ -62,7 +62,6 @@ export class AgregarAlumnoComponent implements OnInit {
     };
 
     this.alumnosService.agregarAlumno(alumno);
-    this.alumnosService.getAlumnos();
     this.route.navigate(['alumnos/lista-alumnos']);
   }
 

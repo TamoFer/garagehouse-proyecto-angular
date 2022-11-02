@@ -24,7 +24,7 @@ export class CardsComponent implements OnInit {
     private cursosService: CursosService,
     private router: Router
   ) {
-    this.cursos$ = cursosService.getCursosObservable();
+    this.cursos$ = this.cursosService.getCursos();
   }
 
   ngOnInit(): void {
@@ -97,4 +97,10 @@ export class CardsComponent implements OnInit {
     this.cursosService.eliminarCurso(id)
   }
 
+  refresh(){
+    this.cursos$ = this.cursosService.getCursos();
+    this.suscripcion= this.cursos$.subscribe((cursos)=>{
+      this.cursos=cursos
+    })
+  }
 }

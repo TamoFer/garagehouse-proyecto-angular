@@ -27,7 +27,7 @@ export class AgregarAlumnoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cursosActuales$= this.cursosService.getCursosObservable(),
+    this.cursosActuales$= this.cursosService.getCursos(),
     this.listaCursos.push(this.cursosActuales$.subscribe((data)=>{
       this.listaCursos=data
     })

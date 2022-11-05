@@ -1,9 +1,11 @@
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditarCursoComponent } from './editar-curso.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from 'src/app/material.module';
 
 describe('EditarCursoComponent', () => {
   let component: EditarCursoComponent;
@@ -11,22 +13,24 @@ describe('EditarCursoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditarCursoComponent ],
-      imports:[
+      declarations: [EditarCursoComponent],
+      imports: [
+        BrowserAnimationsModule,
         HttpClientTestingModule,
+        MaterialModule,
         HttpClientModule,
-        ],
-        providers:
+      ],
+      providers:
         [
           {
             provide: ActivatedRoute,
             useValue: {
-              snapshot: {params: {id: '24fkzrw3487943uf358lovd'}}
+              snapshot: { params: { id: '24fkzrw3487943uf358lovd' } }
             }
           }
         ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(EditarCursoComponent);
     component = fixture.componentInstance;

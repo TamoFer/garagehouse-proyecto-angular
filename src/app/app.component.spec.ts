@@ -1,10 +1,10 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -14,9 +14,8 @@ describe('AppComponent', () => {
       ],
       imports: [
         BrowserAnimationsModule,
+        MaterialModule,
         RouterTestingModule,
-        ReactiveFormsModule,
-        FormsModule,
         HttpClientTestingModule,
         HttpClientModule
       ],

@@ -1,6 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from 'src/app/material.module';
 
 import { CardsComponent } from './cards.component';
 
@@ -12,8 +14,10 @@ describe('CardsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ CardsComponent ],
       imports:[
+        BrowserAnimationsModule,
         HttpClientTestingModule,
-        HttpClientModule
+        MaterialModule,
+        HttpClientModule,
       ]
     })
     .compileComponents();

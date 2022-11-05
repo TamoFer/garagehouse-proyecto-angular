@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MaterialModule } from 'src/app/material.module';
 
 import { AgregarAlumnoComponent } from './agregar-alumno.component';
 
@@ -8,7 +11,13 @@ describe('AgregarAlumnoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AgregarAlumnoComponent ]
+      declarations: [ AgregarAlumnoComponent ],
+      imports:[
+        HttpClientTestingModule,
+        MaterialModule,
+        HttpClientModule,
+      ]
+
     })
     .compileComponents();
 
@@ -17,7 +26,7 @@ describe('AgregarAlumnoComponent', () => {
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Alumnos } from './../../models/alumnos';
 import { ListaAlumnosService } from './../services/lista-alumnos.service';
 import { Component,OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
 
@@ -17,7 +17,8 @@ import { CursosService } from 'src/app/cursos/services/cursos.service';
 export class AgregarAlumnoComponent implements OnInit {
 
   cursosActuales$!: Observable<Curso[]>;
-  listaCursos:Array<any>=[]
+  listaCursos:Array<any>=[];
+  alumnoNuevo!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -32,18 +33,14 @@ export class AgregarAlumnoComponent implements OnInit {
       this.listaCursos=data
     })
     )
-
+    this.alumnoNuevo= new FormGroup({
+      nombre: new FormControl ('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]) ,
+      apellido:new FormControl ('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+      correo: new FormControl('', [Validators.required,Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$')]),
+      curso: new FormControl('',[Validators.required])
+    })
   }
 
-  alumnoNuevo: FormGroup = this.fb.group(
-    {
-      nombre:['',Validators.required,Validators.minLength(3), Validators.maxLength(25)],
-      apellido: ['',Validators.required,Validators.minLength(3), Validators.maxLength(25)],
-      correo:['',Validators.required,Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$')],
-      curso:['',Validators.required]
-
-    }
-  )
 
   asociarCurso(){
     const cursoListado= this.listaCursos.find(curso=>curso.nombre.toLocaleLowerCase()===this.alumnoNuevo.value.curso.toLocaleLowerCase());

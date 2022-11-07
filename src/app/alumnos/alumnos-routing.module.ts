@@ -6,7 +6,7 @@ import { EditarAlumnoComponent } from './editar-alumno/editar-alumno.component';
 import { InicioAlumnosComponent } from './inicio-alumnos/inicio-alumnos.component';
 import { TablesComponent } from './lista-alumnos/tables.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {path:'alumnos', component: InicioAlumnosComponent , children:[
     {path:'lista-alumnos', component: TablesComponent, canActivate:[ProfesorGuard]},
     {path:'add-alumno', component: AgregarAlumnoComponent, canActivate:[ProfesorGuard]},

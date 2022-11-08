@@ -8,7 +8,10 @@ import { Curso } from '../../models/curso';
   providedIn: 'root'
 })
 export class CursosService {
-
+  header:HttpHeaders=new HttpHeaders({
+    'content-type': 'application/json',
+    'encoding': 'UTF-8'
+  })
 
   constructor(
     private http:HttpClient
@@ -16,21 +19,19 @@ export class CursosService {
 
   }
 
+  obtenerCursos(){
+    return this.http.get('https://635b2514aa7c3f113db69e87.mockapi.io/Cursos');
+  }
+
   getCursos():Observable<Curso[]> {
     return this.http.get<Curso[]>(`${environment.api}/Cursos`, {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-        'encoding': 'UTF-8'
-      })
+      headers: this.header
     })
   }
 
   agregarCurso(curso: Curso) {
     this.http.post(`${environment.api}/Cursos/`, curso, {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-        'encoding': 'UTF-8'
-      })
+      headers: this.header
     }).subscribe()
   }
 

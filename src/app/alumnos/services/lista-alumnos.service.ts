@@ -9,6 +9,10 @@ import { environment } from 'src/environments/environment';
 })
 export class ListaAlumnosService {
 
+  header:HttpHeaders=new HttpHeaders({
+    'content-type': 'application/json',
+    'encoding': 'UTF-8'
+  })
 
   constructor(
     private http:HttpClient
@@ -18,22 +22,20 @@ export class ListaAlumnosService {
   ngOnInit(){
   }
 
+  obtenerAlumnos(){
+    return this.http.get('https://635b2514aa7c3f113db69e87.mockapi.io/Alumnos');
+  }
+
   getAlumnos():Observable<Alumnos[]>{
     return this.http.get<Alumnos[]>(`${environment.api}/Alumnos`, {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-        'encoding': 'UTF-8'
-      })
+      headers: this.header
     })
 
   }
 
   agregarAlumno(alumno:Alumnos){
     this.http.post(`${environment.api}/Alumnos/`, alumno, {
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-        'encoding': 'UTF-8'
-      })
+      headers: this.header
     }).subscribe()
   }
 

@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ListaAlumnosService } from '../services/lista-alumnos.service';
 import { map, of, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-tables',
@@ -18,6 +19,7 @@ export class TablesComponent implements OnInit {
   listaAlumnos$!: Observable<Alumnos[]>;
   columnas: string[] = ['nombre', 'apellido', 'correo', 'cursando', 'actions'];
   data: MatTableDataSource<Alumnos>= new MatTableDataSource<Alumnos>();
+  busquedaEnTabla!: FormGroup;
 
   constructor(
     private alumnosService: ListaAlumnosService,
@@ -33,6 +35,11 @@ export class TablesComponent implements OnInit {
     this.suscripcion= this.listaAlumnos$.subscribe((alumnos)=>{
       this.lista=alumnos
     })
+
+    this.busquedaEnTabla= new FormGroup({
+      apellido: new FormControl ('',[]),
+      curso: new FormControl('',[])
+    })
   }
 
   ngOnDestroy(): void {
@@ -40,8 +47,9 @@ export class TablesComponent implements OnInit {
     this.susData.unsubscribe()
   }
 
-  buscarXApellido(event:Event){
-    const valorObtenido = (event.target as HTMLInputElement).value;
+  buscarXApellido(){
+    const valorObtenido = this.busquedaEnTabla.get('apellido')?.value;
+
     if(valorObtenido==''){
       this.data.data=this.lista
     }else{
@@ -53,8 +61,17 @@ export class TablesComponent implements OnInit {
     }
   }
 
-  buscarXCurso(event:Event){
-    const valorObtenido = (event.target as HTMLInputElement).value;
+  vaciarCampoCurso(){
+    this.busquedaEnTabla.get('curso')?.reset()
+  }
+
+  vaciarCampoApellido(){
+    this.busquedaEnTabla.get('apellido')?.reset()
+  }
+
+  buscarXCurso(){
+    const valorObtenido = this.busquedaEnTabla.get('curso')?.value;
+
     if(valorObtenido===''){
       this.data.data=this.lista
     }else{

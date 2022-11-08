@@ -1,5 +1,5 @@
 <div class="contenido" >
-  <div class="table">
+  <div class="table" id="tablaDatos">
     <h1>Lista de Alumnos</h1>
     <table mat-table [dataSource]="data" >
         <ng-container matColumnDef="nombre">
@@ -42,18 +42,28 @@
       <div>
         <button mat-raised-button color="primary" (click)="refresh()">Actualizar datos</button>
       </div>
-      <div class="">
-        <mat-form-field appearance="fill" class="fill">
-          <p>Buscarlo por apellido</p>
-          <input type="text" matInput (keyup.enter)="buscarXApellido($event)" />
-        </mat-form-field>
-      </div>
-      <div class="">
-        <mat-form-field appearance="fill" class="fill">
-          <p>Buscarlo por curso</p>
-          <input type="text" matInput (keyup.enter)="buscarXCurso($event)" />
-        </mat-form-field>
-      </div>
+      <form [formGroup]="busquedaEnTabla" >
+        <div class="">
+          <mat-form-field appearance="fill" class="fill">
+            <p>Buscarlo por apellido</p>
+            <input type="text" formControlName="apellido" matInput/>
+          </mat-form-field>
+          <div class="botones">
+            <button  mat-raised-button color="primary" id="buscarApellido" (click)="buscarXApellido()">Buscar</button>
+            <button mat-raised-button color="primary" (click)="vaciarCampoApellido()">Vaciar</button>
+          </div>
+        </div>
+        <div class="">
+          <mat-form-field appearance="fill" class="fill">
+            <p>Buscarlo por curso</p>
+            <input type="text" formControlName="curso" matInput />
+          </mat-form-field>
+          <div class="botones">
+            <button mat-raised-button color="primary" id="buscarCurso" (click)="buscarXCurso()">Buscar</button>
+            <button mat-raised-button color="primary" (click)="vaciarCampoCurso()">Vaciar</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

@@ -61,14 +61,6 @@ export class TablesComponent implements OnInit {
     }
   }
 
-  vaciarCampoCurso(){
-    this.busquedaEnTabla.get('curso')?.reset()
-  }
-
-  vaciarCampoApellido(){
-    this.busquedaEnTabla.get('apellido')?.reset()
-  }
-
   buscarXCurso(){
     const valorObtenido = this.busquedaEnTabla.get('curso')?.value;
 
@@ -81,6 +73,14 @@ export class TablesComponent implements OnInit {
         this.data.data= alumnos
       });
     }
+  }
+
+  vaciarCampoCurso(){
+    this.busquedaEnTabla.get('curso')?.reset()
+  }
+
+  vaciarCampoApellido(){
+    this.busquedaEnTabla.get('apellido')?.reset()
   }
 
   addAlumno(){

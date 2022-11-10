@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { ROOT_REDUCERS } from './states/app.state';
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(ROOT_REDUCERS)
   ],
   providers: [],
   bootstrap: [AppComponent]

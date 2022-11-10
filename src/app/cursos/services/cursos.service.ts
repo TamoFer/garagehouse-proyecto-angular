@@ -19,10 +19,6 @@ export class CursosService {
 
   }
 
-  obtenerCursos(){
-    return this.http.get('https://635b2514aa7c3f113db69e87.mockapi.io/Cursos');
-  }
-
   getCursos():Observable<Curso[]> {
     return this.http.get<Curso[]>(`${environment.api}/Cursos`, {
       headers: this.header

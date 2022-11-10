@@ -5,6 +5,10 @@ import { map, Observable, of, Subscription} from 'rxjs';
 import { Router } from '@angular/router';
 import { Sesion } from 'src/app/models/sesion';
 import { SesionService } from 'src/app/core/services/sesion.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/states/app.state';
+import { selectorCursosCargados } from 'src/app/states/selectors/cursos.selector';
+import { eliminarCurso } from 'src/app/states/actions/cursos.actions';
 
 @Component({
   selector: 'app-cards',
@@ -13,38 +17,28 @@ import { SesionService } from 'src/app/core/services/sesion.service';
 })
 
 export class CardsComponent implements OnInit {
-  cursos$: Observable<Curso[]>;
-  cursos!: any;
-  suscripcion!: Subscription;
+  cursos$!: Observable<Curso[]>;
   sesion$!:Observable<Sesion>;
   valorSesion!: any;
 
   constructor(
+    private store: Store<AppState>,
     private sesionService: SesionService,
-    private cursosService: CursosService,
     private router: Router
-  ) {
-    this.cursos$ = this.cursosService.getCursos();
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.suscripcion= this.cursos$.subscribe((cursos)=>{
-      this.cursos=cursos
-    })
+    this.cursos$ = this.store.select(selectorCursosCargados);
   }
+
 
   ngAfterContentInit(): void {
     this.comprobarSesion()
   }
 
-  ngOnDestroy(): void {
-    this.suscripcion.unsubscribe()
-  }
-
   inscripcion(){
     alert('Funcion en desarrollo, disculpe las molestias')
   }
-
 
   comprobarSesion(){
     this.sesion$=this.sesionService.obtenerSesion()
@@ -61,37 +55,37 @@ export class CardsComponent implements OnInit {
 
   buscarXProfesor(event: Event) {
     const valorObtenido = (event.target as HTMLInputElement).value;
-    if(valorObtenido===''){
-      this.cursos$ = new Observable<Curso[]>((sub) => {
-        sub.next(this.cursos)
-      });
-    }else{
-      of(this.cursos).pipe(
-        map((cursos: Curso[]) => cursos.filter((curso: Curso) => curso.profesor.toLowerCase() === valorObtenido))
-      ).subscribe((cursos) => {
-        this.cursos$ = new Observable<Curso[]>((sub) => {
-          sub.next(cursos)
-        });
-      });
-    }
+    // if(valorObtenido===''){
+    //   this.cursos$ = new Observable<Curso[]>((sub) => {
+    //     sub.next(this.cursos)
+    //   });
+    // }else{
+    //   of(this.cursos).pipe(
+    //     map((cursos: Curso[]) => cursos.filter((curso: Curso) => curso.profesor.toLowerCase() === valorObtenido))
+    //   ).subscribe((cursos) => {
+    //     this.cursos$ = new Observable<Curso[]>((sub) => {
+    //       sub.next(cursos)
+    //     });
+    //   });
+    // }
 
   }
 
   buscarXNombre(event: Event) {
     const valorObtenido = (event.target as HTMLInputElement).value;
-    if(valorObtenido===''){
-      this.cursos$ = new Observable<Curso[]>((sub) => {
-        sub.next(this.cursos)
-      });
-    }else{
-      of(this.cursos).pipe(
-        map((cursos: Curso[]) => cursos.filter((curso: Curso) => curso.nombre.toLowerCase() === valorObtenido))
-      ).subscribe((cursos) => {
-        this.cursos$ = new Observable<Curso[]>((sub) => {
-          sub.next(cursos)
-        });
-      });
-    }
+    // if(valorObtenido===''){
+    //   this.cursos$ = new Observable<Curso[]>((sub) => {
+    //     sub.next(this.cursos)
+    //   });
+    // }else{
+    //   of(this.cursos).pipe(
+    //     map((cursos: Curso[]) => cursos.filter((curso: Curso) => curso.nombre.toLowerCase() === valorObtenido))
+    //   ).subscribe((cursos) => {
+    //     this.cursos$ = new Observable<Curso[]>((sub) => {
+    //       sub.next(cursos)
+    //     });
+    //   });
+    // }
   }
 
   editarDatos(curso:Curso){
@@ -99,13 +93,14 @@ export class CardsComponent implements OnInit {
   }
 
   eliminarCurso(id:number){
-    this.cursosService.eliminarCurso(id)
+    this.store.dispatch(eliminarCurso({id}))
+    // this.cursosService.eliminarCurso(id)
   }
 
   refresh(){
-    this.cursos$ = this.cursosService.getCursos();
-    this.suscripcion= this.cursos$.subscribe((cursos)=>{
-      this.cursos=cursos
-    })
+    // this.cursos$ = this.cursosService.getCursos();
+    // this.suscripcion= this.cursos$.subscribe((cursos)=>{
+    //   this.cursos=cursos
+    // })
   }
 }

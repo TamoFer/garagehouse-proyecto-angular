@@ -12,12 +12,8 @@ export class SesionService {
 
   constructor() {
     const sesion: Sesion = {
-      sesionActiva: false,
-      usuarioActivo:{
-        email: '',
-        contrasena: '',
-        perfil: ''
-      }
+      sesionActiva: false
+
     };
     this.actualizarSesion(sesion)
   }

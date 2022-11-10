@@ -1,4 +1,6 @@
+import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
+import { AppState } from 'src/app/states/app.state';
 
 @Component({
   selector: 'app-inicio-cursos',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioCursosComponent implements OnInit {
 
-  constructor(){}
+  constructor(
+    private store: Store<AppState>
+  ){}
 
   ngOnInit(): void {
 

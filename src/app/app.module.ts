@@ -9,6 +9,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { ROOT_REDUCERS } from './states/app.state';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -18,12 +20,13 @@ import { ROOT_REDUCERS } from './states/app.state';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     CoreModule,
     SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    StoreModule.forRoot(ROOT_REDUCERS)
+    StoreModule.forRoot(ROOT_REDUCERS),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

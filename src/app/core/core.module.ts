@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InicioComponent } from './components/inicio/inicio.component';
@@ -14,7 +15,8 @@ import { SesionService } from './services/sesion.service';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [
     SesionService

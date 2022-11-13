@@ -1,13 +1,13 @@
+import { InicioAlumnosComponent } from './components/inicio-alumnos/inicio-alumnos.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AlumnosRoutingModule } from './alumnos-routing.module';
-import { AgregarAlumnoComponent } from './agregar-alumno/agregar-alumno.component';
-import { EditarAlumnoComponent } from './editar-alumno/editar-alumno.component';
+import { AgregarAlumnoComponent } from './components/agregar-alumno/agregar-alumno.component';
+import { EditarAlumnoComponent } from './components/editar-alumno/editar-alumno.component';
 import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TablesComponent } from './lista-alumnos/tables.component';
-import { InicioAlumnosComponent } from './inicio-alumnos/inicio-alumnos.component';
+import { TablesComponent } from './components/lista-alumnos/tables.component';
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { InicioAlumnosComponent } from './inicio-alumnos/inicio-alumnos.componen
     TablesComponent,
     AgregarAlumnoComponent,
     EditarAlumnoComponent,
-    InicioAlumnosComponent,
+    InicioAlumnosComponent
   ],
   imports: [
     CommonModule,

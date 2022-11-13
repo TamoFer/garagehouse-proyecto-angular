@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CursosRoutingModule } from './cursos-routing.module';
-import { AgregarCursoComponent } from './agregar-curso/agregar-curso.component';
-import { EditarCursoComponent } from './editar-curso/editar-curso.component';
+import { AgregarCursoComponent } from './components/agregar-curso/agregar-curso.component';
+import { EditarCursoComponent } from './components/editar-curso/editar-curso.component';
 import { MaterialModule } from '../material.module';
-import { InicioCursosComponent } from './inicio-cursos/inicio-cursos.component';
-import { CardsComponent } from './cards/cards.component';
+import { InicioCursosComponent } from './components/inicio-cursos/inicio-cursos.component';
+import { CardsComponent } from './components/cards/cards.component';
 import { CursosService } from './services/cursos.service';
 
 

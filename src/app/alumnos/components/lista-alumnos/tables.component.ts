@@ -1,8 +1,8 @@
-import { Alumnos } from './../../models/alumnos';
+import { Alumnos } from 'src/app/models/alumnos';
 import { Observable } from 'rxjs/internal/Observable';
 import { Component,OnInit,} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ListaAlumnosService } from '../services/lista-alumnos.service';
+import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
 import { map, of, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';

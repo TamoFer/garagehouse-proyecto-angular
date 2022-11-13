@@ -3,7 +3,7 @@ import { InicioComponent } from './core/components/inicio/inicio.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AutenticacionGuard } from './core/guards/autenticacion.guard';
-import { LoginComponent } from './autenticacion/login/login.component';
+import { LoginComponent } from './autenticacion/components/login/login.component';
 
 
 export const routes: Routes = [

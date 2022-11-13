@@ -1,7 +1,7 @@
 import { cursosReducer } from './reducers/cursos.reducer';
-import { UsuarioState } from './../models/usuario.state';
-import { AlumnoState } from "../models/alumno.state";
-import { CursoState } from "../models/curso.state";
+import { UsuarioState } from './../models/models-state/usuario.state';
+import { AlumnoState } from "../models/models-state/alumno.state";
+import { CursoState } from "./../models/models-state/curso.state";
 import { ActionReducerMap } from '@ngrx/store';
 
 export interface AppState{

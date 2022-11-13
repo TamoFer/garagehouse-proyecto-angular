@@ -1,7 +1,7 @@
-import { Curso } from './../../models/curso';
+import { Curso } from '../../../models/curso';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
-import { ListaAlumnosService } from './../services/lista-alumnos.service';
-import { Alumnos } from './../../models/alumnos';
+import { ListaAlumnosService } from '../../services/lista-alumnos.service';
+import { Alumnos } from '../../../models/alumnos';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';

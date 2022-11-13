@@ -1,7 +1,7 @@
-import { Curso } from './../../models/curso';
+import { Curso } from '../../../models/curso';
 import { Observable } from 'rxjs/internal/Observable';
-import { Alumnos } from './../../models/alumnos';
-import { ListaAlumnosService } from './../services/lista-alumnos.service';
+import { Alumnos } from '../../../models/alumnos';
+import { ListaAlumnosService } from '../../services/lista-alumnos.service';
 import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';

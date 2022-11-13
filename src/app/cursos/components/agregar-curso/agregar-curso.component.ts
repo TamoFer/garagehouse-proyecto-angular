@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Curso } from 'src/app/models/curso';
-import { CursosService } from '../services/cursos.service';
+import { CursosService } from '../../services/cursos.service';
 
 @Component({
   selector: 'app-agregar-curso',

@@ -1,15 +1,17 @@
 import { createAction, props } from '@ngrx/store';
+import { Alumnos } from 'src/app/models/alumnos';
 
-export const loadAlumnoss = createAction(
-  '[Alumnos] Load Alumnoss'
+export const loadAlumnos = createAction(
+  '[Lista Alumnos] Load Alumnos'
+
 );
 
-export const loadAlumnossSuccess = createAction(
-  '[Alumnos] Load Alumnoss Success',
-  props<{ data: any }>()
+export const loadAlumnosSuccess = createAction(
+  '[Lista Alumnos] Load Alumnos Success',
+  props<{ alumnos: Alumnos[] }>()
 );
 
-export const loadAlumnossFailure = createAction(
-  '[Alumnos] Load Alumnoss Failure',
+export const loadAlumnosFailure = createAction(
+  '[Lista Alumnos] Load Alumnos Failure',
   props<{ error: any }>()
 );

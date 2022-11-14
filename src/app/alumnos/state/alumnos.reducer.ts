@@ -1,21 +1,27 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
+import { AlumnoState } from 'src/app/models/models-state/alumno.state';
 import * as AlumnosActions from './alumnos.actions';
 
 export const alumnosFeatureKey = 'alumnos';
 
-export interface State {
-
+export const estadoInicial: AlumnoState = {
+  cargando:false,
+  alumnos: []
 }
 
-export const initialState: State = {
-
-};
-
 export const reducer = createReducer(
-  initialState,
+  estadoInicial,
 
-  on(AlumnosActions.loadAlumnoss, state => state),
-  on(AlumnosActions.loadAlumnossSuccess, (state, action) => state),
-  on(AlumnosActions.loadAlumnossFailure, (state, action) => state),
+  on(AlumnosActions.loadAlumnos, state => {
+    return {...state, cargando: true};
+  }),
+
+  on(AlumnosActions.loadAlumnosSuccess, (state, {alumnos}) => {
+    return {...state,cargando: false, alumnos}
+  }),
+
+  on(AlumnosActions.loadAlumnosFailure, (state, {error}) => {
+    return state
+  }),
 
 );

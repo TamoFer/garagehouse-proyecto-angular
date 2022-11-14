@@ -1,15 +1,16 @@
+import { Inscripcion } from './../../models/inscripcion';
 import { createAction, props } from '@ngrx/store';
 
 export const loadInscripcions = createAction(
-  '[Inscripcion] Load Inscripcions'
+  '[Lista Inscripciones] Load Inscripcions'
 );
 
 export const loadInscripcionsSuccess = createAction(
-  '[Inscripcion] Load Inscripcions Success',
-  props<{ data: any }>()
+  '[Lista Inscripciones] Load Inscripcions Success',
+  props<{ inscripciones: Inscripcion[] }>()
 );
 
 export const loadInscripcionsFailure = createAction(
-  '[Inscripcion] Load Inscripcions Failure',
+  '[Lista Inscripciones] Load Inscripcions Failure',
   props<{ error: any }>()
 );

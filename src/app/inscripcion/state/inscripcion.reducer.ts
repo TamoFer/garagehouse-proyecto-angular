@@ -1,21 +1,29 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as InscripcionActions from './inscripcion.actions';
+import { InscripcionState } from 'src/app/models/models-state/inscripcion.state';
 
 export const inscripcionFeatureKey = 'inscripcion';
 
-export interface State {
-
+export const estadoInicial: InscripcionState = {
+  cargando:false,
+  inscripciones: []
 }
 
-export const initialState: State = {
 
-};
 
 export const reducer = createReducer(
-  initialState,
+  estadoInicial,
 
-  on(InscripcionActions.loadInscripcions, state => state),
-  on(InscripcionActions.loadInscripcionsSuccess, (state, action) => state),
-  on(InscripcionActions.loadInscripcionsFailure, (state, action) => state),
+  on(InscripcionActions.loadInscripcions, state => {
+    return {...state, cargando: true};
+  }),
+
+  on(InscripcionActions.loadInscripcionsSuccess, (state, {inscripciones}) => {
+    return {...state, cargando: false, inscripciones}
+  }),
+
+  on(InscripcionActions.loadInscripcionsFailure, (state, {error}) => {
+    return state
+  }),
 
 );

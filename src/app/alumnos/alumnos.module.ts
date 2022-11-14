@@ -8,6 +8,8 @@ import { EditarAlumnoComponent } from './components/editar-alumno/editar-alumno.
 import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TablesComponent } from './components/lista-alumnos/tables.component';
+import { StoreModule } from '@ngrx/store';
+import { alumnosFeatureKey, reducer } from './state/alumnos.reducer';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import { TablesComponent } from './components/lista-alumnos/tables.component';
     AlumnosRoutingModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature(alumnosFeatureKey, reducer)
 
   ]
 })

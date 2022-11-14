@@ -1,3 +1,5 @@
+import { cursosFeatureKey, reducer } from './state/cursos.reducer';
+import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,11 +19,14 @@ import { CursosService } from './services/cursos.service';
     InicioCursosComponent,
     CardsComponent
   ],
+
   imports: [
     CommonModule,
     CursosRoutingModule,
-    MaterialModule
+    MaterialModule,
+    StoreModule.forFeature(cursosFeatureKey,reducer)
   ],
+
   providers: [
     CursosService
   ]

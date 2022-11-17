@@ -3,13 +3,12 @@ import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { Sesion } from 'src/app/models/sesion';
-import { SesionService } from '../services/sesion.service';
 import { selectSesionActiva } from '../state/sesion.selectors';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfesorGuard implements CanActivate{
+export class AdminGuard implements CanActivate{
 
 
   constructor(

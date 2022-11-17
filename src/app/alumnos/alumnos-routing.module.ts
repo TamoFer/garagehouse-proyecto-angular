@@ -1,4 +1,4 @@
-import { ProfesorGuard } from '../core/guards/admin.guard';
+import { AdminGuard } from './../core/guards/admin.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AgregarAlumnoComponent } from './components/agregar-alumno/agregar-alumno.component';
@@ -8,9 +8,9 @@ import { TablesComponent } from './components/lista-alumnos/tables.component';
 
 export const routes: Routes = [
   {path:'alumnos', component: InicioAlumnosComponent , children:[
-    {path:'lista-alumnos', component: TablesComponent, canActivate:[ProfesorGuard]},
-    {path:'add-alumno', component: AgregarAlumnoComponent, canActivate:[ProfesorGuard]},
-    {path:'edit-alumno', component: EditarAlumnoComponent, canActivate:[ProfesorGuard]},
+    {path:'lista-alumnos', component: TablesComponent},
+    {path:'add-alumno', component: AgregarAlumnoComponent, canActivate:[AdminGuard]},
+    {path:'edit-alumno', component: EditarAlumnoComponent, canActivate:[AdminGuard]},
   ]}
 ];
 

@@ -1,34 +1,24 @@
 <div class="body">
   <div class="login" >
-      <form [formGroup]="inicioSesion" (ngSubmit)="login()">
+      <form [formGroup]="formulario" (ngSubmit)="login()">
         <h1>iniciar sesion</h1>
         <mat-form-field appearance="fill" class="fill">
-          <mat-label>Ingresa tu email</mat-label>
-          <input matInput formControlName="email" type="email" [ngClass]="{'is-invalid':inicioSesion.get('email')?.touched && inicioSesion.get('email')?.errors?.['required'] || inicioSesion.get('email')?.errors?.['pattern'] }"/>
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput formControlName="nameUsuario" type="text" [ngClass]="{'is-invalid':formulario.get('nameUsuario')?.touched && formulario.get('nameUsuario')?.errors?.['required']
+        }" />
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
         <mat-form-field appearance="fill" class="fill">
           <mat-label>Contraseña</mat-label>
-          <input matInput formControlName="contrasena" type="password" [ngClass]="{'is-invalid':inicioSesion.get('contrasena')?.touched && inicioSesion.get('contrasena')?.errors?.['required']}"/>
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Vos sos:</mat-label>
-          <mat-select formControlName="perfil" [ngClass]="{'is-invalid':inicioSesion.get('perfil')?.errors?.['required']}">
-            <mat-option *ngFor="let usuario of opcUsers" [value]="usuario">{{
-              usuario
-            }}</mat-option>
-          </mat-select>
+          <input matInput formControlName="contrasena" type="password" [ngClass]="{'is-invalid':formulario.get('contrasena')?.touched && formulario.get('contrasena')?.errors?.['required']}"/>
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
         <div class="botones">
-          <button type="submit" mat-raised-button color="primary" [disabled]="inicioSesion.invalid">Login</button>
+          <button type="submit" mat-raised-button color="primary" [disabled]="formulario.invalid">Login</button>
           <button type ="button" mat-raised-button color="primary" (click)="vaciarCampos()">
             Vaciar campos
           </button>
@@ -36,3 +26,5 @@
       </form>
   </div>
 </div>
+
+<!--  || formulario.get('nameUsuario')?.errors?.['pattern']  -->

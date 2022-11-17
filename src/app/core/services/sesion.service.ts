@@ -20,7 +20,7 @@ export class SesionService {
       sesionActiva: false
 
     };
-    this.actualizarSesion(sesion)
+    // this.actualizarSesion(sesion)
   }
 
   login(usuario:Usuario): Observable<Usuario> {
@@ -28,25 +28,24 @@ export class SesionService {
       map((usuarios: Usuario[]) => {
         return usuarios.filter((u: Usuario) => u.nameUsuario === usuario.nameUsuario && u.contrasena===usuario.contrasena)[0]
       }));
-      this.cambiarEstadoSesion()
   }
 
-  cambiarEstadoSesion() {
-    this.sesion$.subscribe((sub)=>{
-      sub.sesionActiva=true
-      this.actualizarSesion(sub)
-    })
-  }
+  // cambiarEstadoSesion() {
+  //   this.sesion$.subscribe((sub)=>{
+  //     sub.sesionActiva=true
+  //     this.actualizarSesion(sub)
+  //   })
+  // }
 
-  actualizarSesion(sesion: Sesion) {
-    this.sesion$ = new Observable<Sesion>((sub) => {
-      sub.next(sesion)
-    })
-  }
+  // actualizarSesion(sesion: Sesion) {
+  //   this.sesion$ = new Observable<Sesion>((sub) => {
+  //     sub.next(sesion)
+  //   })
+  // }
 
-  obtenerSesion(): Observable<Sesion> {
-    return this.sesion$;
-  }
+  // obtenerSesion(): Observable<Sesion> {
+  //   return this.sesion$;
+  // }
 
 
 }

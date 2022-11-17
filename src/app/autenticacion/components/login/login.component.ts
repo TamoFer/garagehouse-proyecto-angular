@@ -1,7 +1,11 @@
+import { Sesion } from './../../../models/sesion';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SesionService } from 'src/app/core/services/sesion.service';
+import { Usuario } from 'src/app/models/usuario';
+import { Store } from '@ngrx/store';
+import { loadSesionSuccess } from 'src/app/core/state/sesion.actions';
 
 @Component({
   selector: 'app-login',
@@ -10,18 +14,16 @@ import { SesionService } from 'src/app/core/services/sesion.service';
 })
 export class LoginComponent implements OnInit {
 
-  inicioSesion!: FormGroup;
-  opcUsers: Array<any>= ['Alumno','Profesor'];
+  formulario: FormGroup;
 
   constructor(
     private sesionService: SesionService,
-    private ruta: Router
+    private ruta: Router,
+    private store: Store<Sesion>
   ) {
-    this.inicioSesion = new FormGroup({
-      nameUsuario: new FormControl ('Evert55'),
-      email: new FormControl('juancito@gmail.com',[Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$'), Validators.required]),
-      contrasena: new FormControl('1234', [Validators.required]),
-      admin: new FormControl('Profesor',[Validators.required])
+    this.formulario = new FormGroup({
+      nameUsuario: new FormControl ('Gail57',[Validators.required]),
+      contrasena: new FormControl('XZnXBRsf7FYwwMa', [Validators.required]),
     })
   }
 
@@ -29,13 +31,23 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
+    let u: Usuario = {
+      id: 0,
+      nameUsuario: this.formulario.value.nameUsuario,
+      contrasena: this.formulario.value.contrasena,
+      admin: false
+    }
 
-    this.sesionService.login(this.inicioSesion.value);
+    this.sesionService.login(u).subscribe((usuario: Usuario) => {
+      this.store.dispatch(loadSesionSuccess({usuarioActivo: usuario}));
+    });
+
+
     this.ruta.navigate(['inicio']);
   }
 
   vaciarCampos(){
-    this.inicioSesion.reset({
+    this.formulario.reset({
       email:'',
       contrasena:'',
       perfil:''

@@ -11,7 +11,7 @@ export const estadoInicial: InscripcionState = {
 
 
 
-export const reducer = createReducer(
+export const inscripcionReducer = createReducer(
   estadoInicial,
 
   on(InscripcionActions.loadInscripcions, state => {

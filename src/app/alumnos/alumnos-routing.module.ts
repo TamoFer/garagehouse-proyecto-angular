@@ -1,4 +1,4 @@
-import { ProfesorGuard } from './../core/guards/profesor.guard';
+import { ProfesorGuard } from '../core/guards/admin.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AgregarAlumnoComponent } from './components/agregar-alumno/agregar-alumno.component';

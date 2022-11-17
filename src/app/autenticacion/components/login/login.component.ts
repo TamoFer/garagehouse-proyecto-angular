@@ -18,9 +18,10 @@ export class LoginComponent implements OnInit {
     private ruta: Router
   ) {
     this.inicioSesion = new FormGroup({
+      nameUsuario: new FormControl ('Evert55'),
       email: new FormControl('juancito@gmail.com',[Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$'), Validators.required]),
       contrasena: new FormControl('1234', [Validators.required]),
-      perfil: new FormControl('Profesor',[Validators.required])
+      admin: new FormControl('Profesor',[Validators.required])
     })
   }
 
@@ -39,6 +40,5 @@ export class LoginComponent implements OnInit {
       contrasena:'',
       perfil:''
     })
-    this.ruta.navigate(['login']);
   }
 }

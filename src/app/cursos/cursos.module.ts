@@ -1,4 +1,4 @@
-import { cursosFeatureKey, reducer } from './state/cursos.reducer';
+import { cursosFeatureKey, cursosReducer } from './state/cursos.reducer';
 import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -24,7 +24,7 @@ import { CursosService } from './services/cursos.service';
     CommonModule,
     CursosRoutingModule,
     MaterialModule,
-    StoreModule.forFeature(cursosFeatureKey,reducer)
+    StoreModule.forFeature(cursosFeatureKey,cursosReducer)
   ],
 
   providers: [

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ProfesorGuard } from './profesor.guard';
+import { ProfesorGuard } from './admin.guard';
 
 describe('ProfesorGuard', () => {
   let guard: ProfesorGuard;

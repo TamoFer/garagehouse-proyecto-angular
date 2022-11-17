@@ -9,7 +9,7 @@ export const estadoInicial: AlumnoState = {
   alumnos: []
 }
 
-export const reducer = createReducer(
+export const alumnosReducer = createReducer(
   estadoInicial,
 
   on(AlumnosActions.loadAlumnos, state => {

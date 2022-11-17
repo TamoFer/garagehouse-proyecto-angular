@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { Sesion } from 'src/app/models/sesion';
 import { SesionService } from '../services/sesion.service';
+import { selectSesionActiva } from '../state/sesion.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +13,14 @@ export class ProfesorGuard implements CanActivate{
 
 
   constructor(
-    private sesion: SesionService,
+    private store: Store<Sesion>,
     private ruta: Router
   ){}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.sesion.obtenerSesion().pipe(
+      return this.store.select(selectSesionActiva).pipe(
         map((sesion: Sesion) => {
-          if((sesion.usuarioActivo?.perfil)==='Profesor'){
+          if(sesion.usuarioActivo?.admin){
             return true;
           }else{
             alert("No tiene permisos para acceder a este sitio");
@@ -27,7 +29,5 @@ export class ProfesorGuard implements CanActivate{
           }
         })
       );
-  }
-
-
+}
 }

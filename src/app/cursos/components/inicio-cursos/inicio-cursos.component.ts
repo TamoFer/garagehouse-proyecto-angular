@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
-import { AppState } from 'src/app/states/app.state';
+import { AppState } from 'src/app/app.state';
 
 @Component({
   selector: 'app-inicio-cursos',

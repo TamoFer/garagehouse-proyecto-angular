@@ -1,5 +1,6 @@
 export interface Usuario{
+  nameUsuario:string;
   email: string;
   contrasena: string;
-  perfil: string;
+  admin:boolean;
 }

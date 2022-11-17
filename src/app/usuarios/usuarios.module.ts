@@ -7,7 +7,7 @@ import { AltaUsuarioComponent } from './components/alta-usuario/alta-usuario.com
 import { BajaUsuarioComponent } from './components/baja-usuario/baja-usuario.component';
 import { EditarUsuarioComponent } from './components/editar-usuario/editar-usuario.component';
 import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
-import { reducer, usuariosFeatureKey } from './state/usuarios.reducer';
+import {usuariosFeatureKey, usuariosReducer } from './state/usuarios.reducer';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { reducer, usuariosFeatureKey } from './state/usuarios.reducer';
   imports: [
     CommonModule,
     UsuariosRoutingModule,
-    StoreModule.forFeature(usuariosFeatureKey,reducer)
+    StoreModule.forFeature(usuariosFeatureKey,usuariosReducer)
   ]
 })
 export class UsuariosModule { }

@@ -1,14 +1,12 @@
-import { CursosService } from '../services/cursos.service';
-import { Curso } from './../../models/curso';
+import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, of, Subscription} from 'rxjs';
 import { Router } from '@angular/router';
 import { Sesion } from 'src/app/models/sesion';
 import { SesionService } from 'src/app/core/services/sesion.service';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/states/app.state';
-import { selectorCursosCargados } from 'src/app/states/selectors/cursos.selector';
-import { eliminarCurso } from 'src/app/states/actions/cursos.actions';
+import { AppState } from 'src/app/app.state';
+import { Curso } from 'src/app/models/curso';
 
 @Component({
   selector: 'app-cards',
@@ -28,7 +26,7 @@ export class CardsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cursos$ = this.store.select(selectorCursosCargados);
+    this.cursos$ = this.store.select(selectCursos);
   }
 
 
@@ -93,7 +91,7 @@ export class CardsComponent implements OnInit {
   }
 
   eliminarCurso(id:number){
-    this.store.dispatch(eliminarCurso({id}))
+    // this.store.dispatch(eliminarCurso({id}))
     // this.cursosService.eliminarCurso(id)
   }
 

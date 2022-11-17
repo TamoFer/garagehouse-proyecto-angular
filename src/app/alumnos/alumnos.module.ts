@@ -9,7 +9,7 @@ import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TablesComponent } from './components/lista-alumnos/tables.component';
 import { StoreModule } from '@ngrx/store';
-import { alumnosFeatureKey, reducer } from './state/alumnos.reducer';
+import { alumnosFeatureKey, alumnosReducer } from './state/alumnos.reducer';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { alumnosFeatureKey, reducer } from './state/alumnos.reducer';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forFeature(alumnosFeatureKey, reducer)
+    StoreModule.forFeature(alumnosFeatureKey, alumnosReducer)
 
   ]
 })

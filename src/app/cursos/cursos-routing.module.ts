@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AutenticacionGuard } from '../core/guards/autenticacion.guard';
-import { ProfesorGuard } from '../core/guards/profesor.guard';
+import { ProfesorGuard } from '../core/guards/admin.guard';
 import { AgregarCursoComponent } from './components/agregar-curso/agregar-curso.component';
 import { CardsComponent } from './components/cards/cards.component';
 import { EditarCursoComponent } from './components/editar-curso/editar-curso.component';

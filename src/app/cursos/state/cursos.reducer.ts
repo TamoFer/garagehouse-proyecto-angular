@@ -10,7 +10,7 @@ export const estadoInicial: CursoState = {
 }
 
 
-export const reducer = createReducer(
+export const cursosReducer = createReducer(
   estadoInicial,
 
   on(CursosActions.loadCursos, state =>{

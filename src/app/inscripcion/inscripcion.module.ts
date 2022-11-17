@@ -7,7 +7,7 @@ import { InscripcionRoutingModule } from './inscripcion-routing.module';
 import { AltaAlumnoComponent } from './components/alta-alumno/alta-alumno.component';
 import { BajaAlumnoComponent } from './components/baja-alumno/baja-alumno.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
-import { inscripcionFeatureKey, reducer } from './state/inscripcion.reducer';
+import { inscripcionFeatureKey, inscripcionReducer } from './state/inscripcion.reducer';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { inscripcionFeatureKey, reducer } from './state/inscripcion.reducer';
     CommonModule,
     InscripcionRoutingModule,
     MaterialModule,
-    StoreModule.forFeature(inscripcionFeatureKey,reducer)
+    StoreModule.forFeature(inscripcionFeatureKey,inscripcionReducer)
   ]
 })
 export class InscripcionModule { }

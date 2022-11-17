@@ -5,6 +5,8 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MaterialModule } from '../material.module';
 import { SesionService } from './services/sesion.service';
+import { StoreModule } from '@ngrx/store';
+import { reducer, sesionFeatureKey } from './state/sesion.reducer';
 
 
 
@@ -16,7 +18,8 @@ import { SesionService } from './services/sesion.service';
   imports: [
     CommonModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forFeature(sesionFeatureKey, reducer)
   ],
   providers: [
     SesionService

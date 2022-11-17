@@ -8,7 +8,6 @@ import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
-import { ROOT_REDUCERS } from './states/app.state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
@@ -25,7 +24,7 @@ import { environment } from '../environments/environment';
     SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot(ROOT_REDUCERS),
+    StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],

@@ -1,9 +1,11 @@
+import { selectSesionActiva } from './../../state/sesion.selectors';
 import { Router } from '@angular/router';
 import { Sesion } from 'src/app/models/sesion';
 import { Observable} from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { SesionService } from '../../services/sesion.service';
 import Swal from 'sweetalert2';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,14 +18,14 @@ export class ToolbarComponent implements OnInit {
   valorSesion!:any;
 
   constructor(
-    private sesionService:SesionService,
+    private store:Store<Sesion>,
     private rutas:Router
   ) {
 
   }
 
   ngOnInit(): void {
-    this.comprobarSesion
+    this.comprobarSesion()
   }
 
   ngAfterContentChecked(): void {
@@ -31,12 +33,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   comprobarSesion(){
-    this.sesion$=this.sesionService.obtenerSesion()
-    this.sesion$.subscribe((dato:Sesion)=>{
-      if(dato.sesionActiva){
-        this.valorSesion=dato
-      }
-    })
+    this.sesion$=this.store.select(selectSesionActiva)
   }
 
   cerrarSesion(){
@@ -54,8 +51,8 @@ export class ToolbarComponent implements OnInit {
         let sesionCierre:Sesion={
           sesionActiva:false
         }
-        this.sesionService.actualizarSesion(sesionCierre)
-        this.valorSesion= sesionCierre
+        // this.sesionService.actualizarSesion(sesionCierre)
+        // this.valorSesion= sesionCierre
         this.rutas.navigate(['autenticacion/login'])
       }
     })

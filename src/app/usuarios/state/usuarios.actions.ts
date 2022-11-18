@@ -1,16 +1,30 @@
 import { createAction, props } from '@ngrx/store';
 import { Usuario } from 'src/app/models/usuario';
 
-export const loadUsuarios = createAction(
-  '[Lista Usuarios] Load Usuarios'
+export const cargarUsuarios = createAction(
+  '[Lista Usuarios] Cargar Usuarios'
 );
 
-export const loadUsuariosSuccess = createAction(
-  '[Lista Usuarios] Load Usuarios Success',
+export const usuariosCargados = createAction(
+  '[Lista Usuarios] Cargar Usuarios Success',
   props<{ usuarios: Usuario[] }>()
 );
 
-export const loadUsuariosFailure = createAction(
-  '[Lista Usuarios] Load Usuarioss Failure',
-  props<{ error: any }>()
+
+export const agregarUsuario = createAction(
+  '[Lista Usuarios] Agregar Usuario',
+  props<{ usuario: Usuario }>()
 );
+
+
+export const editarUsuario = createAction(
+  '[Lista Usuarios] Editar Usuario',
+  props<{ usuario: Usuario }>()
+);
+
+
+export const eliminarUsuario = createAction(
+  '[Lista Usuarios] Eliminar Usuario',
+  props<{ usuario: Usuario }>()
+);
+

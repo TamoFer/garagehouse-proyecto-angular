@@ -12,14 +12,12 @@ export const estadoInicial:UsuarioState ={
 export const usuariosReducer = createReducer(
   estadoInicial,
 
-  on(UsuariosActions.loadUsuarios, state => {
+  on(UsuariosActions.cargarUsuarios, state => {
     return {...state, cargando: true};
   }),
 
-  on(UsuariosActions.loadUsuariosSuccess, (state, {usuarios}) => {
+  on(UsuariosActions.usuariosCargados, (state, {usuarios}) => {
     return {...state, cargando:false, usuarios}
   }),
-
-  on(UsuariosActions.loadUsuariosFailure, (state, action) => state),
 
 );

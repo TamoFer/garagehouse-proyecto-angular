@@ -29,7 +29,7 @@ export class EditarAlumnoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cursosActuales$= this.cursosService.getCursos(),
+    this.cursosActuales$= this.cursosService.obtenerCursos(),
     this.listaCursos.push(this.cursosActuales$.subscribe((data)=>{
       this.listaCursos=data
     })
@@ -67,7 +67,7 @@ export class EditarAlumnoComponent implements OnInit {
 
     alumno.cursoActual=cursoListado;
 
-    this.alumnosService.editarAlumno(alumno)
+    this.alumnosService.editarAlumnos(alumno)
     this.rutas.navigate(['alumnos/lista-alumnos'])
   }
 

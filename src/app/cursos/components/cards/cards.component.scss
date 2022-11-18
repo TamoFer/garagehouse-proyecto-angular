@@ -1,50 +1,25 @@
-mat-card{
-  width: 20rem;
-  height: 28rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0.5rem;
-  &-actions{
-    gap: 0.5rem;
-    button{
-      text-transform:capitalize;
-      &:hover{
-        color: black;
-      }
-    }
-  }
-
-  &-content{
-    text-align: center;
-  }
-
-  &-title{
-    text-transform: uppercase;
-    text-decoration: underline;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  }
-
-  img{
-    height: 15rem;
-  }
-}
-
 mat-icon{
   font-size: 1.7rem;
+}
+
+table{
+  width: 98%;
+  margin: 0.75rem;
+}
+
+h1{
+  text-align: center;
+  font-size: 3rem;
+  padding: 1rem;
+  text-transform: capitalize;
+  text-decoration: underline;
 }
 
 .contenido{
   display: flex;
   flex-direction: row;
-}
+  height: 100vh;
 
-.cards-org{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-  justify-content: center;
 }
 
 .tools{
@@ -67,19 +42,22 @@ mat-icon{
 }
 
 .disponible{
-  border: 1px solid black;
   padding: 0.1rem;
   text-transform: uppercase;
   font-weight: 700;
-  background-color: green;
+  color: green;
 }
 
 .noDisponible{
-  font-weight: 700;
   padding: 0.1rem;
-  border: 1px solid black;
   text-transform: uppercase;
-  background-color: Red;
+  font-weight: 700;
+  color: Red;
+}
 
-
+.botones{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
 }

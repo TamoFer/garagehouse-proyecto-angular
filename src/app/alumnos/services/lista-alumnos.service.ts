@@ -9,44 +9,26 @@ import { environment } from 'src/environments/environment';
 })
 export class ListaAlumnosService {
 
-  header:HttpHeaders=new HttpHeaders({
-    'content-type': 'application/json',
-    'encoding': 'UTF-8'
-  })
-
   constructor(
     private http:HttpClient
   ) {
-  }
-
-  ngOnInit(){
-  }
-
-  obtenerAlumnos(){
-    return this.http.get('https://635b2514aa7c3f113db69e87.mockapi.io/Alumnos');
-  }
-
-  getAlumnos():Observable<Alumnos[]>{
-    return this.http.get<Alumnos[]>(`${environment.api}/Alumnos`, {
-      headers: this.header
-    })
 
   }
 
-  agregarAlumno(alumno:Alumnos){
-    this.http.post(`${environment.api}/Alumnos/`, alumno, {
-      headers: this.header
-    }).subscribe()
+  obtenerAlumnos():Observable<Alumnos[]> {
+    return this.http.get<Alumnos[]>(`${environment.api}/Alumnos`);
   }
 
-  eliminarAlumno(id:number){
-    this.http.delete<Alumnos>(`${environment.api}/Alumnos/${id}`).subscribe()
-
+  agregarAlumnos(alumno: Alumnos): Observable<Alumnos>{
+    return this.http.post<Alumnos>(`${environment.api}/Alumnos`, alumno);
   }
 
-  editarAlumno(alumno:Alumnos) {
-    this.http.put<Alumnos>(`${environment.api}/Alumnos/${alumno.idAlumno}`, alumno).subscribe()
+  editarAlumnos(alumno: Alumnos) {
+    return this.http.put<Alumnos>(`${environment.api}/Alumnos/${alumno.idAlumno}`, alumno)
+  }
 
+  eliminarAlumnos(alumno: Alumnos): Observable<Alumnos>{
+    return this.http.delete<Alumnos>(`${environment.api}/Alumnos/${alumno.idAlumno}`);
   }
 
 }

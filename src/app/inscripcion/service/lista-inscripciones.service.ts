@@ -9,20 +9,25 @@ import { environment } from 'src/environments/environment';
 })
 export class ListaInscripcionesService {
 
-  header:HttpHeaders=new HttpHeaders({
-    'content-type': 'application/json',
-    'encoding': 'UTF-8'
-  })
-
   constructor(
     private http:HttpClient
-  ) { }
+  ) {
 
-  ngOnInit() {}
+  }
 
-  obtenerInscripciones(): Observable<Inscripcion[]>{
-    return this.http.get<Inscripcion[]>(`${environment.api}/isncripciones`, {
-      headers: this.header
-    })
+  obtenerInscripciones():Observable<Inscripcion[]> {
+    return this.http.get<Inscripcion[]>(`${environment.api}/inscripcion`);
+  }
+
+  agregarInscripcion(inscripcion: Inscripcion): Observable<Inscripcion>{
+    return this.http.post<Inscripcion>(`${environment.api}/inscripcion`, inscripcion);
+  }
+
+  editarInscripcion(inscripcion: Inscripcion) {
+    return this.http.put<Inscripcion>(`${environment.api}/inscripcion/${inscripcion.id}`, inscripcion)
+  }
+
+  eliminarInscripcion(inscripcion: Inscripcion): Observable<Inscripcion>{
+    return this.http.delete<Inscripcion>(`${environment.api}/inscripcion/${inscripcion.id}`);
   }
 }

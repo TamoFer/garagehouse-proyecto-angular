@@ -28,7 +28,7 @@ export class TablesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listaAlumnos$=this.alumnosService.getAlumnos(),
+    this.listaAlumnos$=this.alumnosService.obtenerAlumnos(),
     this.susData=this.listaAlumnos$.subscribe(
       (alumnos:Alumnos[])=> this.data.data= alumnos
     ),
@@ -96,12 +96,12 @@ export class TablesComponent implements OnInit {
   }
 
   borrarAlumno(id:number){
-    this.alumnosService.eliminarAlumno(id),
-    this.data.data=this.lista
+    // this.alumnosService.eliminarAlumnos(id),
+    // this.data.data=this.lista
   }
 
   refresh(){
-    this.listaAlumnos$=this.alumnosService.getAlumnos(),
+    this.listaAlumnos$=this.alumnosService.obtenerAlumnos(),
     this.susData=this.listaAlumnos$.subscribe(
       (alumnos:Alumnos[])=> this.data.data= alumnos
     ),

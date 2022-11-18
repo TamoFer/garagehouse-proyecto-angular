@@ -1,3 +1,5 @@
+import { CursosEffects } from './state/cursos.effects';
+import { EffectsModule } from '@ngrx/effects';
 import { cursosFeatureKey, cursosReducer } from './state/cursos.reducer';
 import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
@@ -24,7 +26,8 @@ import { CursosService } from './services/cursos.service';
     CommonModule,
     CursosRoutingModule,
     MaterialModule,
-    StoreModule.forFeature(cursosFeatureKey,cursosReducer)
+    StoreModule.forFeature(cursosFeatureKey,cursosReducer),
+    EffectsModule.forFeature([CursosEffects])
   ],
 
   providers: [

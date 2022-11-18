@@ -1,4 +1,4 @@
-import { loadCursos, loadCursosSuccess } from './cursos/state/cursos.actions';
+import { cursosCargados, cargarCursos } from './cursos/state/cursos.actions';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CursosService } from './cursos/services/cursos.service';
@@ -16,12 +16,12 @@ export class AppComponent {
     private cursoService: CursosService,
     private store: Store<AppState>
   ){
-    this.store.dispatch(loadCursos());
+    this.store.dispatch(cargarCursos());
   }
 
   ngOnInit(){
-    this.cursoService.getCursos().subscribe((cursos: Curso[]) => {
-      this.store.dispatch(loadCursosSuccess({ cursos: cursos }));
+    this.cursoService.obtenerCursos().subscribe((cursos: Curso[]) => {
+      this.store.dispatch(cursosCargados({ cursos: cursos }));
     });
   }
 }

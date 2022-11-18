@@ -8,10 +8,6 @@ import { Curso } from '../../models/curso';
   providedIn: 'root'
 })
 export class CursosService {
-  header:HttpHeaders=new HttpHeaders({
-    'content-type': 'application/json',
-    'encoding': 'UTF-8'
-  })
 
   constructor(
     private http:HttpClient
@@ -19,27 +15,21 @@ export class CursosService {
 
   }
 
-  getCursos():Observable<Curso[]> {
-    return this.http.get<Curso[]>(`${environment.api}/Cursos`, {
-      headers: this.header
-    })
+  obtenerCursos():Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${environment.api}/Cursos`);
   }
 
-  agregarCurso(curso: Curso) {
-    this.http.post(`${environment.api}/Cursos/`, curso, {
-      headers: this.header
-    }).subscribe()
-  }
-
-  eliminarCurso(id: number) {
-    this.http.delete<Curso>(`${environment.api}/Cursos/${id}`).subscribe()
+  agregarCurso(curso: Curso): Observable<Curso>{
+    return this.http.post<Curso>(`${environment.api}/Cursos`, curso);
   }
 
   editarCurso(curso: Curso) {
-    this.http.put<Curso>(`${environment.api}/Cursos/${curso.id}`, curso).subscribe()
-
+    return this.http.put<Curso>(`${environment.api}/Cursos/${curso.id}`, curso)
   }
 
+  eliminarCurso(curso: Curso): Observable<Curso>{
+    return this.http.delete<Curso>(`${environment.api}/Cursos/${curso.id}`);
+  }
 }
 
 

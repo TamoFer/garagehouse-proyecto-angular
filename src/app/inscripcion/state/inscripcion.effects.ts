@@ -1,26 +1,52 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
+import { map, concatMap } from 'rxjs/operators';
 import * as InscripcionActions from './inscripcion.actions';
+import { ListaInscripcionesService } from '../service/lista-inscripciones.service';
+import { Inscripcion } from 'src/app/models/inscripcion';
 
 
 @Injectable()
 export class InscripcionEffects {
 
-  loadInscripcions$ = createEffect(() => {
-    return this.actions$.pipe( 
-
-      ofType(InscripcionActions.loadInscripcions),
-      concatMap(() =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        EMPTY.pipe(
-          map(data => InscripcionActions.loadInscripcionsSuccess({ data })),
-          catchError(error => of(InscripcionActions.loadInscripcionsFailure({ error }))))
-      )
+  cargarInscripciones$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(InscripcionActions.cargarInscripciones),
+      concatMap(() => this.inscripciones.obtenerInscripciones().pipe(
+        map((i: Inscripcion[]) => InscripcionActions.inscripcionesCargadas({inscripciones: i}))
+      ))
     );
   });
 
+  agregarInscripciones$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(InscripcionActions.agregarInscripcion),
+      concatMap(({ inscripcion }) => this.inscripciones.agregarInscripcion(inscripcion).pipe(
+        map((i: Inscripcion) => InscripcionActions.cargarInscripciones())
+      ))
+    );
+  });
 
-  constructor(private actions$: Actions) {}
+  eliminarInscripcion$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(InscripcionActions.eliminarInscripcion),
+      concatMap(({ inscripcion }) => this.inscripciones.eliminarInscripcion(inscripcion).pipe(
+        map((i: Inscripcion) => InscripcionActions.cargarInscripciones())
+      ))
+    );
+  });
+
+  editarInscripcion$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(InscripcionActions.editarInscripcion),
+      concatMap(({ inscripcion }) => this.inscripciones.editarInscripcion(inscripcion).pipe(
+        map((i: Inscripcion) => InscripcionActions.cargarInscripciones())
+      ))
+    );
+  });
+
+  constructor(
+    private actions$: Actions,
+    private inscripciones: ListaInscripcionesService
+  ) {}
 }

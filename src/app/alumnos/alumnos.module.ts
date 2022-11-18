@@ -1,3 +1,5 @@
+import { AlumnosEffects } from './state/alumnos.effects';
+import { EffectsModule } from '@ngrx/effects';
 import { InicioAlumnosComponent } from './components/inicio-alumnos/inicio-alumnos.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -25,7 +27,8 @@ import { alumnosFeatureKey, alumnosReducer } from './state/alumnos.reducer';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forFeature(alumnosFeatureKey, alumnosReducer)
+    StoreModule.forFeature(alumnosFeatureKey, alumnosReducer),
+    EffectsModule.forFeature([AlumnosEffects])
 
   ]
 })

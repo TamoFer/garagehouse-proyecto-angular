@@ -1,3 +1,5 @@
+import { UsuariosEffects } from './state/usuarios.effects';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,7 +22,8 @@ import {usuariosFeatureKey, usuariosReducer } from './state/usuarios.reducer';
   imports: [
     CommonModule,
     UsuariosRoutingModule,
-    StoreModule.forFeature(usuariosFeatureKey,usuariosReducer)
+    StoreModule.forFeature(usuariosFeatureKey,usuariosReducer),
+    EffectsModule.forFeature([UsuariosEffects])
   ]
 })
 export class UsuariosModule { }

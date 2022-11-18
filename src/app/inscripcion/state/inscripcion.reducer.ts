@@ -14,16 +14,13 @@ export const estadoInicial: InscripcionState = {
 export const inscripcionReducer = createReducer(
   estadoInicial,
 
-  on(InscripcionActions.loadInscripcions, state => {
+  on(InscripcionActions.cargarInscripciones, state => {
     return {...state, cargando: true};
   }),
 
-  on(InscripcionActions.loadInscripcionsSuccess, (state, {inscripciones}) => {
+  on(InscripcionActions.inscripcionesCargadas, (state, {inscripciones}) => {
     return {...state, cargando: false, inscripciones}
   }),
 
-  on(InscripcionActions.loadInscripcionsFailure, (state, {error}) => {
-    return state
-  }),
 
 );

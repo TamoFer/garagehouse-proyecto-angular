@@ -28,7 +28,7 @@ export class AgregarAlumnoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cursosActuales$= this.cursosService.getCursos(),
+    this.cursosActuales$= this.cursosService.obtenerCursos(),
     this.listaCursos.push(this.cursosActuales$.subscribe((data)=>{
       this.listaCursos=data
     })
@@ -50,15 +50,15 @@ export class AgregarAlumnoComponent implements OnInit {
 
 
   agregarAlumno(){
-    const alumno: Alumnos = {
-      idAlumno: Math.round(Math.random() * 100),
-      nombre: this.alumnoNuevo.value.nombre,
-      apellido: this.alumnoNuevo.value.apellido,
-      correo: this.alumnoNuevo.value.correo,
-      cursoActual: this.asociarCurso()
-    };
+    // const alumno: Alumnos = {
+    //   idAlumno: Math.round(Math.random() * 100),
+    //   nombre: this.alumnoNuevo.value.nombre,
+    //   apellido: this.alumnoNuevo.value.apellido,
+    //   correo: this.alumnoNuevo.value.correo,
+    //   cursoActual: this.asociarCurso()
+    // };
 
-    this.alumnosService.agregarAlumno(alumno);
+    // this.alumnosService.agregarAlumno(alumno);
     this.route.navigate(['alumnos/lista-alumnos']);
   }
 

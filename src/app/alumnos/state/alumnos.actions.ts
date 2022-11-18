@@ -1,17 +1,30 @@
 import { createAction, props } from '@ngrx/store';
 import { Alumnos } from 'src/app/models/alumnos';
 
-export const loadAlumnos = createAction(
-  '[Lista Alumnos] Load Alumnos'
+export const cargarAlumnos = createAction(
+  '[Lista Alumnos] Cargar Alumnos'
 
 );
 
-export const loadAlumnosSuccess = createAction(
-  '[Lista Alumnos] Load Alumnos Success',
+export const alumnosCargados = createAction(
+  '[Lista Alumnos] Cargar Alumnos Success',
   props<{ alumnos: Alumnos[] }>()
 );
 
-export const loadAlumnosFailure = createAction(
-  '[Lista Alumnos] Load Alumnos Failure',
-  props<{ error: any }>()
+
+export const agregarAlumno = createAction(
+  '[Lista Alumnos] Agregar Alumno',
+  props<{ alumno: Alumnos }>()
 );
+
+export const editarAlumno = createAction(
+  '[Lista Alumnos] Editar Alumnos ',
+  props<{ alumno: Alumnos }>()
+);
+
+export const eliminarAlumno = createAction(
+  '[Lista Alumnos] Eliminar Alumnos ',
+  props<{ alumno: Alumnos}>()
+);
+
+

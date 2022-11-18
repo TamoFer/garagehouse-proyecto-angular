@@ -9,20 +9,25 @@ import { Observable } from 'rxjs';
 })
 export class UsuariosService {
 
-  header:HttpHeaders=new HttpHeaders({
-    'content-type': 'application/json',
-    'encoding': 'UTF-8'
-  })
-
   constructor(
     private http:HttpClient
-  ) { }
+  ) {
 
-  ngOnInit() {}
+  }
 
-  obtenerUsuarios(): Observable<Usuario[]>{
-    return this.http.get<Usuario[]>(`${environment.api}/usuarios`, {
-      headers: this.header
-    })
+  obtenerUsuarios():Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${environment.api}/usuarios`);
+  }
+
+  agregarUsuario(usuario: Usuario): Observable<Usuario>{
+    return this.http.post<Usuario>(`${environment.api}/usuarios`, usuario);
+  }
+
+  editarUsuario(usuario: Usuario) {
+    return this.http.put<Usuario>(`${environment.api}/usuarios/${usuario.id}`, usuario)
+  }
+
+  eliminarUsuario(usuario: Usuario): Observable<Usuario>{
+    return this.http.delete<Usuario>(`${environment.api}/usuarios/${usuario.id}`);
   }
 }

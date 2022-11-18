@@ -12,16 +12,12 @@ export const estadoInicial: AlumnoState = {
 export const alumnosReducer = createReducer(
   estadoInicial,
 
-  on(AlumnosActions.loadAlumnos, state => {
+  on(AlumnosActions.cargarAlumnos, state => {
     return {...state, cargando: true};
   }),
 
-  on(AlumnosActions.loadAlumnosSuccess, (state, {alumnos}) => {
+  on(AlumnosActions.alumnosCargados, (state, {alumnos}) => {
     return {...state,cargando: false, alumnos}
-  }),
-
-  on(AlumnosActions.loadAlumnosFailure, (state, {error}) => {
-    return state
   }),
 
 );

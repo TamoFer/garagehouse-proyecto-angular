@@ -1,11 +1,11 @@
+import { environment } from './../../../../environments/environment';
 import { selectSesionActiva } from './../../state/sesion.selectors';
 import { Router } from '@angular/router';
 import { Sesion } from 'src/app/models/sesion';
 import { Observable} from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { SesionService } from '../../services/sesion.service';
-import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
+
 
 @Component({
   selector: 'app-toolbar',
@@ -13,12 +13,14 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-
-  sesion$!:Observable<Sesion>
-  valorSesion!:any;
+  nombreComponente:string= 'Inicio';
+  nombreAplicacion:string=  environment.nombreAplicacion;
+  sesion$!:Observable<Sesion>;
+  estadoSesion!: any;
+  usuarioActivo!: any;
 
   constructor(
-    private store:Store<Sesion>,
+    private sesionStore:Store<Sesion>,
     private rutas:Router
   ) {
 
@@ -33,31 +35,10 @@ export class ToolbarComponent implements OnInit {
   }
 
   comprobarSesion(){
-    this.sesion$=this.store.select(selectSesionActiva)
-  }
-
-  cerrarSesion(){
-    Swal.fire({
-      title: 'Cierre de sesion',
-      text: "Volveras al menu de login",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: 'green',
-      cancelButtonColor: 'red',
-      confirmButtonText: 'Cerrar Sesion',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        let sesionCierre:Sesion={
-          sesionActiva:false
-        }
-        // this.sesionService.actualizarSesion(sesionCierre)
-        // this.valorSesion= sesionCierre
-        this.rutas.navigate(['autenticacion/login'])
-      }
+    this.sesionStore.select(selectSesionActiva).subscribe((datosSesion)=>{
+      this.estadoSesion= datosSesion.sesionActiva,
+      this.usuarioActivo= datosSesion.usuarioActivo
     })
-
-
   }
 
 }

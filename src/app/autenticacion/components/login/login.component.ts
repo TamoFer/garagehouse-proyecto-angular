@@ -1,3 +1,4 @@
+import { sesionCargada } from './../../../core/state/sesion.actions';
 import { Sesion } from './../../../models/sesion';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -5,7 +6,6 @@ import { Router } from '@angular/router';
 import { SesionService } from 'src/app/core/services/sesion.service';
 import { Usuario } from 'src/app/models/usuario';
 import { Store } from '@ngrx/store';
-import { loadSesionSuccess } from 'src/app/core/state/sesion.actions';
 
 @Component({
   selector: 'app-login',
@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
     private store: Store<Sesion>
   ) {
     this.formulario = new FormGroup({
-      nameUsuario: new FormControl ('Gail57',[Validators.required]),
-      contrasena: new FormControl('XZnXBRsf7FYwwMa', [Validators.required]),
+      nameUsuario: new FormControl ('Buster13',[Validators.required]),
+      contrasena: new FormControl('Qu5d4SjOERohi1E', [Validators.required]),
     })
   }
 
@@ -37,13 +37,10 @@ export class LoginComponent implements OnInit {
       contrasena: this.formulario.value.contrasena,
       admin: false
     }
-
     this.sesionService.login(u).subscribe((usuario: Usuario) => {
-      this.store.dispatch(loadSesionSuccess({usuarioActivo: usuario}));
+      this.store.dispatch(sesionCargada({usuarioActivo: usuario}));
+      this.ruta.navigate(['inicio']);
     });
-
-
-    this.ruta.navigate(['inicio']);
   }
 
   vaciarCampos(){

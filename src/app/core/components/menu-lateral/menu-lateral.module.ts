@@ -2,19 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MenuLateralRoutingModule } from './menu-lateral-routing.module';
-import { MenuAdminComponent } from './menu-admin/menu-admin.component';
-import { MenuUsuarioComponent } from './menu-usuario/menu-usuario.component';
-import { MenusComponent } from './menus/menus.component';
+import { MaterialModule } from 'src/app/material.module';
 
 
 @NgModule({
   declarations: [
-    MenuAdminComponent,
-    MenuUsuarioComponent,
-    MenusComponent
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     MenuLateralRoutingModule
   ]
 })

@@ -1,0 +1,9 @@
+<ng-container *ngIf="estadoSesion">
+  <mat-drawer-container class="menu-lateral">
+    <a mat-button routerLink="alumnos/lista-alumnos" >Alumnos</a>
+    <a mat-button routerLink="cursos/cursos-cards">Cursos</a>
+    <a mat-button routerLink="inscripociones/lista-inscripciones">Inscripciones</a>
+    <a mat-button *ngIf="usuarioActivo?.admin" routerLink="usuarios/lista-usuarios">Usuarios</a>
+    <a mat-button (click)="cerrarSesion()">Cerrar Sesion</a>
+  </mat-drawer-container>
+</ng-container>

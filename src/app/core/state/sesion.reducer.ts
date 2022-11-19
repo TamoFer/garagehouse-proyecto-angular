@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, createReducer, emptyProps, on } from '@ngrx/store';
 import { Sesion } from 'src/app/models/sesion';
 import * as SesionActions from './sesion.actions';
 
@@ -11,10 +11,13 @@ export const estadoInicial: Sesion = {
 export const reducer = createReducer(
   estadoInicial,
 
-  on(SesionActions.loadSesion, state => state),
+  on(SesionActions.cargarSesion, state => state),
 
-  on(SesionActions.loadSesionSuccess, (state, {usuarioActivo}) => {
+  on(SesionActions.sesionCargada, (state, {usuarioActivo}) => {
     return {...state, sesionActiva: true, usuarioActivo: usuarioActivo}
-  })
+  }),
 
+  on(SesionActions.cerrarSesion, state => {
+    return {...state, sesionActiva: false}
+  }),
 );

@@ -11,25 +11,27 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { MenuComponent} from './core/components/menu-lateral/menu/menu.component';
 
 
 @NgModule({
-  declarations: [
-    ToolbarComponent,
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    CoreModule,
-    SharedModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([])
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+      MenuComponent,
+      ToolbarComponent,
+      AppComponent
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        CoreModule,
+        SharedModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        StoreModule.forRoot({}),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+        EffectsModule.forRoot([]),
+    ]
 })
 export class AppModule{}

@@ -8,7 +8,7 @@ import { AltaUsuarioComponent } from './components/alta-usuario/alta-usuario.com
 import { EditarUsuarioComponent } from './components/editar-usuario/editar-usuario.component';
 
 const routes: Routes = [
-  {path: 'usuarios', component:InicioUsuariosComponent,canActivate: [AutenticacionGuard, AdminGuard],
+  {path: 'usuario', component:InicioUsuariosComponent, canActivate: [AutenticacionGuard, AdminGuard],
   children:[
     {path: 'lista-usuarios', component:ListaUsuariosComponent, canActivate: [AutenticacionGuard, AdminGuard]},
     {path: 'alta-usuario', component:AltaUsuarioComponent, canActivate: [AutenticacionGuard, AdminGuard]},

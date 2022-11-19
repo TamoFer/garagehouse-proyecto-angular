@@ -15,9 +15,9 @@ import { InicioUsuariosComponent } from './components/inicio-usuarios/inicio-usu
 
 @NgModule({
   declarations: [
+    ListaUsuariosComponent,
     AltaUsuarioComponent,
     EditarUsuarioComponent,
-    ListaUsuariosComponent,
     InicioUsuariosComponent
   ],
   imports: [

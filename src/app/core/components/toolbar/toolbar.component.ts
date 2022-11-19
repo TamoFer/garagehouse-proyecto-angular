@@ -13,7 +13,6 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-  nombreComponente:string= 'Inicio';
   nombreAplicacion:string=  environment.nombreAplicacion;
   sesion$!:Observable<Sesion>;
   estadoSesion!: any;

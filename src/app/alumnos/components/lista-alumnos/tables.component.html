@@ -44,7 +44,7 @@
   <div class="tools">
     <div class="tools-elements">
       <h3>Alumnos Actions</h3>
-      <div>
+      <div *ngIf="usuarioActivo?.admin">
         <button mat-raised-button color="primary" (click)="addAlumno()">Agregar Alumno</button>
       </div>
       <form [formGroup]="busquedaEnTabla" >

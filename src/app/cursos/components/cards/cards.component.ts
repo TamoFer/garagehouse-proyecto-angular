@@ -20,15 +20,15 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 
 export class CardsComponent implements OnInit {
-  cursos$!: Observable<Curso[]>;
+
   suscripcionCursos!: Subscription;
   suscripcionSesion!: Subscription;
   suscripcionCursoData!: Subscription;
-  usuarioActivo!: Usuario | undefined;
+  usuarioActivo?: Usuario;
   formulario!: FormGroup;
-  columnas: string[] = ['nombre', 'profesor', 'disponibilidad', 'actions'];
+  columnasAdmin: string[] = ['nombre', 'profesor', 'disponibilidad', 'actions'];
+  columnasUsuario: string[] = ['nombre', 'profesor', 'disponibilidad', 'inscripcion'];
   data: MatTableDataSource<Curso> = new MatTableDataSource<Curso>();
-  cursoBuscado!: any;
 
   constructor(
     private cursoService: CursosService,
@@ -36,16 +36,6 @@ export class CardsComponent implements OnInit {
     private storeCursos: Store<CursoState>,
     private storeSesion: Store<Sesion>
   ) {
-    this.cursos$ = this.storeCursos.select(selectCursos);
-
-    this.suscripcionSesion = this.storeSesion.select(selectSesionActiva).subscribe((s: Sesion) => {
-      this.usuarioActivo = s.usuarioActivo
-    })
-
-    this.suscripcionCursoData = this.storeCursos.select(selectCursos).subscribe((cursos: Curso[]) => {
-      this.data = new MatTableDataSource<Curso>(cursos);
-    });
-
     this.formulario = new FormGroup({
       profesor: new FormControl('', []),
       curso: new FormControl('', [])
@@ -58,16 +48,21 @@ export class CardsComponent implements OnInit {
         this.storeCursos.dispatch(cursosCargados({ cursos }));
       }
     });
+
+    this.suscripcionSesion = this.storeSesion.select(selectSesionActiva).subscribe((s: Sesion) => {
+      this.usuarioActivo = s.usuarioActivo
+    })
+
+    this.suscripcionCursoData = this.storeCursos.select(selectCursos).subscribe((cursos: Curso[]) => {
+      this.data = new MatTableDataSource<Curso>(cursos);
+    });
+
   }
 
   ngOnDestroy(): void {
     this.suscripcionCursos.unsubscribe();
     this.suscripcionCursoData.unsubscribe();
     this.suscripcionSesion.unsubscribe();
-  }
-
-  inscripcion() {
-    alert('Funcion en desarrollo, disculpe las molestias')
   }
 
   agregarCurso() {
@@ -121,5 +116,21 @@ export class CardsComponent implements OnInit {
       this.data = new MatTableDataSource<Curso>(cursos);
     })
   }
+
+  inscribirme(){
+    alert('Proximanente pa')
+  }
+
+  // inscribir(curso: Curso){
+  //   if(this.usuarioActivo){
+  //     const inscripcion: Inscripcion = {
+  //       id: 0,
+  //       curso: curso,
+  //       alumno: this.usuarioActivo,
+  //       fechaInscripcion: new Date()
+  //     };
+  //     this.storeInscripciones.dispatch(agregarInscripcion({inscripcion}));
+  //   }
+  // }
 
 }

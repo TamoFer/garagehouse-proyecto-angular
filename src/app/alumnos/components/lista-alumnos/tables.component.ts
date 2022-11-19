@@ -1,15 +1,17 @@
+import { selectAlumnos } from './../../state/alumnos.selectors';
+import { alumnosCargados } from './../../state/alumnos.actions';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { Alumnos } from 'src/app/models/alumnos';
-import { Observable } from 'rxjs/internal/Observable';
 import { Component,OnInit,} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
-import { map, of, Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
 import { Store } from '@ngrx/store';
 import { Sesion } from 'src/app/models/sesion';
+import { AlumnoState } from 'src/app/models/models-state/alumno.state';
 
 @Component({
   selector: 'app-tables',
@@ -17,11 +19,11 @@ import { Sesion } from 'src/app/models/sesion';
   styleUrls: ['./tables.component.scss']
 })
 export class TablesComponent implements OnInit {
+
+  suscripcionSesion!: Subscription;
+  suscripcionAlumnos!: Subscription;
+  suscripcionAlumnosData!: Subscription;
   usuarioActivo?: Usuario;
-  lista!: any;
-  suscripcion!: Subscription;
-  susData!:Subscription;
-  listaAlumnos$!: Observable<Alumnos[]>;
   columnasAdmin: string[] = ['nombre', 'apellido', 'correo', 'cursando', 'actions'];
   columnasUsuario: string[] = ['nombre', 'apellido', 'correo', 'cursando'];
   data: MatTableDataSource<Alumnos>= new MatTableDataSource<Alumnos>();
@@ -30,21 +32,24 @@ export class TablesComponent implements OnInit {
   constructor(
     private alumnosService: ListaAlumnosService,
     private ruta: Router,
-    private storeSesion: Store<Sesion>
+    private storeSesion: Store<Sesion>,
+    private storeAlumnos: Store<AlumnoState>
   ) {
   }
 
   ngOnInit(): void {
-    this.storeSesion.select(selectSesionActiva).subscribe((datos)=>{
+    this.suscripcionSesion= this.storeSesion.select(selectSesionActiva).subscribe((datos)=>{
       this.usuarioActivo=datos.usuarioActivo
     })
 
-    this.listaAlumnos$=this.alumnosService.obtenerAlumnos(),
-    this.susData=this.listaAlumnos$.subscribe(
-      (alumnos:Alumnos[])=> this.data.data= alumnos
-    ),
-    this.suscripcion= this.listaAlumnos$.subscribe((alumnos)=>{
-      this.lista=alumnos
+    this.suscripcionAlumnos= this.alumnosService.obtenerAlumnos().subscribe({
+      next: (alumnos: Alumnos[])=>{
+        this.storeAlumnos.dispatch(alumnosCargados({alumnos}))
+      }
+    })
+
+    this.suscripcionAlumnosData= this.storeAlumnos.select(selectAlumnos).subscribe((alumnos:Alumnos[])=>{
+      this.data= new MatTableDataSource<Alumnos>(alumnos)
     })
 
     this.busquedaEnTabla= new FormGroup({
@@ -54,44 +59,45 @@ export class TablesComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.suscripcion.unsubscribe()
-    this.susData.unsubscribe()
+    this.suscripcionAlumnos.unsubscribe();
+    this.suscripcionAlumnosData.unsubscribe();
+    this.suscripcionSesion.unsubscribe();
   }
 
   buscarXApellido(){
     const valorObtenido = this.busquedaEnTabla.get('apellido')?.value;
-
-    if(valorObtenido==''){
-      this.data.data=this.lista
-    }else{
-      of(this.lista).pipe(
-        map((alumnos:Alumnos[]) => alumnos.filter((alumno: Alumnos) => alumno.apellido.toLowerCase() === valorObtenido))
-      ).subscribe((alumnos) => {
-        this.data.data= alumnos
-      });
-    }
+    this.storeAlumnos.select(selectAlumnos).pipe(
+      map((alumnos:Alumnos[])=> alumnos.filter((a:Alumnos)=>
+        a.apellido.toLowerCase()==valorObtenido.toLowerCase())
+      )
+    ).subscribe((alumnos)=>{
+      this.data.data = alumnos;
+    })
   }
 
   buscarXCurso(){
     const valorObtenido = this.busquedaEnTabla.get('curso')?.value;
-
-    if(valorObtenido===''){
-      this.data.data=this.lista
-    }else{
-      of(this.lista).pipe(
-        map((alumnos:Alumnos[]) => alumnos.filter((alumno: Alumnos) => alumno.cursoActual.nombre.toLowerCase() === valorObtenido))
-      ).subscribe((alumnos) => {
-        this.data.data= alumnos
-      });
-    }
+    this.storeAlumnos.select(selectAlumnos).pipe(
+      map((alumnos:Alumnos[])=> alumnos.filter((a:Alumnos)=>
+        a.cursoActual.nombre.toLowerCase()==valorObtenido.toLowerCase())
+      )
+    ).subscribe((alumnos)=>{
+      this.data.data = alumnos;
+    })
   }
 
   vaciarCampoCurso(){
-    this.busquedaEnTabla.get('curso')?.reset()
+    this.busquedaEnTabla.get('curso')?.reset();
+    this.storeAlumnos.select(selectAlumnos).subscribe((alumnos:Alumnos[])=>{
+      this.data= new MatTableDataSource<Alumnos>(alumnos)
+    });
   }
 
   vaciarCampoApellido(){
-    this.busquedaEnTabla.get('apellido')?.reset()
+    this.busquedaEnTabla.get('apellido')?.reset();
+    this.storeAlumnos.select(selectAlumnos).subscribe((alumnos:Alumnos[])=>{
+      this.data= new MatTableDataSource<Alumnos>(alumnos)
+    });
   }
 
   addAlumno(){

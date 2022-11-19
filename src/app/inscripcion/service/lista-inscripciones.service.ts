@@ -16,18 +16,18 @@ export class ListaInscripcionesService {
   }
 
   obtenerInscripciones():Observable<Inscripcion[]> {
-    return this.http.get<Inscripcion[]>(`${environment.api}/inscripcion`);
+    return this.http.get<Inscripcion[]>(`${environment.api}/inscripciones`);
   }
 
   agregarInscripcion(inscripcion: Inscripcion): Observable<Inscripcion>{
-    return this.http.post<Inscripcion>(`${environment.api}/inscripcion`, inscripcion);
+    return this.http.post<Inscripcion>(`${environment.api}/inscripciones`, inscripcion);
   }
 
   editarInscripcion(inscripcion: Inscripcion) {
-    return this.http.put<Inscripcion>(`${environment.api}/inscripcion/${inscripcion.id}`, inscripcion)
+    return this.http.put<Inscripcion>(`${environment.api}/inscripciones/${inscripcion.id}`, inscripcion)
   }
 
   eliminarInscripcion(inscripcion: Inscripcion): Observable<Inscripcion>{
-    return this.http.delete<Inscripcion>(`${environment.api}/inscripcion/${inscripcion.id}`);
+    return this.http.delete<Inscripcion>(`${environment.api}/inscripciones/${inscripcion.id}`);
   }
 }

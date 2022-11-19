@@ -6,8 +6,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { InscripcionRoutingModule } from './inscripcion-routing.module';
-import { AltaAlumnoComponent } from './components/alta-alumno/alta-alumno.component';
-import { BajaAlumnoComponent } from './components/baja-alumno/baja-alumno.component';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
 import { inscripcionFeatureKey, inscripcionReducer } from './state/inscripcion.reducer';
 import { EditarInscripcionComponent } from './components/editar-inscripcion/editar-inscripcion.component';
@@ -15,8 +13,6 @@ import { EditarInscripcionComponent } from './components/editar-inscripcion/edit
 
 @NgModule({
   declarations: [
-    AltaAlumnoComponent,
-    BajaAlumnoComponent,
     InscripcionesComponent,
     EditarInscripcionComponent
   ],

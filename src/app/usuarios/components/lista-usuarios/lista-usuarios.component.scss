@@ -1,0 +1,33 @@
+table{
+  width: 98%;
+  margin: 0.75rem;
+
+}
+
+h1{
+  text-align: center;
+  font-size: 3rem;
+  padding: 1rem;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+mat-icon{
+  font-size: 1.7rem;
+}
+
+.contenido{
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.admin{
+  color: green;
+  font-weight: 700;
+}
+
+.noAdmin{
+  color: red;
+  font-weight: 700;
+}

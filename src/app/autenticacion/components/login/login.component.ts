@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
     private store: Store<Sesion>
   ) {
     this.formulario = new FormGroup({
-      nameUsuario: new FormControl ('Buster13',[Validators.required]),
-      contrasena: new FormControl('Qu5d4SjOERohi1E', [Validators.required]),
+      nameUsuario: new FormControl ('Joseph.Morissette3',[Validators.required]),
+      contrasena: new FormControl('UhuCG9zDvdmch26', [Validators.required]),
     })
   }
 

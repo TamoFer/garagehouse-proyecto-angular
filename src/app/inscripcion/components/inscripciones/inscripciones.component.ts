@@ -22,15 +22,15 @@ import { EditarInscripcionComponent } from '../editar-inscripcion/editar-inscrip
   styleUrls: ['./inscripciones.component.scss']
 })
 export class InscripcionesComponent implements OnInit {
-  dataSource!: MatTableDataSource<Inscripcion>;
-  cursos$!: Observable<Curso[]>;
+
+  dataSource: MatTableDataSource<Inscripcion>= new MatTableDataSource<Inscripcion>();
   usuarioActivo?: Usuario;
   cursoSeleccionado!: Curso;
-  columnas: string[] = ['id', 'curso', 'estudiante', 'acciones'];
+  columnasUsuario: string[] = ['estudiante', 'curso', 'fechaInscripcion'];
+  columnasAdmin: string[] = ['estudiante', 'curso', 'fechaInscripcion', 'acciones'];
 
   constructor(
     private storeInscripciones: Store<InscripcionState>,
-    private storeCursos: Store<CursoState>,
     private storeSesion: Store<Sesion>,
     private dialog: MatDialog
   ) {
@@ -41,23 +41,11 @@ export class InscripcionesComponent implements OnInit {
     this.storeInscripciones.select(selectInscripciones).subscribe((inscripciones: Inscripcion[]) => {
       this.dataSource = new MatTableDataSource<Inscripcion>(inscripciones);
     });
-    this.cursos$ = this.storeCursos.select(selectCursos);
     this.storeSesion.select(selectSesionActiva).subscribe((sesion: Sesion) => {
       this.usuarioActivo = sesion.usuarioActivo;
     })
   }
 
-  inscribir(curso: Curso){
-    if(this.usuarioActivo){
-      const inscripcion: Inscripcion = {
-        id: 0,
-        curso: curso,
-        alumno: this.usuarioActivo,
-        fechaInscripcion: new Date()
-      };
-      this.storeInscripciones.dispatch(agregarInscripcion({inscripcion}));
-    }
-  }
 
   editar(inscripcion: Inscripcion){
     this.dialog.open(EditarInscripcionComponent, {

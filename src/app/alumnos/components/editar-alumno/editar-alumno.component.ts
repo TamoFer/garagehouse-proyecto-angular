@@ -1,11 +1,14 @@
+import { editarAlumno } from './../../state/alumnos.actions';
 import { Curso } from '../../../models/curso';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
-import { ListaAlumnosService } from '../../services/lista-alumnos.service';
 import { Alumnos } from '../../../models/alumnos';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component, Inject, inject, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { cursosCargados } from 'src/app/cursos/state/cursos.actions';
+import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
 
 @Component({
   selector: 'app-editar-alumno',
@@ -18,61 +21,56 @@ export class EditarAlumnoComponent implements OnInit {
 
   form!:FormGroup;
   alumno!:Alumnos;
-  listaCursos: Array<any>=[];
-  cursosActuales$!: Observable<Curso[]>;
+  cursos: Array<any>=[];
+  suscripcionCursos!: Subscription;
+
 
   constructor(
+    public dialogRef: MatDialogRef<EditarAlumnoComponent>,
+    @Inject(MAT_DIALOG_DATA)
+    public alumn: Alumnos,
     private cursosService: CursosService,
-    private alumnosService: ListaAlumnosService,
-    private rutas:Router,
-    private rutaActivada: ActivatedRoute
+    private storeCursos: Store<Curso>,
+    private storeAlumnos: Store<Alumnos>
+
   ) { }
 
   ngOnInit(): void {
-    this.cursosActuales$= this.cursosService.obtenerCursos(),
-    this.listaCursos.push(this.cursosActuales$.subscribe((data)=>{
-      this.listaCursos=data
-    })
-    )
-
-    this.rutaActivada.paramMap.subscribe((parametros)=>{
-      this.alumno={
-        idAlumno: parseInt(parametros.get('idAlumno') as string),
-        nombre: (parametros.get('nombre') || ''),
-        apellido: (parametros.get('apellido') || ''),
-        correo: (parametros.get('correo') || ''),
-        cursoActual: JSON.parse(parametros.get('cursoActual') as string)
+    this.suscripcionCursos= this.cursosService.obtenerCursos().subscribe({
+      next: (cursos: Curso[])=>{
+        this.storeCursos.dispatch(cursosCargados({cursos}))
       }
-    })
+    });
+
+    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos)=>{this.cursos=cursos}))
 
     this.form= new FormGroup({
-      nombre: new FormControl(this.alumno.nombre, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
-      apellido: new FormControl(this.alumno.apellido, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
-      correo: new FormControl(this.alumno.correo,[Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$'), Validators.required]),
-      cursoActual: new FormControl(this.alumno.cursoActual.nombre, [Validators.required
+      nombre: new FormControl(this.alumn.nombre, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+      apellido: new FormControl(this.alumn.apellido, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+      correo: new FormControl(this.alumn.correo,[Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$'), Validators.required]),
+      cursoActual: new FormControl(this.alumn.cursoActual.nombre, [Validators.required
       ])
   })
   }
 
   editarCurso(){
     const alumno:Alumnos={
-        idAlumno: this.alumno.idAlumno,
+        idAlumno: this.alumn.idAlumno,
         nombre: this.form.value.nombre,
         apellido: this.form.value.apellido,
         correo: this.form.value.correo,
-        cursoActual: this.form.value.cursoActual,
+        cursoActual: this.asociarCurso(),
     }
+    this.storeAlumnos.dispatch(editarAlumno({alumno}))
+  }
 
-    const cursoListado= this.listaCursos.find(curso=>curso.nombre=== alumno.cursoActual);
-
-    alumno.cursoActual=cursoListado;
-
-    this.alumnosService.editarAlumnos(alumno)
-    this.rutas.navigate(['alumnos/lista-alumnos'])
+  asociarCurso(){
+    const cursoListado= this.cursos.find(curso=> curso.nombre === this.form.value.cursoActual);
+    return this.form.value.curso=cursoListado;
   }
 
   retroceder(){
-    this.rutas.navigate(['alumnos/lista-alumnos']);
+    // this.rutas.navigate(['alumnos/lista-alumnos']);
   }
 
 }

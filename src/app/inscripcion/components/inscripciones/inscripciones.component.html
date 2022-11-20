@@ -1,7 +1,7 @@
 <div class="org-contenido">
-  <h1>Lista de inscripciones</h1>
   <div class="contenido">
     <div class="table">
+      <h1>Lista de inscripciones</h1>
       <table mat-table [dataSource]="dataSource" class="fill">
         <ng-container matColumnDef="curso">
           <th mat-header-cell *matHeaderCellDef>Curso</th>
@@ -44,6 +44,44 @@
           </span>
         </div>
       </table>
+    </div>
+    <div class="tools">
+
+      <form [formGroup]="formulario">
+        <div>
+          <mat-form-field appearance="fill" class="fill">
+            <p>Buscar por estudiante</p>
+            <input type="text" formControlName="estudiante" matInput />
+          </mat-form-field>
+          <div class="botones">
+            <button mat-raised-button color="primary" (click)="buscarXEstudiante()">
+              Buscar </button>
+            <button mat-raised-button color="primary" (click)="vaciarCampoEstudiante()">Vaciar</button>
+          </div>
+        </div>
+        <div class="">
+          <mat-form-field appearance="fill" class="fill">
+            <p>Buscar por curso</p>
+            <input type="text" formControlName="curso" matInput />
+          </mat-form-field>
+          <div class="botones">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="buscarXCurso()"
+            >
+              Buscar
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="vaciarCampoCurso()"
+            >
+              Vaciar
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

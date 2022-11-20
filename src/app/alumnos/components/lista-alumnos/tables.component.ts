@@ -1,5 +1,6 @@
+import { EditarAlumnoComponent } from './../editar-alumno/editar-alumno.component';
 import { selectAlumnos } from './../../state/alumnos.selectors';
-import { alumnosCargados } from './../../state/alumnos.actions';
+import { alumnosCargados, agregarAlumno, eliminarAlumno } from './../../state/alumnos.actions';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { Alumnos } from 'src/app/models/alumnos';
 import { Component,OnInit,} from '@angular/core';
@@ -12,6 +13,8 @@ import { Usuario } from 'src/app/models/usuario';
 import { Store } from '@ngrx/store';
 import { Sesion } from 'src/app/models/sesion';
 import { AlumnoState } from 'src/app/models/models-state/alumno.state';
+import { Dialog } from '@angular/cdk/dialog';
+import { AgregarAlumnoComponent } from '../agregar-alumno/agregar-alumno.component';
 
 @Component({
   selector: 'app-tables',
@@ -33,7 +36,8 @@ export class TablesComponent implements OnInit {
     private alumnosService: ListaAlumnosService,
     private ruta: Router,
     private storeSesion: Store<Sesion>,
-    private storeAlumnos: Store<AlumnoState>
+    private storeAlumnos: Store<AlumnoState>,
+    private dialog: Dialog
   ) {
   }
 
@@ -100,21 +104,18 @@ export class TablesComponent implements OnInit {
     });
   }
 
-  addAlumno(){
-    this.ruta.navigate(['alumnos/add-alumno'])
+  agregarAlumno(){
+      this.dialog.open(AgregarAlumnoComponent, {})
   }
 
   editarAlumno(alumno:Alumnos){
-    const datos={
-      ...alumno,
-      cursoActual: JSON.stringify(alumno.cursoActual)
-    }
-    this.ruta.navigate(['alumnos/edit-alumno', datos])
+    this.dialog.open(EditarAlumnoComponent, {
+      data: alumno
+    })
   }
 
-  borrarAlumno(id:number){
-    // this.alumnosService.eliminarAlumnos(id),
-    // this.data.data=this.lista
+  borrarAlumno(alumno:Alumnos){
+    this.storeAlumnos.dispatch(eliminarAlumno({alumno}))
   }
 
 

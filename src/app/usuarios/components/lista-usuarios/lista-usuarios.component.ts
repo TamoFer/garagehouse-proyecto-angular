@@ -2,7 +2,7 @@ import { selectUsuarios } from './../../state/usuarios.selectors';
 import { usuariosCargados } from './../../state/usuarios.actions';
 import { UsuarioState } from './../../../models/models-state/usuario.state';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { map, Subscription } from 'rxjs';
@@ -42,6 +42,10 @@ export class ListaUsuariosComponent implements OnInit {
       this.data= new MatTableDataSource<Usuario>(usuarios)
     })
 
+    this.formulario= new FormGroup({
+      nameUser: new FormControl ('',[]),
+      id: new FormControl('',[])
+    })
   }
 
   ngOnDestroy(): void {

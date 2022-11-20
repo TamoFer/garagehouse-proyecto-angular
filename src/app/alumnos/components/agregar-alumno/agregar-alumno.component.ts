@@ -1,11 +1,14 @@
+import { cursosCargados } from './../../../cursos/state/cursos.actions';
+import { Subscription } from 'rxjs';
+import { selectCursos, selectCursosCargando, selectCursosState } from './../../../cursos/state/cursos.selectors';
 import { Curso } from '../../../models/curso';
-import { Observable } from 'rxjs/internal/Observable';
-import { Alumnos } from '../../../models/alumnos';
-import { ListaAlumnosService } from '../../services/lista-alumnos.service';
 import { Component,OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Alumnos } from 'src/app/models/alumnos';
+import { Store } from '@ngrx/store';
+import { MatDialogRef} from '@angular/material/dialog';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
+import { agregarAlumno } from '../../state/alumnos.actions';
 
 
 @Component({
@@ -16,23 +19,26 @@ import { CursosService } from 'src/app/cursos/services/cursos.service';
 
 export class AgregarAlumnoComponent implements OnInit {
 
-  cursosActuales$!: Observable<Curso[]>;
-  listaCursos:Array<any>=[];
   alumnoNuevo!: FormGroup;
+  cursos: Array<any>=[];
+  suscripcionCursos!:Subscription;
 
   constructor(
-    private fb: FormBuilder,
-    private cursosService:CursosService,
-    private alumnosService:ListaAlumnosService,
-    private route: Router
+    private storeAlumnos: Store<Alumnos>,
+    private cursosService: CursosService,
+    private storeCursos: Store<Curso>,
+    public dialogRef: MatDialogRef<AgregarAlumnoComponent>
   ) { }
 
   ngOnInit(): void {
-    this.cursosActuales$= this.cursosService.obtenerCursos(),
-    this.listaCursos.push(this.cursosActuales$.subscribe((data)=>{
-      this.listaCursos=data
+    this.suscripcionCursos= this.cursosService.obtenerCursos().subscribe({
+      next: (cursos:Curso[])=>{
+        this.storeCursos.dispatch(cursosCargados({cursos}))
+      }
     })
-    )
+    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos)=>{this.cursos=cursos}))
+
+
     this.alumnoNuevo= new FormGroup({
       nombre: new FormControl ('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]) ,
       apellido:new FormControl ('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
@@ -43,27 +49,27 @@ export class AgregarAlumnoComponent implements OnInit {
 
 
   asociarCurso(){
-    const cursoListado= this.listaCursos.find(curso=>curso.nombre.toLocaleLowerCase()===this.alumnoNuevo.value.curso.toLocaleLowerCase());
-
+    const cursoListado= this.cursos.find(curso=> curso.nombre === this.alumnoNuevo.value.curso);
     return this.alumnoNuevo.value.curso=cursoListado;
   }
 
 
   agregarAlumno(){
-    // const alumno: Alumnos = {
-    //   idAlumno: Math.round(Math.random() * 100),
-    //   nombre: this.alumnoNuevo.value.nombre,
-    //   apellido: this.alumnoNuevo.value.apellido,
-    //   correo: this.alumnoNuevo.value.correo,
-    //   cursoActual: this.asociarCurso()
-    // };
-
-    // this.alumnosService.agregarAlumno(alumno);
-    this.route.navigate(['alumnos/lista-alumnos']);
+    const alumno: Alumnos = {
+      idAlumno: Math.round(Math.random() * 100),
+      nombre: this.alumnoNuevo.value.nombre,
+      apellido: this.alumnoNuevo.value.apellido,
+      correo: this.alumnoNuevo.value.correo,
+      cursoActual: this.asociarCurso()
+    };
+    this.storeAlumnos.dispatch(agregarAlumno({alumno}))
+    // this.dialogRef.close()
   }
 
-  retroceder(){
-    this.route.navigate(['alumnos/lista-alumnos']);
+  retroceder():void{
+    // this.dialogRef.close()
+
+    // this.route.navigate(['alumnos/lista-alumnos']);
   }
 
 

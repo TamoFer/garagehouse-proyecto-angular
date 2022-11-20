@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TablesComponent } from './components/lista-alumnos/tables.component';
 import { StoreModule } from '@ngrx/store';
 import { alumnosFeatureKey, alumnosReducer } from './state/alumnos.reducer';
+import { MatDialogRef } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -20,6 +21,9 @@ import { alumnosFeatureKey, alumnosReducer } from './state/alumnos.reducer';
     AgregarAlumnoComponent,
     EditarAlumnoComponent,
     InicioAlumnosComponent
+  ],
+  providers: [
+
   ],
   imports: [
     CommonModule,

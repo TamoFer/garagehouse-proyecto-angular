@@ -25,7 +25,7 @@
                     <mat-icon (click)="editarAlumno(alumno)" color="primary">edit_note</mat-icon>
                 </button>
                 <button mat-icon-button>
-                    <mat-icon (click)="borrarAlumno(alumno.idAlumno)" color="warn">delete_forever</mat-icon>
+                    <mat-icon (click)="borrarAlumno(alumno)" color="warn">delete_forever</mat-icon>
                 </button>
             </td>
         </ng-container>
@@ -45,12 +45,12 @@
     <div class="tools-elements">
       <h3>Alumnos Actions</h3>
       <div *ngIf="usuarioActivo?.admin">
-        <button mat-raised-button color="primary" (click)="addAlumno()">Agregar Alumno</button>
+        <button mat-raised-button color="primary" (click)="agregarAlumno()">Agregar Alumno</button>
       </div>
       <form [formGroup]="busquedaEnTabla" >
         <div class="">
           <mat-form-field appearance="fill" class="fill">
-            <p>Buscarlo por apellido</p>
+            <p>Buscar por apellido</p>
             <input type="text" formControlName="apellido" matInput/>
           </mat-form-field>
           <div class="botones">
@@ -60,7 +60,7 @@
         </div>
         <div class="">
           <mat-form-field appearance="fill" class="fill">
-            <p>Buscarlo por curso</p>
+            <p>Buscar por curso</p>
             <input type="text" formControlName="curso" matInput />
           </mat-form-field>
           <div class="botones">

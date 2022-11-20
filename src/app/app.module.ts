@@ -12,6 +12,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { MenuComponent} from './core/components/menu-lateral/menu/menu.component';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -20,7 +22,16 @@ import { MenuComponent} from './core/components/menu-lateral/menu/menu.component
       ToolbarComponent,
       AppComponent
     ],
-    providers: [],
+    providers: [
+      {
+        provide: MatDialogRef,
+        useValue: {}
+      },
+      {
+        provide: MAT_DIALOG_DATA,
+        useValue: {}
+      },
+    ],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,

@@ -22,5 +22,16 @@ export const inscripcionReducer = createReducer(
     return {...state, cargando: false, inscripciones}
   }),
 
+  on(InscripcionActions.agregarInscripcion, (state, {inscripcion}) => {
+    return state
+  }),
+
+  on(InscripcionActions.editarInscripcion, (state, {inscripcion}) => {
+    return state
+  }),
+
+  on(InscripcionActions.eliminarInscripcion, (state, {inscripcion}) => {
+    return state
+  })
 
 );

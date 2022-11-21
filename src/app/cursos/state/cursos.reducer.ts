@@ -19,7 +19,17 @@ export const cursosReducer = createReducer(
 
   on(CursosActions.cursosCargados, (state, {cursos}) => {
     return {...state, cargando: false, cursos}
+  }),
+
+  on(CursosActions.agregarCurso, (state, {curso}) => {
+    return state
+  }),
+
+  on(CursosActions.editarCurso, (state, {curso}) => {
+    return state
+  }),
+
+  on(CursosActions.eliminarCurso, (state, {curso}) => {
+    return state
   })
-
-
 );

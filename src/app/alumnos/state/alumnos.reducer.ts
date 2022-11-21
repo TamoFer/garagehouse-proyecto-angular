@@ -20,4 +20,13 @@ export const alumnosReducer = createReducer(
     return {...state,cargando: false, alumnos}
   }),
 
+  on(AlumnosActions.agregarAlumno, (state, {alumno}) => {
+    return state
+  }),
+  on(AlumnosActions.editarAlumno, (state, {alumno}) => {
+    return state
+  }),
+  on(AlumnosActions.eliminarAlumno, (state, {alumno}) => {
+    return state
+  })
 );

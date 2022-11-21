@@ -4,59 +4,43 @@
       <form [formGroup]="form" (ngSubmit)="editarCurso()">
         <mat-form-field appearance="fill" >
           <mat-label>Nombre del alumno</mat-label>
-          <input matInput type="text" formControlName="nombre" [ngClass]="{'is-invalid': form.get('nombre')?.errors && form.get('nombre')?.touched}"/>
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
+          <input matInput type="text" formControlName="nombre" />
         </mat-form-field>
 
         <mat-form-field appearance="fill" >
           <mat-label>Apellido del alumno </mat-label>
-          <input matInput type="text" formControlName="apellido" [ngClass]="{'is-invalid': form.get('apellido')?.errors && form.get('apellido')?.touched}" />
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
+          <input matInput type="text" formControlName="apellido" />
         </mat-form-field>
 
         <mat-form-field appearance="fill" >
           <mat-label>Correo del alumno</mat-label>
-          <input matInput type="email" formControlName="correo" [ngClass]="{'is-invalid':form.get('correo')?.touched && form.get('correo')?.errors?.['required'] || form.get('correo')?.errors?.['pattern'] }" />
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
+          <input matInput type="email" formControlName="correo" />
         </mat-form-field>
 
         <mat-form-field appearance="fill"  >
           <mat-label>Curso actual del alumno</mat-label>
           <input matInput type="text" formControlName="cursoActual" readonly/>
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
         </mat-form-field>
 
         <div>
           <p>Elegi el curso a cambiar</p>
           <mat-form-field appearance="fill">
             <mat-label>Cursos Disponibles</mat-label>
-            <mat-select formControlName="cursoActual" [ngClass]="{'is-invalid':form.get('curso')?.errors?.['required']}">
+            <mat-select formControlName="cursoActual">
               <mat-option  *ngFor="let curso of cursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
             </mat-select>
-            <div class="invalid-feedback">
-              <small>El campo es requerido</small>
-            </div>
           </mat-form-field>
         </div>
 
       </form>
     </div>
-
     <div mat-dialog-actions>
       <div class="botones">
         <div class="">
           <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" >Terminar edicion</button>
         </div>
         <div class="">
-          <button mat-raised-button color="primary" (click)="retroceder()" >Cancelar</button>
+          <button mat-raised-button color="primary" type="button" (click)="retroceder()" >Cancelar</button>
         </div>
       </div>
     </div>

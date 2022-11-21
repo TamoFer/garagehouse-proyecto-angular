@@ -20,4 +20,15 @@ export const usuariosReducer = createReducer(
     return {...state, cargando:false, usuarios}
   }),
 
+  on(UsuariosActions.agregarUsuario, (state, {usuario}) => {
+    return state
+  }),
+
+  on(UsuariosActions.editarUsuario, (state, {usuario}) => {
+    return state
+  }),
+
+  on(UsuariosActions.eliminarUsuario, (state, {usuario}) => {
+    return state
+  })
 );

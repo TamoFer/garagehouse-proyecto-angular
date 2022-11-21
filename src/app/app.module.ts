@@ -12,8 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { MenuComponent} from './core/components/menu-lateral/menu/menu.component';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -35,7 +34,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
-        HttpClientModule,
         CoreModule,
         SharedModule,
         AppRoutingModule,

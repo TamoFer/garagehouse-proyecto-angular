@@ -3,7 +3,7 @@ import { Curso } from '../../../models/curso';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
 import { Alumnos } from '../../../models/alumnos';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, Inject, inject, OnInit } from '@angular/core';
+import { Component, Inject,OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -20,20 +20,28 @@ import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
 export class EditarAlumnoComponent implements OnInit {
 
   form!:FormGroup;
-  alumno!:Alumnos;
+  alumnos!:Alumnos;
   cursos: Array<any>=[];
   suscripcionCursos!: Subscription;
 
 
   constructor(
     public dialogRef: MatDialogRef<EditarAlumnoComponent>,
-    @Inject(MAT_DIALOG_DATA)
-    public alumn: Alumnos,
+    @Inject(MAT_DIALOG_DATA) public alumno: Alumnos,
     private cursosService: CursosService,
     private storeCursos: Store<Curso>,
     private storeAlumnos: Store<Alumnos>
 
-  ) { }
+  ) {
+    console.log(alumno);
+
+    this.form= new FormGroup({
+      nombre: new FormControl(this.alumno.nombre),
+      apellido: new FormControl(),
+      correo: new FormControl(),
+      cursoActual: new FormControl()
+  })
+  }
 
   ngOnInit(): void {
     this.suscripcionCursos= this.cursosService.obtenerCursos().subscribe({
@@ -42,20 +50,13 @@ export class EditarAlumnoComponent implements OnInit {
       }
     });
 
-    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos)=>{this.cursos=cursos}))
+    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos)=>{this.cursos=cursos}));
 
-    this.form= new FormGroup({
-      nombre: new FormControl(this.alumn.nombre, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
-      apellido: new FormControl(this.alumn.apellido, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
-      correo: new FormControl(this.alumn.correo,[Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$'), Validators.required]),
-      cursoActual: new FormControl(this.alumn.cursoActual.nombre, [Validators.required
-      ])
-  })
   }
 
   editarCurso(){
     const alumno:Alumnos={
-        idAlumno: this.alumn.idAlumno,
+        idAlumno: this.alumno.idAlumno,
         nombre: this.form.value.nombre,
         apellido: this.form.value.apellido,
         correo: this.form.value.correo,

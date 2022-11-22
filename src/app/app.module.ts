@@ -21,16 +21,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
       ToolbarComponent,
       AppComponent
     ],
-    providers: [
-      {
-        provide: MatDialogRef,
-        useValue: {}
-      },
-      {
-        provide: MAT_DIALOG_DATA,
-        useValue: {}
-      },
-    ],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,

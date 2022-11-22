@@ -6,5 +6,4 @@ export interface Curso{
   ftermino:Date;
   descripcion:string;
   disponibilidad:boolean;
-  img:string
 }

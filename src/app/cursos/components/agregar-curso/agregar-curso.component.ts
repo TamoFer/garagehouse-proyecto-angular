@@ -1,8 +1,9 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 import { Curso } from 'src/app/models/curso';
-import { CursosService } from '../../services/cursos.service';
+import { agregarCurso } from '../../state/cursos.actions';
 
 @Component({
   selector: 'app-agregar-curso',
@@ -11,26 +12,23 @@ import { CursosService } from '../../services/cursos.service';
 })
 export class AgregarCursoComponent implements OnInit {
 
+  cursoNuevo!: FormGroup;
+
   constructor(
-    private fb: FormBuilder,
-    private cursosService:CursosService,
-    private route: Router
+    private storeCursos: Store<Curso>,
+    public dialogRef: MatDialogRef<AgregarCursoComponent>
   ) { }
 
   ngOnInit(): void {
+    this.cursoNuevo= new FormGroup({
+      nombre: new FormControl('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+      profe: new FormControl('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+      inicio: new FormControl('',[Validators.required]),
+      fin: new FormControl('',[Validators.required]),
+      descripcion: new FormControl('',[Validators.required,Validators.minLength(10), Validators.maxLength(50)]),
+      disponibilidad: new FormControl(false)
+    })
   }
-
-  cursoNuevo: FormGroup = this.fb.group(
-    {
-      nombre:['',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]],
-      profe: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]],
-      inicio:['',[Validators.required]],
-      fin:['',[Validators.required]],
-      descripcion:['',[Validators.required,Validators.minLength(10), Validators.maxLength(50)]],
-      disponibilidad:['',[Validators.required]],
-      img:['']
-    }
-  )
 
   agregarCurso(){
     const curso: Curso = {
@@ -40,15 +38,15 @@ export class AgregarCursoComponent implements OnInit {
       finicio: this.cursoNuevo.value.inicio,
       ftermino: this.cursoNuevo.value.fin,
       descripcion: this.cursoNuevo.value.descripcion,
-      disponibilidad: this.cursoNuevo.value.disponibilidad,
-      img: '../../../assets/images/webdesing.jpg',
+      disponibilidad: this.cursoNuevo.value.disponibilidad
     };
-    this.cursosService.agregarCurso(curso);
-    this.route.navigate(['cursos/cursos-cards']);
+    this.storeCursos.dispatch(agregarCurso({curso}))
+    this.dialogRef.close();
+
   }
 
   retroceder(){
-    this.route.navigate(['cursos/cursos-cards']);
+    this.dialogRef.close();
   }
 
 }

@@ -1,15 +1,53 @@
-<p>editar-inscripcion works!</p>
+<div class="dialog">
+  <h1 mat-dialog-title>NUEVO ALUMNO</h1>
+    <div mat-dialog-content>
+      <form [formGroup]="formulario">
 
-<!-- <div class="row" >
-  <div class="col-md-4">
-      <mat-form-field appearance="fill" class="fill">
-          <mat-label>Seleccione un curso</mat-label>
-          <mat-select [(ngModel)]="cursoSeleccionado">
-              <mat-option *ngFor="let curso of cursos$ | async" [value]="curso">{{ curso.nombre }}</mat-option>
-          </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="fill" >
+          <mat-label>Curso inscripto</mat-label>
+          <input matInput type="text" formControlName="curso" readonly/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Alumno inscripto</mat-label>
+          <input matInput type="text" formControlName="alumno" readonly/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Fecha de inscripcion</mat-label>
+          <input matInput type="text" formControlName="fechaInscripcion" readonly/>
+        </mat-form-field>
+
+        <div>
+          <p>Reasignar curso</p>
+          <mat-form-field appearance="fill">
+            <mat-label>Cursos Disponibles</mat-label>
+            <mat-select formControlName="curso">
+              <mat-option  *ngFor="let curso of cursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <p>Corregir fecha de inscripcion</p>
+          <mat-form-field appearance="fill" >
+            <mat-label>Fecha de inscripcion</mat-label>
+            <input matInput [matDatepicker]="nuevaFecha" formControlName="fechaInscripcion"/>
+            <mat-datepicker-toggle matSuffix [for]="nuevaFecha"></mat-datepicker-toggle>
+            <mat-datepicker #nuevaFecha></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+      </form>
+    </div>
+    <div mat-dialog-actions>
+      <div class="botones">
+        <div class="">
+          <button mat-raised-button color="primary" (click)="editarInscripcion()" >Terminar edicion</button>
+        </div>
+        <div class="">
+          <button mat-raised-button color="primary" type="button" (click)="retroceder()" >Cancelar</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-md-2">
-      <button mat-raised-button color="primary" (click)="inscribir(cursoSeleccionado)">Inscribir</button>
-  </div>
-</div> -->

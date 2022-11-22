@@ -2,7 +2,7 @@ import { editarAlumno } from './../../state/alumnos.actions';
 import { Curso } from '../../../models/curso';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
 import { Alumnos } from '../../../models/alumnos';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Component, Inject,OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -33,13 +33,12 @@ export class EditarAlumnoComponent implements OnInit {
     private storeAlumnos: Store<Alumnos>
 
   ) {
-    console.log(alumno);
 
     this.form= new FormGroup({
-      nombre: new FormControl(this.alumno.nombre),
-      apellido: new FormControl(),
-      correo: new FormControl(),
-      cursoActual: new FormControl()
+      nombre: new FormControl(this.alumno.nombre,[Validators.minLength(3), Validators.maxLength(25)]),
+      apellido: new FormControl(this.alumno.apellido, [Validators.minLength(3), Validators.maxLength(25)]),
+      correo: new FormControl(this.alumno.correo, [Validators.required,Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$')]),
+      cursoActual: new FormControl(this.alumno.cursoActual.nombre)
   })
   }
 
@@ -54,15 +53,17 @@ export class EditarAlumnoComponent implements OnInit {
 
   }
 
-  editarCurso(){
-    const alumno:Alumnos={
+  editarAlumno(){
+    const alumnoEditado:Alumnos={
         idAlumno: this.alumno.idAlumno,
         nombre: this.form.value.nombre,
         apellido: this.form.value.apellido,
         correo: this.form.value.correo,
         cursoActual: this.asociarCurso(),
     }
-    this.storeAlumnos.dispatch(editarAlumno({alumno}))
+
+    this.storeAlumnos.dispatch(editarAlumno({alumno:alumnoEditado}))
+    this.dialogRef.close();
   }
 
   asociarCurso(){
@@ -71,7 +72,7 @@ export class EditarAlumnoComponent implements OnInit {
   }
 
   retroceder(){
-    // this.rutas.navigate(['alumnos/lista-alumnos']);
+    this.dialogRef.close();
   }
 
 }

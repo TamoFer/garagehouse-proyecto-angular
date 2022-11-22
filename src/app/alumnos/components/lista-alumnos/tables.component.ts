@@ -1,9 +1,10 @@
+import { MatDialog } from '@angular/material/dialog';
 import { EditarAlumnoComponent } from './../editar-alumno/editar-alumno.component';
 import { selectAlumnos } from './../../state/alumnos.selectors';
 import { alumnosCargados, agregarAlumno, eliminarAlumno } from './../../state/alumnos.actions';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { Alumnos } from 'src/app/models/alumnos';
-import { Component,OnInit,} from '@angular/core';
+import { Component,NgZone,OnInit,} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
 import { map, Subscription } from 'rxjs';
@@ -13,7 +14,6 @@ import { Usuario } from 'src/app/models/usuario';
 import { Store } from '@ngrx/store';
 import { Sesion } from 'src/app/models/sesion';
 import { AlumnoState } from 'src/app/models/models-state/alumno.state';
-import { Dialog } from '@angular/cdk/dialog';
 import { AgregarAlumnoComponent } from '../agregar-alumno/agregar-alumno.component';
 
 @Component({
@@ -37,7 +37,8 @@ export class TablesComponent implements OnInit {
     private ruta: Router,
     private storeSesion: Store<Sesion>,
     private storeAlumnos: Store<AlumnoState>,
-    private dialog: Dialog
+    private dialog: MatDialog,
+    private zone: NgZone
   ) {
   }
 

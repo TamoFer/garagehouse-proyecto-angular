@@ -1,8 +1,9 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Curso } from 'src/app/models/curso';
-import { CursosService } from '../../services/cursos.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { editarCurso } from '../../state/cursos.actions';
 
 @Component({
   selector: 'app-editar-curso',
@@ -10,61 +11,47 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./editar-curso.component.scss']
 })
 export class EditarCursoComponent implements OnInit {
+
   form!:FormGroup;
-  curso!:Curso;
-  idCurso: string= String(Math.round(Math.random() * 1000))
+  cursos: Array<any>=[];
 
   constructor(
-    private cursosService:CursosService,
-    private rutas:Router,
-    private rutaActivada: ActivatedRoute
+    public dialogRef: MatDialogRef<EditarCursoComponent>,
+    @Inject(MAT_DIALOG_DATA) public curso:Curso,
+    private storeCursos: Store<Curso>,
+
   ) { }
 
   ngOnInit(): void {
-    this.rutaActivada.paramMap.subscribe((parametros)=>{
-      this.curso={
-        id: parseInt(parametros.get('id') || this.idCurso),
-        nombre: parametros.get('nombre') || '',
-        profesor: parametros.get('profesor') || '',
-        finicio: new Date(parametros.get('finicio') || ''),
-        ftermino: new Date(parametros.get('ftermino') || ''),
-        descripcion: parametros.get('descripcion') || '',
-        disponibilidad: parametros.get('disponibilidad')==='true',
-        img: parametros.get('img') || ''
-      }
-    })
+
 
     this.form= new FormGroup({
         nombre: new FormControl(this.curso.nombre, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
         profe: new FormControl(this.curso.profesor, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
-        inicio: new FormControl(this.curso.finicio, [Validators.required
-        ]),
-        fin: new FormControl(this.curso.ftermino, [Validators.required
-        ]),
-        descripcion: new FormControl(this.curso.descripcion, [Validators.required,Validators.minLength(10), Validators.maxLength(25)]),
-        disponibilidad:new FormControl(this.curso.disponibilidad) ,
-        img:new FormControl(this.curso.img)
+        inicio: new FormControl(this.curso.finicio),
+        fin: new FormControl(this.curso.ftermino),
+        descripcion: new FormControl(this.curso.descripcion, [Validators.minLength(10), Validators.maxLength(25)]),
+        disponibilidad:new FormControl(this.curso.disponibilidad)
     })
   }
 
   editarCurso(){
-    let curso:Curso={
+    const cursoEditado:Curso={
         id: this.curso.id,
         nombre: this.form.value.nombre,
         profesor: this.form.value.profe,
         finicio: this.form.value.inicio,
         ftermino: this.form.value.fin,
         descripcion: this.form.value.descripcion,
-        disponibilidad:this.form.value.disponibilidad,
-        img:this.form.value.img
+        disponibilidad:this.form.value.disponibilidad
     }
-    this.cursosService.editarCurso(curso)
-    console.log(curso);
+    this.storeCursos.dispatch(editarCurso({curso:cursoEditado}))
+    this.dialogRef.close();
 
-    this.rutas.navigate(['cursos/cursos-cards'])
   }
 
   retroceder(){
-    this.rutas.navigate(['cursos/cursos-cards']);
+    this.dialogRef.close();
+
   }
 }

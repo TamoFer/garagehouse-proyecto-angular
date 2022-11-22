@@ -1,4 +1,83 @@
-<div>
+<div class="dialog">
+  <h1 mat-dialog-title>NUEVO ALUMNO</h1>
+    <div mat-dialog-content>
+      <form [formGroup]="cursoNuevo" >
+        <mat-form-field appearance="fill" >
+          <mat-label>Nombre del curso</mat-label>
+          <input matInput type="text" formControlName="nombre" [ngClass]="{'is-invalid': cursoNuevo.get('nombre')?.errors && cursoNuevo.get('nombre')?.touched}" />
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Nombre del profesor</mat-label>
+          <input matInput type="text" formControlName="profe" [ngClass]="{'is-invalid': cursoNuevo.get('profe')?.errors && cursoNuevo.get('profe')?.touched}"/>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Inicio del curso</mat-label>
+          <input matInput [matDatepicker]="fechaInicio" formControlName="inicio" [ngClass]="{'is-invalid':cursoNuevo.get('inicio')?.errors?.['required']}"/>
+          <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+          <mat-datepicker #fechaInicio></mat-datepicker>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Fin del curso</mat-label>
+          <input matInput [matDatepicker]="fechaFin" formControlName="fin" [ngClass]="{'is-invalid':cursoNuevo.get('fin')?.errors?.['required']}"  />
+          <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+          <mat-datepicker #fechaFin></mat-datepicker>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Descripcion del curso</mat-label>
+          <textarea matInput formControlName="descripcion" [ngClass]="{'is-invalid': cursoNuevo.get('descripcion')?.errors && cursoNuevo.get('descripcion')?.touched}"></textarea>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-slide-toggle formControlName="disponibilidad">Inscripcion abierta</mat-slide-toggle>
+
+      </form>
+    </div>
+
+    <div mat-dialog-actions>
+      <div class="botones">
+          <div class="">
+            <button mat-raised-button color="primary" type="button" [disabled]="cursoNuevo.invalid" (click)="agregarCurso()" >Agregar curso</button>
+          </div>
+          <div class="">
+            <button mat-raised-button type="button" color="primary" (click)="retroceder()">Cancelar</button>
+          </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div>
   <form [formGroup]="cursoNuevo" (ngSubmit)="agregarCurso()" >
 
     <div class="row">
@@ -71,4 +150,4 @@
       </div>
     </div>
   </form>
-</div>
+</div> -->

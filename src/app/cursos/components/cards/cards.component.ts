@@ -1,4 +1,5 @@
-import { cursosCargados } from './../../state/cursos.actions';
+import { MatDialog } from '@angular/material/dialog';
+import { cursosCargados, eliminarCurso } from './../../state/cursos.actions';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
 import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
@@ -12,6 +13,8 @@ import { CursosService } from '../../services/cursos.service';
 import { CursoState } from 'src/app/models/models-state/curso.state';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { MatTableDataSource } from '@angular/material/table';
+import { AgregarCursoComponent } from '../agregar-curso/agregar-curso.component';
+import { EditarCursoComponent } from '../editar-curso/editar-curso.component';
 
 @Component({
   selector: 'app-cards',
@@ -24,17 +27,19 @@ export class CardsComponent implements OnInit {
   suscripcionCursos!: Subscription;
   suscripcionSesion!: Subscription;
   suscripcionCursoData!: Subscription;
+
   usuarioActivo?: Usuario;
   formulario!: FormGroup;
+
   columnasAdmin: string[] = ['nombre', 'profesor', 'disponibilidad', 'actions'];
   columnasUsuario: string[] = ['nombre', 'profesor', 'disponibilidad', 'inscripcion'];
   data: MatTableDataSource<Curso> = new MatTableDataSource<Curso>();
 
   constructor(
     private cursoService: CursosService,
-    private router: Router,
     private storeCursos: Store<CursoState>,
-    private storeSesion: Store<Sesion>
+    private storeSesion: Store<Sesion>,
+    private dialog: MatDialog
   ) {
     this.formulario = new FormGroup({
       profesor: new FormControl('', []),
@@ -66,17 +71,18 @@ export class CardsComponent implements OnInit {
   }
 
   agregarCurso() {
-    this.router.navigate(['cursos/agregar-curso'])
+    this.dialog.open(AgregarCursoComponent,{})
   }
 
 
   editarDatos(curso: Curso) {
-    this.router.navigate(['cursos/editar-curso', curso])
+    this.dialog.open(EditarCursoComponent, {
+      data: curso
+    })
   }
 
-  eliminarCurso(id: number) {
-    // this.store.dispatch(eliminarCurso({id}))
-    // this.cursosService.eliminarCurso(id)
+  eliminarCurso(curso: Curso) {
+    this.storeCursos.dispatch(eliminarCurso({curso}))
   }
 
   buscarXProfesor() {

@@ -1,10 +1,9 @@
-import { agregarInscripcion, eliminarInscripcion } from './../../state/inscripcion.actions';
+import { eliminarInscripcion } from './../../state/inscripcion.actions';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { map, Subscription } from 'rxjs';
-import { Curso } from 'src/app/models/curso';
 import { Inscripcion } from 'src/app/models/inscripcion';
 import { InscripcionState } from 'src/app/models/models-state/inscripcion.state';
 import { Sesion } from 'src/app/models/sesion';
@@ -26,7 +25,6 @@ export class InscripcionesComponent implements OnInit {
   suscripcionInscripcionData!: Subscription;
   dataSource: MatTableDataSource<Inscripcion>= new MatTableDataSource<Inscripcion>();
   usuarioActivo?: Usuario;
-  cursoSeleccionado!: Curso;
   columnasUsuario: string[] = ['estudiante', 'curso', 'fechaInscripcion'];
   columnasAdmin: string[] = ['estudiante', 'curso', 'fechaInscripcion', 'acciones'];
   formulario!: FormGroup;
@@ -61,7 +59,6 @@ export class InscripcionesComponent implements OnInit {
 
   editar(inscripcion: Inscripcion){
     this.dialog.open(EditarInscripcionComponent, {
-      width: '300px',
       data: inscripcion
     })
   }
@@ -81,7 +78,7 @@ export class InscripcionesComponent implements OnInit {
       })
   }
   vaciarCampoEstudiante(){
-    this.formulario.get('estudiante')?.value;
+    this.formulario.get('estudiante')?.reset();
     this.storeInscripciones.select(selectInscripciones).subscribe((inscripcion:Inscripcion[])=>{
       this.dataSource= new MatTableDataSource<Inscripcion>(inscripcion)
     })
@@ -98,7 +95,7 @@ export class InscripcionesComponent implements OnInit {
       })
   }
   vaciarCampoCurso(){
-    this.formulario.get('curso')?.value;
+    this.formulario.get('curso')?.reset();
     this.storeInscripciones.select(selectInscripciones).subscribe((inscripcion:Inscripcion[])=>{
       this.dataSource= new MatTableDataSource<Inscripcion>(inscripcion)
     })

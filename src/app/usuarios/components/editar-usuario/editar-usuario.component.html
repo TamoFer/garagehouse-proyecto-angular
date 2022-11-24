@@ -13,23 +13,58 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>Contraseña</mat-label>
-          <input
-            matInput
-            type="password"
-            formControlName="contrasena"
-            [ngClass]="{
-              'is-invalid':
-                formulario.get('contrasena')?.errors &&
-                formulario.get('contrasena')?.touched
-            }"
-          />
+          <mat-label>Enter your password</mat-label>
+          <input matInput formControlName="contrasena" [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
 
         <mat-slide-toggle formControlName="admin">Admin</mat-slide-toggle>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Nombre del alumno</mat-label>
+          <input matInput type="text" formControlName="nombre" [ngClass]="{
+            'is-invalid':formulario.get('nombre')?.errors}"/>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Apellido del alumno </mat-label>
+          <input matInput type="text" formControlName="apellido" [ngClass]="{
+            'is-invalid':formulario.get('apellido')?.errors}"/>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Correo del alumno</mat-label>
+          <input matInput type="email" formControlName="correo" [ngClass]="{'is-invalid':formulario.get('correo')?.errors?.['required'] && formulario.get('correo')?.errors?.['pattern'] }"/>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill"  >
+          <mat-label>Curso actual del alumno</mat-label>
+          <input matInput type="text" formControlName="cursoActual" readonly/>
+        </mat-form-field>
+
+        <div>
+          <p>Elegi el curso a cambiar</p>
+          <mat-form-field appearance="fill">
+            <mat-label>Cursos Disponibles</mat-label>
+            <mat-select formControlName="cursoActual">
+              <mat-option  *ngFor="let curso of cursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
       </form>
     </div>

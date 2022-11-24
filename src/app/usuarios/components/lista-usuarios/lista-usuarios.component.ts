@@ -23,13 +23,13 @@ export class ListaUsuariosComponent implements OnInit {
   suscripcionUsuarios!: Subscription;
   suscripcionUsuariosData!: Subscription;
 
-  columnas: string[] = ['id', 'usuario', 'admin', 'actions'];
+  columnas: string[] = ['id', 'usuario', 'admin','estudiante', 'actions'];
+
   data: MatTableDataSource<Usuario> = new MatTableDataSource<Usuario>();
 
   formulario!: FormGroup;
 
   seccion:string ='Usuarios';
-
 
   constructor(
     private usuariosService: UsuariosService,
@@ -38,8 +38,7 @@ export class ListaUsuariosComponent implements OnInit {
     private toolbarService: ToolbarTitleService
 
   ) {
-    this.toolbarService.editarTitleComponent(this.seccion)
-
+    this.toolbarService.editarTitleComponent(this.seccion);
   }
 
   ngOnInit(): void {
@@ -79,10 +78,6 @@ export class ListaUsuariosComponent implements OnInit {
     this.storeUsuarios.dispatch(eliminarUsuario({usuario:user}))
   }
 
-
-
-
-
   buscarXUser() {
     const valorObtenido = this.formulario.get('nameUser')?.value;
     this.storeUsuarios.select(selectUsuarios).pipe(
@@ -118,4 +113,5 @@ export class ListaUsuariosComponent implements OnInit {
       this.data = new MatTableDataSource<Usuario>(usuarios)
     });
   }
+
 }

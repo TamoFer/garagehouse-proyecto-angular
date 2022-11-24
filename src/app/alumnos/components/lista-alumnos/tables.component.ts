@@ -1,7 +1,7 @@
 import { MatDialog } from '@angular/material/dialog';
 import { EditarAlumnoComponent } from './../editar-alumno/editar-alumno.component';
 import { selectAlumnos } from './../../state/alumnos.selectors';
-import { alumnosCargados, eliminarAlumno } from './../../state/alumnos.actions';
+import { alumnosCargados, editarAlumno, eliminarAlumno } from './../../state/alumnos.actions';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { Alumnos } from 'src/app/models/alumnos';
 import { Component,OnInit,} from '@angular/core';
@@ -15,6 +15,10 @@ import { Sesion } from 'src/app/models/sesion';
 import { AlumnoState } from 'src/app/models/models-state/alumno.state';
 import { AgregarAlumnoComponent } from '../agregar-alumno/agregar-alumno.component';
 import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
+import { CursosService } from 'src/app/cursos/services/cursos.service';
+import { Curso } from 'src/app/models/curso';
+import { cursosCargados } from 'src/app/cursos/state/cursos.actions';
+import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
 
 @Component({
   selector: 'app-tables',
@@ -26,24 +30,37 @@ export class TablesComponent implements OnInit {
   suscripcionSesion!: Subscription;
   suscripcionAlumnos!: Subscription;
   suscripcionAlumnosData!: Subscription;
+  suscripcionCursos!:Subscription;
+
   usuarioActivo?: Usuario;
   columnasAdmin: string[] = ['nombre', 'apellido', 'correo', 'cursando', 'actions'];
   columnasUsuario: string[] = ['nombre', 'apellido', 'correo', 'cursando'];
   data: MatTableDataSource<Alumnos>= new MatTableDataSource<Alumnos>();
   busquedaEnTabla!: FormGroup;
   seccion:string = 'Alumnos'
+  cursos:Array<any>=[];
 
   constructor(
     private alumnosService: ListaAlumnosService,
     private storeSesion: Store<Sesion>,
     private storeAlumnos: Store<AlumnoState>,
     private dialog: MatDialog,
-    private toolbarService: ToolbarTitleService
+    private toolbarService: ToolbarTitleService,
+    private cursosService: CursosService,
+    private storeCursos: Store<Curso>,
 
   ) {
+    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos)=>{this.cursos=cursos}));
   }
 
   ngOnInit(): void {
+
+    this.suscripcionCursos= this.cursosService.obtenerCursos().subscribe({
+      next: (cursos:Curso[])=>{
+        this.storeCursos.dispatch(cursosCargados({cursos}))
+      }
+    })
+
     this.suscripcionSesion= this.storeSesion.select(selectSesionActiva).subscribe((datos)=>{
       this.usuarioActivo=datos.usuarioActivo
     })
@@ -64,12 +81,14 @@ export class TablesComponent implements OnInit {
     })
 
     this.toolbarService.editarTitleComponent(this.seccion)
+
   }
 
   ngOnDestroy(): void {
     this.suscripcionAlumnos.unsubscribe();
     this.suscripcionAlumnosData.unsubscribe();
     this.suscripcionSesion.unsubscribe();
+    this.suscripcionCursos.unsubscribe();
   }
 
   buscarXApellido(){
@@ -85,7 +104,7 @@ export class TablesComponent implements OnInit {
 
   buscarXCurso(){
     const valorObtenido = this.busquedaEnTabla.get('curso')?.value;
-    this.storeAlumnos.select(selectAlumnos).pipe(                                     //<---- ver esa parte de codigo para asociar curso a alumno, alumno a usuario
+    this.storeAlumnos.select(selectAlumnos).pipe(
       map((alumnos:Alumnos[])=> alumnos.filter((a:Alumnos)=>
         a.cursoActual?.nombre.toLowerCase()==valorObtenido.toLowerCase())
       )

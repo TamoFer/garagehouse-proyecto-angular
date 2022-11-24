@@ -5,16 +5,24 @@ import { Injectable, Component } from '@angular/core';
   providedIn: 'root'
 })
 export class ToolbarTitleService {
-  private title_component$!: Observable<String>;
+  private title_component$!: Observable<string>;
+  private component:string = 'toolbar';
 
-  constructor() {}
+  constructor() {
+    this.title_component$= new Observable<string>((sub)=>{
+      sub.next(this.component)
+    })
+  }
 
-  obtenerTitleComponent(component: string){
-    this.title_component$= new Observable<String>((sub)=>{
+  editarTitleComponent(component: string){
+    this.title_component$= new Observable<string>((sub)=>{
       sub.next(component)
     })
   }
 
+  obtenerTitleComponent(){
+    return this.title_component$
+  }
 
 
 

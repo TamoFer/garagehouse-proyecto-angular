@@ -19,24 +19,28 @@ export class ToolbarComponent implements OnInit {
   sesion$!:Observable<Sesion>;
   estadoSesion!: any;
   usuarioActivo!: any;
-  componente:string='';
+  seccion!: string;
 
   constructor(
     private sesionStore:Store<Sesion>,
     private toolbarService: ToolbarTitleService
-  ) {
+  ) {}
 
+  ngOnDestroy(): void {
   }
 
   ngOnInit(): void {
-    this.comprobarSesion(),
-    console.log(typeof this.toolbarService.obtenerTitleComponent(this.componente));
-
-
+    this.comprobarSesion();
+    // this.toolbarService.obtenerTitleComponent().subscribe((dato)=>{
+    //   this.seccion=dato
+    // });
   }
 
   ngAfterContentChecked(): void {
     this.comprobarSesion()
+    this.toolbarService.obtenerTitleComponent().subscribe((dato)=>{
+      this.seccion=dato
+    });
   }
 
   comprobarSesion(){

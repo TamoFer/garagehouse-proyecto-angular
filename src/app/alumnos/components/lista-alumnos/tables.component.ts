@@ -1,20 +1,20 @@
 import { MatDialog } from '@angular/material/dialog';
 import { EditarAlumnoComponent } from './../editar-alumno/editar-alumno.component';
 import { selectAlumnos } from './../../state/alumnos.selectors';
-import { alumnosCargados, agregarAlumno, eliminarAlumno } from './../../state/alumnos.actions';
+import { alumnosCargados, eliminarAlumno } from './../../state/alumnos.actions';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { Alumnos } from 'src/app/models/alumnos';
-import { Component,NgZone,OnInit,} from '@angular/core';
+import { Component,OnInit,} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
 import { map, Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
 import { Store } from '@ngrx/store';
 import { Sesion } from 'src/app/models/sesion';
 import { AlumnoState } from 'src/app/models/models-state/alumno.state';
 import { AgregarAlumnoComponent } from '../agregar-alumno/agregar-alumno.component';
+import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
 
 @Component({
   selector: 'app-tables',
@@ -31,14 +31,15 @@ export class TablesComponent implements OnInit {
   columnasUsuario: string[] = ['nombre', 'apellido', 'correo', 'cursando'];
   data: MatTableDataSource<Alumnos>= new MatTableDataSource<Alumnos>();
   busquedaEnTabla!: FormGroup;
+  seccion:string = 'Alumnos'
 
   constructor(
     private alumnosService: ListaAlumnosService,
-    private ruta: Router,
     private storeSesion: Store<Sesion>,
     private storeAlumnos: Store<AlumnoState>,
     private dialog: MatDialog,
-    private zone: NgZone
+    private toolbarService: ToolbarTitleService
+
   ) {
   }
 
@@ -61,6 +62,8 @@ export class TablesComponent implements OnInit {
       apellido: new FormControl ('',[]),
       curso: new FormControl('',[])
     })
+
+    this.toolbarService.editarTitleComponent(this.seccion)
   }
 
   ngOnDestroy(): void {
@@ -82,9 +85,9 @@ export class TablesComponent implements OnInit {
 
   buscarXCurso(){
     const valorObtenido = this.busquedaEnTabla.get('curso')?.value;
-    this.storeAlumnos.select(selectAlumnos).pipe(
+    this.storeAlumnos.select(selectAlumnos).pipe(                                     //<---- ver esa parte de codigo para asociar curso a alumno, alumno a usuario
       map((alumnos:Alumnos[])=> alumnos.filter((a:Alumnos)=>
-        a.cursoActual.nombre.toLowerCase()==valorObtenido.toLowerCase())
+        a.cursoActual?.nombre.toLowerCase()==valorObtenido.toLowerCase())
       )
     ).subscribe((alumnos)=>{
       this.data.data = alumnos;

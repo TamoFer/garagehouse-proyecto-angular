@@ -38,7 +38,7 @@ export class EditarAlumnoComponent implements OnInit {
       nombre: new FormControl(this.alumno.nombre,[Validators.minLength(3), Validators.maxLength(25)]),
       apellido: new FormControl(this.alumno.apellido, [Validators.minLength(3), Validators.maxLength(25)]),
       correo: new FormControl(this.alumno.correo, [Validators.required,Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$')]),
-      cursoActual: new FormControl(this.alumno.cursoActual.nombre)
+      cursoActual: new FormControl(this.alumno.cursoActual?.nombre)
   })
   }
 
@@ -55,7 +55,7 @@ export class EditarAlumnoComponent implements OnInit {
 
   editarAlumno(){
     const alumnoEditado:Alumnos={
-        idAlumno: this.alumno.idAlumno,
+        idAlumno:this.alumno.idAlumno,
         nombre: this.form.value.nombre,
         apellido: this.form.value.apellido,
         correo: this.form.value.correo,

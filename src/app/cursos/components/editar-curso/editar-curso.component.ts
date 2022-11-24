@@ -13,7 +13,6 @@ import { editarCurso } from '../../state/cursos.actions';
 export class EditarCursoComponent implements OnInit {
 
   form!:FormGroup;
-  cursos: Array<any>=[];
 
   constructor(
     public dialogRef: MatDialogRef<EditarCursoComponent>,

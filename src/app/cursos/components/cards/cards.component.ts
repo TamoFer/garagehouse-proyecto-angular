@@ -4,8 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
 import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, of, Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { map,Subscription } from 'rxjs';
 import { Sesion } from 'src/app/models/sesion';
 import { Store } from '@ngrx/store';
 import { Curso } from 'src/app/models/curso';
@@ -15,6 +14,7 @@ import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { MatTableDataSource } from '@angular/material/table';
 import { AgregarCursoComponent } from '../agregar-curso/agregar-curso.component';
 import { EditarCursoComponent } from '../editar-curso/editar-curso.component';
+import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
 
 @Component({
   selector: 'app-cards',
@@ -34,12 +34,14 @@ export class CardsComponent implements OnInit {
   columnasAdmin: string[] = ['nombre', 'profesor', 'disponibilidad', 'actions'];
   columnasUsuario: string[] = ['nombre', 'profesor', 'disponibilidad', 'inscripcion'];
   data: MatTableDataSource<Curso> = new MatTableDataSource<Curso>();
+  seccion: string='Cursos';
 
   constructor(
     private cursoService: CursosService,
     private storeCursos: Store<CursoState>,
     private storeSesion: Store<Sesion>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toolbarService: ToolbarTitleService
   ) {
     this.formulario = new FormGroup({
       profesor: new FormControl('', []),
@@ -62,6 +64,7 @@ export class CardsComponent implements OnInit {
       this.data = new MatTableDataSource<Curso>(cursos);
     });
 
+    this.toolbarService.editarTitleComponent(this.seccion)
   }
 
   ngOnDestroy(): void {

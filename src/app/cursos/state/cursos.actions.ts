@@ -10,10 +10,7 @@ export const cursosCargados = createAction(
   props<{ cursos: Curso[] }>()
 );
 
-export const loadCursosFailure = createAction(
-  '[Lista Cursos] Load Cursos Failure',
-  props<{ error: any }>()
-);
+
 export const agregarCurso = createAction(
   '[Lista Cursos] Agregar Curso',
   props<{ curso: Curso }>()

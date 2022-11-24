@@ -1,9 +1,7 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Curso } from 'src/app/models/curso';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.state';
-import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
+import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
 
 @Component({
   selector: 'app-inicio',
@@ -12,13 +10,14 @@ import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
 })
 export class InicioComponent implements OnInit {
   cursos$!:Observable<Curso[]>
+  seccion:string='Inicio'
 
   constructor(
-    private store: Store<AppState>
+    private toolbarService: ToolbarTitleService
   ) { }
 
   ngOnInit(): void {
-    this.cursos$ = this.store.select(selectCursos);
+    this.toolbarService.editarTitleComponent(this.seccion);
   }
 
 }

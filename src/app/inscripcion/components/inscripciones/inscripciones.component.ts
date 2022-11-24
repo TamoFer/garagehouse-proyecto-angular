@@ -13,6 +13,7 @@ import { selectInscripciones } from '../../state/inscripcion.selectors';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { EditarInscripcionComponent } from '../editar-inscripcion/editar-inscripcion.component';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
 
 @Component({
   selector: 'app-inscripciones',
@@ -28,11 +29,14 @@ export class InscripcionesComponent implements OnInit {
   columnasUsuario: string[] = ['estudiante', 'curso', 'fechaInscripcion'];
   columnasAdmin: string[] = ['estudiante', 'curso', 'fechaInscripcion', 'acciones'];
   formulario!: FormGroup;
+  seccion: string='Inscripciones';
 
   constructor(
     private storeInscripciones: Store<InscripcionState>,
     private storeSesion: Store<Sesion>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toolbarService: ToolbarTitleService
+
   ) {
     this.storeInscripciones.dispatch(cargarInscripciones());
   }
@@ -50,6 +54,9 @@ export class InscripcionesComponent implements OnInit {
       estudiante: new FormControl ('',[]),
       curso: new FormControl('', [])
     })
+
+    this.toolbarService.editarTitleComponent(this.seccion)
+
   }
 
   ngOnDestroy(): void {

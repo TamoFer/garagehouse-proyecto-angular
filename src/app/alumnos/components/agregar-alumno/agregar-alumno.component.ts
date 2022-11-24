@@ -66,7 +66,7 @@ export class AgregarAlumnoComponent implements OnInit {
 
   agregarAlumno(){
     const alumno: Alumnos = {
-      idAlumno: this.id,
+      idAlumno:this.id,
       nombre: this.alumnoNuevo.value.nombre,
       apellido: this.alumnoNuevo.value.apellido,
       correo: this.alumnoNuevo.value.correo,

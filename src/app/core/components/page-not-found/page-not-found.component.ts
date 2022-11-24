@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
 
 @Component({
   selector: 'app-page-not-found',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-not-found.component.scss']
 })
 export class PageNotFoundComponent implements OnInit {
-
-  constructor() { }
+  seccion:string = '¡Pagina No Encontrada! ERROR 404'
+  constructor(
+    private toolbarService: ToolbarTitleService
+  ) { }
 
   ngOnInit(): void {
+    this.toolbarService.editarTitleComponent(this.seccion)
   }
 
 }

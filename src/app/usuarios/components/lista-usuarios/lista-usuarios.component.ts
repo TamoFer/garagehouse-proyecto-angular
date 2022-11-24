@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { EditarUsuarioComponent } from '../editar-usuario/editar-usuario.component';
 import { AltaUsuarioComponent } from '../alta-usuario/alta-usuario.component';
+import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -21,20 +22,28 @@ export class ListaUsuariosComponent implements OnInit {
 
   suscripcionUsuarios!: Subscription;
   suscripcionUsuariosData!: Subscription;
+
   columnas: string[] = ['id', 'usuario', 'admin', 'actions'];
   data: MatTableDataSource<Usuario> = new MatTableDataSource<Usuario>();
+
   formulario!: FormGroup;
+
+  seccion:string ='Usuarios';
 
 
   constructor(
     private usuariosService: UsuariosService,
     private storeUsuarios: Store<UsuarioState>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toolbarService: ToolbarTitleService
 
+  ) {
+    this.toolbarService.editarTitleComponent(this.seccion)
 
-  ) { }
+  }
 
   ngOnInit(): void {
+
     this.suscripcionUsuarios = this.usuariosService.obtenerUsuarios().subscribe({
       next: (usuarios: Usuario[]) => {
         this.storeUsuarios.dispatch(usuariosCargados({ usuarios }))
@@ -49,6 +58,7 @@ export class ListaUsuariosComponent implements OnInit {
       nameUser: new FormControl('', []),
       id: new FormControl('', [])
     })
+
   }
 
   ngOnDestroy(): void {

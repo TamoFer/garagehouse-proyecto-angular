@@ -50,7 +50,7 @@ export class TablesComponent implements OnInit {
     private storeCursos: Store<Curso>,
 
   ) {
-    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos)=>{this.cursos=cursos}));
+
   }
 
   ngOnInit(): void {
@@ -60,6 +60,7 @@ export class TablesComponent implements OnInit {
         this.storeCursos.dispatch(cursosCargados({cursos}))
       }
     })
+    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos)=>{this.cursos=cursos}));
 
     this.suscripcionSesion= this.storeSesion.select(selectSesionActiva).subscribe((datos)=>{
       this.usuarioActivo=datos.usuarioActivo
@@ -67,6 +68,14 @@ export class TablesComponent implements OnInit {
 
     this.suscripcionAlumnos= this.alumnosService.obtenerAlumnos().subscribe({
       next: (alumnos: Alumnos[])=>{
+        alumnos.forEach((alumno)=>{
+          this.cursos.find(curso=>{
+            if (curso.id=== alumno.cursoActual?.id) {
+              alumno.cursoActual= curso
+              this.storeAlumnos.dispatch(editarAlumno({alumno}))
+            }
+          })
+        })
         this.storeAlumnos.dispatch(alumnosCargados({alumnos}))
       }
     })

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
+import { map, concatMap } from 'rxjs/operators';
 import * as AlumnosActions from './alumnos.actions';
 import { ListaAlumnosService } from '../services/lista-alumnos.service';
 import { Alumnos } from 'src/app/models/alumnos';

@@ -1,5 +1,7 @@
+import { selectAlumnos } from './../../../alumnos/state/alumnos.selectors';
+import { alumnosCargados } from './../../../alumnos/state/alumnos.actions';
 import { selectUsuarios } from './../../state/usuarios.selectors';
-import { eliminarUsuario, usuariosCargados } from './../../state/usuarios.actions';
+import { editarUsuario, eliminarUsuario, usuariosCargados } from './../../state/usuarios.actions';
 import { UsuarioState } from './../../../models/models-state/usuario.state';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -12,6 +14,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditarUsuarioComponent } from '../editar-usuario/editar-usuario.component';
 import { AltaUsuarioComponent } from '../alta-usuario/alta-usuario.component';
 import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
+import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
+import { Alumnos } from 'src/app/models/alumnos';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -20,6 +24,7 @@ import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
 })
 export class ListaUsuariosComponent implements OnInit {
 
+  suscripcionAlumnos!: Subscription;
   suscripcionUsuarios!: Subscription;
   suscripcionUsuariosData!: Subscription;
 
@@ -30,21 +35,41 @@ export class ListaUsuariosComponent implements OnInit {
   formulario!: FormGroup;
 
   seccion:string ='Usuarios';
+  alumnos:Array<any>=[];
+
 
   constructor(
     private usuariosService: UsuariosService,
-    private storeUsuarios: Store<UsuarioState>,
+    private storeUsuarios: Store<Usuario>,
     private dialog: MatDialog,
-    private toolbarService: ToolbarTitleService
+    private toolbarService: ToolbarTitleService,
+    private alumnosService: ListaAlumnosService,
+    private storeAlumnos: Store<Alumnos>,
 
   ) {
     this.toolbarService.editarTitleComponent(this.seccion);
   }
 
   ngOnInit(): void {
+    this.suscripcionAlumnos= this.alumnosService.obtenerAlumnos().subscribe({
+      next: (alumnos:Alumnos[])=>{
+        this.storeAlumnos.dispatch(alumnosCargados({alumnos}))
+      }
+    })
+    this.alumnos.push(this.storeAlumnos.select(selectAlumnos).subscribe((alumnos)=>{this.alumnos=alumnos}));
 
     this.suscripcionUsuarios = this.usuariosService.obtenerUsuarios().subscribe({
       next: (usuarios: Usuario[]) => {
+        usuarios.forEach((usuario)=>{
+          this.alumnos.find(alumno=>{
+            if (alumno.idAlumno === usuario.estudiante?.idAlumno) {
+              if (alumno!=usuario.estudiante){
+                usuario.estudiante= alumno
+                this.storeUsuarios.dispatch(editarUsuario({usuario}))
+              }
+            }
+          })
+        })
         this.storeUsuarios.dispatch(usuariosCargados({ usuarios }))
       }
     })

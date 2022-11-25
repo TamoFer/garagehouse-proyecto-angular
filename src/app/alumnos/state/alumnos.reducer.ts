@@ -29,4 +29,5 @@ export const alumnosReducer = createReducer(
   on(AlumnosActions.eliminarAlumno, (state, {alumno}) => {
     return state
   })
+
 );

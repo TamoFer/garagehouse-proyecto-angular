@@ -1,10 +1,11 @@
+import { cargarCursos } from './../../../cursos/state/cursos.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { EditarAlumnoComponent } from './../editar-alumno/editar-alumno.component';
 import { selectAlumnos } from './../../state/alumnos.selectors';
-import { alumnosCargados, editarAlumno, eliminarAlumno } from './../../state/alumnos.actions';
+import { alumnosCargados, editarAlumno, eliminarAlumno, cargarAlumnos } from './../../state/alumnos.actions';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { Alumnos } from 'src/app/models/alumnos';
-import { Component,OnInit,} from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
 import { map, Subscription } from 'rxjs';
@@ -30,124 +31,100 @@ export class TablesComponent implements OnInit {
   suscripcionSesion!: Subscription;
   suscripcionAlumnos!: Subscription;
   suscripcionAlumnosData!: Subscription;
-  suscripcionCursos!:Subscription;
+  suscripcionCursos!: Subscription;
 
   usuarioActivo?: Usuario;
   columnasAdmin: string[] = ['nombre', 'apellido', 'correo', 'cursando', 'actions'];
   columnasUsuario: string[] = ['nombre', 'apellido', 'correo', 'cursando'];
-  data: MatTableDataSource<Alumnos>= new MatTableDataSource<Alumnos>();
+  data: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>();
   busquedaEnTabla!: FormGroup;
-  seccion:string = 'Alumnos'
-  cursos:Array<any>=[];
+  seccion: string = 'Alumnos'
+  cursos: Array<any> = [];
+
 
   constructor(
-    private alumnosService: ListaAlumnosService,
+    private toolbarService: ToolbarTitleService,
     private storeSesion: Store<Sesion>,
     private storeAlumnos: Store<AlumnoState>,
-    private dialog: MatDialog,
-    private toolbarService: ToolbarTitleService,
-    private cursosService: CursosService,
     private storeCursos: Store<Curso>,
-
+    private dialog: MatDialog
   ) {
-
+    this.toolbarService.editarTitleComponent(this.seccion)
   }
 
   ngOnInit(): void {
 
-    this.suscripcionCursos= this.cursosService.obtenerCursos().subscribe({
-      next: (cursos:Curso[])=>{
-        this.storeCursos.dispatch(cursosCargados({cursos}))
-      }
-    })
-    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos)=>{this.cursos=cursos}));
+    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos) => { this.cursos = cursos }));
 
-    this.suscripcionSesion= this.storeSesion.select(selectSesionActiva).subscribe((datos)=>{
-      this.usuarioActivo=datos.usuarioActivo
+    this.suscripcionSesion = this.storeSesion.select(selectSesionActiva).subscribe((datos) => {
+      this.usuarioActivo = datos.usuarioActivo
     })
 
-    this.suscripcionAlumnos= this.alumnosService.obtenerAlumnos().subscribe({
-      next: (alumnos: Alumnos[])=>{
-        alumnos.forEach((alumno)=>{
-          this.cursos.find(curso=>{
-            if (curso.id=== alumno.cursoActual?.id) {
-              alumno.cursoActual= curso
-              this.storeAlumnos.dispatch(editarAlumno({alumno}))
-            }
-          })
-        })
-        this.storeAlumnos.dispatch(alumnosCargados({alumnos}))
-      }
+    this.suscripcionAlumnosData = this.storeAlumnos.select(selectAlumnos).subscribe((alumnos: Alumnos[]) => {
+      this.data = new MatTableDataSource<Alumnos>(alumnos)
     })
 
-    this.suscripcionAlumnosData= this.storeAlumnos.select(selectAlumnos).subscribe((alumnos:Alumnos[])=>{
-      this.data= new MatTableDataSource<Alumnos>(alumnos)
+    this.busquedaEnTabla = new FormGroup({
+      apellido: new FormControl('', []),
+      curso: new FormControl('', [])
     })
 
-    this.busquedaEnTabla= new FormGroup({
-      apellido: new FormControl ('',[]),
-      curso: new FormControl('',[])
-    })
-
-    this.toolbarService.editarTitleComponent(this.seccion)
 
   }
 
   ngOnDestroy(): void {
-    this.suscripcionAlumnos.unsubscribe();
     this.suscripcionAlumnosData.unsubscribe();
     this.suscripcionSesion.unsubscribe();
-    this.suscripcionCursos.unsubscribe();
   }
 
-  buscarXApellido(){
+  buscarXApellido() {
     const valorObtenido = this.busquedaEnTabla.get('apellido')?.value;
     this.storeAlumnos.select(selectAlumnos).pipe(
-      map((alumnos:Alumnos[])=> alumnos.filter((a:Alumnos)=>
-        a.apellido.toLowerCase()==valorObtenido.toLowerCase())
+      map((alumnos: Alumnos[]) => alumnos.filter((a: Alumnos) =>
+        a.apellido.toLowerCase() == valorObtenido.toLowerCase())
       )
-    ).subscribe((alumnos)=>{
+    ).subscribe((alumnos) => {
       this.data.data = alumnos;
     })
   }
 
-  buscarXCurso(){
+  buscarXCurso() {
     const valorObtenido = this.busquedaEnTabla.get('curso')?.value;
     this.storeAlumnos.select(selectAlumnos).pipe(
-      map((alumnos:Alumnos[])=> alumnos.filter((a:Alumnos)=>
-        a.cursoActual?.nombre.toLowerCase()==valorObtenido.toLowerCase())
+      map((alumnos: Alumnos[]) => alumnos.filter((a: Alumnos) =>
+        a.cursoActual?.nombre.toLowerCase() == valorObtenido.toLowerCase())
       )
-    ).subscribe((alumnos)=>{
+    ).subscribe((alumnos) => {
       this.data.data = alumnos;
     })
   }
 
-  vaciarCampoCurso(){
+  vaciarCampoCurso() {
     this.busquedaEnTabla.get('curso')?.reset();
-    this.storeAlumnos.select(selectAlumnos).subscribe((alumnos:Alumnos[])=>{
-      this.data= new MatTableDataSource<Alumnos>(alumnos)
+    this.storeAlumnos.select(selectAlumnos).subscribe((alumnos: Alumnos[]) => {
+      this.data = new MatTableDataSource<Alumnos>(alumnos)
     });
   }
 
-  vaciarCampoApellido(){
+  vaciarCampoApellido() {
     this.busquedaEnTabla.get('apellido')?.reset();
-    this.storeAlumnos.select(selectAlumnos).subscribe((alumnos:Alumnos[])=>{
-      this.data= new MatTableDataSource<Alumnos>(alumnos)
+    this.storeAlumnos.select(selectAlumnos).subscribe((alumnos: Alumnos[]) => {
+      this.data = new MatTableDataSource<Alumnos>(alumnos)
     });
   }
 
-  agregarAlumno(){
-      this.dialog.open(AgregarAlumnoComponent, {})
+  agregarAlumno() {
+    this.dialog.open(AgregarAlumnoComponent, {})
   }
 
-  editarAlumno(alumno:Alumnos){
+  editarAlumno(alumno: Alumnos) {
     this.dialog.open(EditarAlumnoComponent, {
       data: alumno
     })
   }
 
-  borrarAlumno(alumno:Alumnos){
-    this.storeAlumnos.dispatch(eliminarAlumno({alumno}))
+  borrarAlumno(alumno: Alumnos) {
+    this.storeAlumnos.dispatch(eliminarAlumno({ alumno }))
   }
 
 

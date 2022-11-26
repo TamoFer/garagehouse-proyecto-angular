@@ -30,7 +30,7 @@ export class EditarInscripcionComponent implements OnInit {
   ) {
     this.formulario = new FormGroup({
       curso: new FormControl(this.inscripcion.curso.nombre),
-      alumno: new FormControl(this.inscripcion.alumno.nombre + ' ' + this.inscripcion.alumno.apellido),
+      alumno: new FormControl(this.inscripcion.alumno?.nombre + ' ' + this.inscripcion.alumno?.apellido),
       fechaInscripcion: new FormControl(new Date(this.inscripcion.fechaInscripcion).toLocaleDateString()),
     })
   }

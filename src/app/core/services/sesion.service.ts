@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs';
+import { UsuariosService } from 'src/app/usuarios/services/usuarios.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,15 @@ import { map } from 'rxjs';
 export class SesionService {
 
   sesion$!: Observable<Sesion>;
+  usuario?:Usuario;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private usuariosService: UsuariosService
   ) {
     const sesion: Sesion = {
       sesionActiva: false
-
     };
-    // this.actualizarSesion(sesion)
   }
 
   login(usuario:Usuario): Observable<Usuario> {
@@ -29,23 +30,6 @@ export class SesionService {
         return usuarios.filter((u: Usuario) => u.nameUsuario === usuario.nameUsuario && u.contrasena===usuario.contrasena)[0]
       }));
   }
-
-  // cambiarEstadoSesion() {
-  //   this.sesion$.subscribe((sub)=>{
-  //     sub.sesionActiva=true
-  //     this.actualizarSesion(sub)
-  //   })
-  // }
-
-  // actualizarSesion(sesion: Sesion) {
-  //   this.sesion$ = new Observable<Sesion>((sub) => {
-  //     sub.next(sesion)
-  //   })
-  // }
-
-  // obtenerSesion(): Observable<Sesion> {
-  //   return this.sesion$;
-  // }
 
 
 }

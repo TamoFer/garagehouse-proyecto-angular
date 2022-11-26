@@ -19,12 +19,11 @@
         </mat-form-field>
         <div class="botones">
           <button type="submit" mat-raised-button color="primary" [disabled]="formulario.invalid">Login</button>
-          <button type ="button" mat-raised-button color="primary" (click)="vaciarCampos()">
-            Vaciar campos
-          </button>
+          <button type ="button" mat-raised-button color="primary" (click)="vaciarCampos()">Vaciar campos</button>
+          <button type="button" mat-raised-button color="primary" (click)="nuevoUsuario()" >Crear Usuario</button>
+
         </div>
       </form>
   </div>
 </div>
 
-<!--  || formulario.get('nameUsuario')?.errors?.['pattern']  -->

@@ -5,11 +5,15 @@ import { CommonModule } from '@angular/common';
 
 import { AutenticacionRoutingModule } from './autenticacion-routing.module';
 import { LoginComponent } from './components/login/login.component';
+import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
+import { AutenticacionOpcionesComponent } from './components/autenticacion-opciones/autenticacion-opciones.component';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    AutenticacionOpcionesComponent,
+    LoginComponent,
+    NuevoUsuarioComponent,
   ],
   imports: [
     CommonModule,

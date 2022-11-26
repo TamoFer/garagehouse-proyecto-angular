@@ -28,23 +28,14 @@ export class AgregarAlumnoComponent implements OnInit {
 
   constructor(
     private storeAlumnos: Store<Alumnos>,
-    private cursosService: CursosService,
     private storeCursos: Store<Curso>,
     public dialogRef: MatDialogRef<AgregarAlumnoComponent>
   ) {
-    this.storeAlumnos.select(selectAlumnos).subscribe((datos)=>
-    this.id= datos.length + 1);
-
     this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos)=>{this.cursos=cursos}));
 
   }
 
   ngOnInit(): void {
-    this.suscripcionCursos= this.cursosService.obtenerCursos().subscribe({
-      next: (cursos:Curso[])=>{
-        this.storeCursos.dispatch(cursosCargados({cursos}))
-      }
-    })
 
     this.alumnoNuevo= new FormGroup({
       nombre: new FormControl ('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]) ,
@@ -56,7 +47,6 @@ export class AgregarAlumnoComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.suscripcionCursos.unsubscribe();
   }
 
   asociarCurso(){

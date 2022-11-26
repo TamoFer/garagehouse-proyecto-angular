@@ -19,16 +19,20 @@ export class LoginComponent implements OnInit {
   constructor(
     private sesionService: SesionService,
     private ruta: Router,
-    private store: Store<Sesion>
+    private storeSesion: Store<Sesion>,
   ) {
     this.formulario = new FormGroup({
-      nameUsuario: new FormControl ('Fausto_Koepp',[Validators.required]),
-      contrasena: new FormControl('Dk1prFtdpYizzoj', [Validators.required]),
+      nameUsuario: new FormControl ('Emmitt80',[Validators.required]),
+      contrasena: new FormControl('r4rxRDyIs85NES2', [Validators.required]),
     })
   }
 
   ngOnInit(): void {
   }
+
+  ngOnDestroy(): void {
+  }
+
 
   login(){
     let u: Usuario = {
@@ -38,16 +42,16 @@ export class LoginComponent implements OnInit {
       admin: false
     }
     this.sesionService.login(u).subscribe((usuario: Usuario) => {
-      this.store.dispatch(sesionCargada({usuarioActivo: usuario}));
+      this.storeSesion.dispatch(sesionCargada({usuarioActivo: usuario}));
       this.ruta.navigate(['inicio']);
     });
   }
 
   vaciarCampos(){
-    this.formulario.reset({
-      email:'',
-      contrasena:'',
-      perfil:''
-    })
+    this.formulario.reset()
+  }
+
+  nuevoUsuario(){
+    this.ruta.navigate(['autenticacion/nuevo-usuario']);
   }
 }

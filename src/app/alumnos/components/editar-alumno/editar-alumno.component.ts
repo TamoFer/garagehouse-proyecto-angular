@@ -1,5 +1,5 @@
 import { selectAlumnos } from './../../state/alumnos.selectors';
-import { editarAlumno, alumnosCargados } from './../../state/alumnos.actions';
+import { editarAlumno, alumnosCargados, cargarAlumnos } from './../../state/alumnos.actions';
 import { Curso } from '../../../models/curso';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
 import { Alumnos } from '../../../models/alumnos';
@@ -23,14 +23,10 @@ export class EditarAlumnoComponent implements OnInit {
 
   form!: FormGroup;
   cursos: Array<any> = [];
-  suscripcionCursos!: Subscription;
-  alumnos: Array<any> = [];
-  suscripcionAlumnos!: Subscription;
 
   constructor(
     public dialogRef: MatDialogRef<EditarAlumnoComponent>,
     @Inject(MAT_DIALOG_DATA) public alumno: Alumnos,
-    private cursosService: CursosService,
     private storeCursos: Store<Curso>,
     private storeAlumnos: Store<Alumnos>
 
@@ -45,14 +41,7 @@ export class EditarAlumnoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.suscripcionCursos = this.cursosService.obtenerCursos().subscribe({
-      next: (cursos: Curso[]) => {
-        this.storeCursos.dispatch(cursosCargados({ cursos }))
-      }
-    });
-
     this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos) => { this.cursos = cursos }));
-
   }
 
   editarAlumno() {
@@ -68,7 +57,7 @@ export class EditarAlumnoComponent implements OnInit {
 
 
     this.storeAlumnos.dispatch(editarAlumno({ alumno: alumnoEditado }))
-
+    this.storeAlumnos.dispatch(cargarAlumnos())
 
     this.dialogRef.close();
   }

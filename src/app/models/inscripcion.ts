@@ -4,6 +4,6 @@ import { Curso } from "./curso";
 export interface Inscripcion {
   id: number;
   curso: Curso;
-  alumno: Alumnos;
+  alumno?: Alumnos;
   fechaInscripcion: Date;
 }

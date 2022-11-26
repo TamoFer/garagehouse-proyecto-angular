@@ -30,9 +30,7 @@ export class EditarUsuarioComponent implements OnInit {
     private dialogRef: MatDialogRef<EditarUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public usuario:Usuario,
     private storeUsuario: Store<Usuario>,
-    private cursosService: CursosService,
     private storeCursos: Store<Curso>,
-    private alumnosService: ListaAlumnosService,
     private storeAlumnos: Store<Alumnos>
 
   ) {
@@ -43,23 +41,18 @@ export class EditarUsuarioComponent implements OnInit {
       nombre: new FormControl(this.usuario.estudiante?.nombre),
       apellido: new FormControl(this.usuario.estudiante?.apellido),
       correo: new FormControl(this.usuario.estudiante?.correo),
-      cursoActual: new FormControl(this.usuario.estudiante?.cursoActual?.nombre)
+      cursoActual: new FormControl(this.usuario.estudiante?.cursoActual?.nombre),
+      idAlumno: new FormControl(this.usuario.estudiante?.idAlumno)
     })
   }
 
   ngOnInit(): void {
-    this.suscripcionCursos = this.cursosService.obtenerCursos().subscribe({
-      next: (cursos: Curso[]) => {
-        this.storeCursos.dispatch(cursosCargados({ cursos }))
-      }
-    });
-
     this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos) => { this.cursos = cursos }));
   }
 
   editarUsuario(){
     const estudiante: Alumnos = {
-      idAlumno: this.usuario.estudiante?.idAlumno,
+      idAlumno: this.formulario.value.idAlumno,
       nombre: this.formulario.value.nombre,
       apellido: this.formulario.value.apellido,
       correo: this.formulario.value.correo,

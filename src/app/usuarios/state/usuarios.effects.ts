@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
+import { map, concatMap } from 'rxjs/operators';
 import * as UsuariosActions from './usuarios.actions';
 import { UsuariosService } from '../services/usuarios.service';
 import { Usuario } from 'src/app/models/usuario';
@@ -9,6 +8,10 @@ import { Usuario } from 'src/app/models/usuario';
 
 @Injectable()
 export class UsuariosEffects {
+  constructor(
+    private actions$: Actions,
+    private usuarios: UsuariosService
+  ) { }
 
   cargarUsuarios$ = createEffect(() => {
     return this.actions$.pipe(
@@ -46,8 +49,5 @@ export class UsuariosEffects {
     );
   });
 
-  constructor(
-    private actions$: Actions,
-    private usuarios: UsuariosService
-  ) { }
+
 }

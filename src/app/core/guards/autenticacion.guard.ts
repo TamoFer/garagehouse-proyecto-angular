@@ -30,35 +30,4 @@ export class AutenticacionGuard implements CanActivate {
     );
   }
 
-  // canActivateChild(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-  //     return this.store.select(selectSesionActiva).pipe(
-  //       map((sesion: Sesion) => {
-  //         if(sesion.usuarioActivo?.canActivateChild){
-  //           return true;
-  //         }else if(childRoute.routeConfig?.path == 'listar'){
-  //           return true;
-  //         }else{
-  //           alert("No tiene permisos para acceder a este sitio");
-  //           this.router.navigate(['inicio']);
-  //           return false;
-  //         }
-  //       })
-  //     );
-  // }
-
-
-  // canLoad(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-  //     return this.store.select(selectSesionActiva).pipe(
-  //       map((sesion: Sesion) => {
-  //         if(sesion.usuarioActivo?.canLoad){
-  //           return true;
-  //         }else{
-  //           alert("No tiene permisos para acceder a este sitio");
-  //           this.router.navigate(['inicio']);
-  //           return false;
-  //         }
-  //       })
-  //     );
-  // }
-
 }

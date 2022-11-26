@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { UsuarioState } from 'src/app/models/models-state/usuario.state';
 import * as UsuariosActions from './usuarios.actions';
 
@@ -10,6 +10,7 @@ export const estadoInicial:UsuarioState ={
 }
 
 export const usuariosReducer = createReducer(
+
   estadoInicial,
 
   on(UsuariosActions.cargarUsuarios, state => {

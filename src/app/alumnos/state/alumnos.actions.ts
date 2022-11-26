@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { Alumnos } from 'src/app/models/alumnos';
-import { Curso } from 'src/app/models/curso';
 
 export const cargarAlumnos = createAction(
   '[Lista Alumnos] Cargar Alumnos'

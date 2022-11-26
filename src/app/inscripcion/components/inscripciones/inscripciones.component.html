@@ -47,13 +47,13 @@
     <div class="tools">
 
       <form [formGroup]="formulario">
-        <div>
+        <div *ngIf="usuarioActivo?.admin">
           <mat-form-field appearance="fill" class="fill">
             <p>Buscar por estudiante</p>
             <input type="text" formControlName="estudiante" matInput />
           </mat-form-field>
           <div class="botones">
-            <button mat-raised-button color="primary" (click)="buscarXEstudiante()">
+            <button mat-raised-button color="primary"  (click)="buscarXEstudiante()">
               Buscar </button>
             <button mat-raised-button color="primary" (click)="vaciarCampoEstudiante()">Vaciar</button>
           </div>

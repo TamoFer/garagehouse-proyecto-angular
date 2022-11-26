@@ -20,7 +20,7 @@
           <th mat-header-cell *matHeaderCellDef>Inscripciones</th>
           <td mat-cell *matCellDef="let curso" [ngSwitch]="curso.disponibilidad">
             <span *ngSwitchCase="true" >
-              <button mat-raised-button color="primary" (click)="inscribirme()">Abierta</button>
+              <button mat-raised-button color="primary" (click)="inscribirme(curso)">Abierta</button>
             </span>
             <span *ngSwitchCase="false" >
               <button mat-raised-button  disabled>Cerrada</button>

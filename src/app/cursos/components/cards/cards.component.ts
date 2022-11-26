@@ -15,6 +15,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AgregarCursoComponent } from '../agregar-curso/agregar-curso.component';
 import { EditarCursoComponent } from '../editar-curso/editar-curso.component';
 import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
+import { Inscripcion } from 'src/app/models/inscripcion';
+import { agregarInscripcion } from 'src/app/inscripcion/state/inscripcion.actions';
 
 @Component({
   selector: 'app-cards',
@@ -37,11 +39,12 @@ export class CardsComponent implements OnInit {
   seccion: string='Cursos';
 
   constructor(
-    private cursoService: CursosService,
+    // private cursoService: CursosService,
     private storeCursos: Store<CursoState>,
     private storeSesion: Store<Sesion>,
     private dialog: MatDialog,
-    private toolbarService: ToolbarTitleService
+    private toolbarService: ToolbarTitleService,
+    private storeInscripciones: Store<Inscripcion>
   ) {
     this.formulario = new FormGroup({
       profesor: new FormControl('', []),
@@ -50,11 +53,11 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.suscripcionCursos = this.cursoService.obtenerCursos().subscribe({
-      next: (cursos: Curso[]) => {
-        this.storeCursos.dispatch(cursosCargados({ cursos }));
-      }
-    });
+    // this.suscripcionCursos = this.cursoService.obtenerCursos().subscribe({
+    //   next: (cursos: Curso[]) => {
+    //     this.storeCursos.dispatch(cursosCargados({ cursos }));
+    //   }
+    // });
 
     this.suscripcionSesion = this.storeSesion.select(selectSesionActiva).subscribe((s: Sesion) => {
       this.usuarioActivo = s.usuarioActivo
@@ -68,7 +71,7 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.suscripcionCursos.unsubscribe();
+    // this.suscripcionCursos.unsubscribe();
     this.suscripcionCursoData.unsubscribe();
     this.suscripcionSesion.unsubscribe();
   }
@@ -126,20 +129,15 @@ export class CardsComponent implements OnInit {
     })
   }
 
-  inscribirme(){
-    alert('Proximanente pa')
-  }
+  inscribirme(curso:Curso) {
+    const inscripcion: Inscripcion = {
+        id: 0,
+        curso: curso,
+        alumno: this.usuarioActivo?.estudiante,
+        fechaInscripcion: new Date()
+      };
+      this.storeInscripciones.dispatch(agregarInscripcion({inscripcion}));
 
-  // inscribir(curso: Curso){
-  //   if(this.usuarioActivo){
-  //     const inscripcion: Inscripcion = {
-  //       id: 0,
-  //       curso: curso,
-  //       alumno: this.usuarioActivo,
-  //       fechaInscripcion: new Date()
-  //     };
-  //     this.storeInscripciones.dispatch(agregarInscripcion({inscripcion}));
-  //   }
-  // }
+  }
 
 }

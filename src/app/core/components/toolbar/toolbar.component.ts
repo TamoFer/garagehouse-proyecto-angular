@@ -31,16 +31,14 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.comprobarSesion();
-    // this.toolbarService.obtenerTitleComponent().subscribe((dato)=>{
-    //   this.seccion=dato
-    // });
+    this.toolbarService.obtenerTitleComponent().subscribe((dato)=>{
+      this.seccion=dato
+    });
+
   }
 
   ngAfterContentChecked(): void {
     this.comprobarSesion()
-    this.toolbarService.obtenerTitleComponent().subscribe((dato)=>{
-      this.seccion=dato
-    });
   }
 
   comprobarSesion(){

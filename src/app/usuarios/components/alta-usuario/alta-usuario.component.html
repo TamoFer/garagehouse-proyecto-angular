@@ -30,6 +30,32 @@
 
         <mat-slide-toggle formControlName="admin">Admin</mat-slide-toggle>
 
+        <mat-form-field appearance="fill" >
+          <mat-label>Nombre</mat-label>
+          <input matInput type="text" formControlName="nombre" [ngClass]="{
+            'is-invalid':formulario.get('nombre')?.errors}"/>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Apellido</mat-label>
+          <input matInput type="text" formControlName="apellido" [ngClass]="{
+            'is-invalid':formulario.get('apellido')?.errors}"/>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Correo</mat-label>
+          <input matInput type="email" formControlName="correo" [ngClass]="{'is-invalid':formulario.get('correo')?.errors?.['required'] && formulario.get('correo')?.errors?.['pattern'] }"/>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
       </form>
     </div>
 

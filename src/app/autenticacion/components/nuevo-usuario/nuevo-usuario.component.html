@@ -1,0 +1,160 @@
+<div>
+  <form [formGroup]="formulario" (ngSubmit)="crearUsuario()" >
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput type="text" formControlName="nameUsuario" [ngClass]="{'is-invalid':formulario.get('nameUsuario')?.errors &&
+              formulario.get('nameUsuario')?.touched}"/>
+            <div class="invalid-feedback">
+              <small>El campo es requerido</small>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="contrasena" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <div class="invalid-feedback">
+              <small>El campo es requerido</small>
+            </div>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field appearance="fill" >
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="nombre" [ngClass]="{
+              'is-invalid':formulario.get('nombre')?.errors}"/>
+            <div class="invalid-feedback">
+              <small>El campo es requerido</small>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field appearance="fill" >
+            <mat-label>Apellido</mat-label>
+            <input matInput type="text" formControlName="apellido" [ngClass]="{
+              'is-invalid':formulario.get('apellido')?.errors}"/>
+            <div class="invalid-feedback">
+              <small>El campo es requerido</small>
+            </div>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field appearance="fill" >
+            <mat-label>Correo</mat-label>
+            <input matInput type="email" formControlName="correo" [ngClass]="{'is-invalid':formulario.get('correo')?.errors?.['required'] && formulario.get('correo')?.errors?.['pattern'] }"/>
+            <div class="invalid-feedback">
+              <small>El campo es requerido</small>
+            </div>
+          </mat-form-field>
+        </div>
+      </div>
+  </form>
+  <div class="botones">
+    <div class="">
+      <button mat-raised-button color="primary" [disabled]="formulario.invalid" (click)="crearUsuario()">Crear usuario</button>
+    </div>
+    <div class="">
+      <button mat-raised-button type="button" color="primary" (click)="retroceder()">Cancelar</button>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+<!-- <div class="dialog">
+  <h1 mat-dialog-title>NUEVO USUARIO</h1>
+    <div mat-dialog-content>
+      <h3>Completa con tus datos</h3>
+      <form [formGroup]="formulario">
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre de usuario</mat-label>
+              <input matInput type="text" formControlName="nameUsuario" [ngClass]="{'is-invalid':formulario.get('nameUsuario')?.errors &&
+                formulario.get('nameUsuario')?.touched}"/>
+              <div class="invalid-feedback">
+                <small>El campo es requerido</small>
+              </div>
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Contraseña</mat-label>
+              <input matInput formControlName="contrasena" [type]="hide ? 'password' : 'text'">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <div class="invalid-feedback">
+                <small>El campo es requerido</small>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field appearance="fill" >
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" formControlName="nombre" [ngClass]="{
+                'is-invalid':formulario.get('nombre')?.errors}"/>
+              <div class="invalid-feedback">
+                <small>El campo es requerido</small>
+              </div>
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field appearance="fill" >
+              <mat-label>Apellido</mat-label>
+              <input matInput type="text" formControlName="apellido" [ngClass]="{
+                'is-invalid':formulario.get('apellido')?.errors}"/>
+              <div class="invalid-feedback">
+                <small>El campo es requerido</small>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <mat-form-field appearance="fill" >
+              <mat-label>Correo</mat-label>
+              <input matInput type="email" formControlName="correo" [ngClass]="{'is-invalid':formulario.get('correo')?.errors?.['required'] && formulario.get('correo')?.errors?.['pattern'] }"/>
+              <div class="invalid-feedback">
+                <small>El campo es requerido</small>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div mat-dialog-actions align="center">
+      <div class="botones">
+          <div class="">
+            <button mat-raised-button color="primary" [disabled]="formulario.invalid" (click)="crearUsuario()">Crear usuario</button>
+          </div>
+          <div class="">
+            <button mat-raised-button type="button" color="primary" (click)="retroceder()">Cancelar</button>
+          </div>
+      </div>
+    </div>
+
+  </div> -->

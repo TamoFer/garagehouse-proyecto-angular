@@ -1,4 +1,4 @@
-import { eliminarInscripcion } from './../../state/inscripcion.actions';
+import { eliminarInscripcion, inscripcionesCargadas } from './../../state/inscripcion.actions';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,6 +14,7 @@ import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { EditarInscripcionComponent } from '../editar-inscripcion/editar-inscripcion.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
+import { ListaInscripcionesService } from '../../service/lista-inscripciones.service';
 
 @Component({
   selector: 'app-inscripciones',
@@ -24,6 +25,7 @@ export class InscripcionesComponent implements OnInit {
 
   suscripcionSesion!: Subscription;
   suscripcionInscripcionData!: Subscription;
+  suscripcionInscripciones!: Subscription;
   dataSource: MatTableDataSource<Inscripcion>= new MatTableDataSource<Inscripcion>();
   usuarioActivo?: Usuario;
   columnasUsuario: string[] = ['estudiante', 'curso', 'fechaInscripcion'];
@@ -32,12 +34,13 @@ export class InscripcionesComponent implements OnInit {
   seccion: string='Inscripciones';
 
   constructor(
-    private storeInscripciones: Store<InscripcionState>,
+    private storeInscripciones: Store<Inscripcion>,
     private storeSesion: Store<Sesion>,
     private dialog: MatDialog,
     private toolbarService: ToolbarTitleService
 
   ) {
+
     this.storeInscripciones.dispatch(cargarInscripciones());
   }
 
@@ -78,7 +81,7 @@ export class InscripcionesComponent implements OnInit {
     const valorObtenido = this.formulario.get('estudiante')?.value;
     this.storeInscripciones.select(selectInscripciones).pipe(
       map((inscripciones:Inscripcion[])=> inscripciones.filter((i:Inscripcion)=>
-        (i.alumno.nombre+' '+i.alumno.apellido).toLowerCase()=== valorObtenido.toLowerCase())
+        (i.alumno?.nombre+' '+i.alumno?.apellido).toLowerCase()=== valorObtenido.toLowerCase())
         )
       ).subscribe((inscripcion)=>{
         this.dataSource.data = inscripcion;

@@ -1,11 +1,10 @@
 import { environment } from './../../../../environments/environment';
 import { selectSesionActiva } from './../../state/sesion.selectors';
-import { Router } from '@angular/router';
 import { Sesion } from 'src/app/models/sesion';
 import { Observable, Subscription} from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
+import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 
 
 @Component({
@@ -26,19 +25,14 @@ export class ToolbarComponent implements OnInit {
     private toolbarService: ToolbarTitleService
   ) {}
 
-  ngOnDestroy(): void {
-  }
-
   ngOnInit(): void {
-    this.comprobarSesion();
-    this.toolbarService.obtenerTitleComponent().subscribe((dato)=>{
-      this.seccion=dato
-    });
-
   }
 
   ngAfterContentChecked(): void {
     this.comprobarSesion()
+    this.toolbarService.obtenerTitleComponent().subscribe((dato)=>{
+      this.seccion=dato
+    });
   }
 
   comprobarSesion(){

@@ -13,6 +13,7 @@ import { agregarCurso } from '../../state/cursos.actions';
 export class AgregarCursoComponent implements OnInit {
 
   cursoNuevo!: FormGroup;
+  id!:number;
 
   constructor(
     private storeCursos: Store<Curso>,
@@ -26,19 +27,23 @@ export class AgregarCursoComponent implements OnInit {
       inicio: new FormControl('',[Validators.required]),
       fin: new FormControl('',[Validators.required]),
       descripcion: new FormControl('',[Validators.required,Validators.minLength(10), Validators.maxLength(50)]),
-      disponibilidad: new FormControl(false)
+      comision: new FormControl('',[Validators.required]),
+      num_horas: new FormControl('',[Validators.required]),
+      num_clases: new FormControl('',[Validators.required])
     })
   }
 
   agregarCurso(){
     const curso: Curso = {
-      id: Math.round(Math.random() * 1000),
+      id: this.id,
       nombre: this.cursoNuevo.value.nombre,
       profesor: this.cursoNuevo.value.profe,
       finicio: this.cursoNuevo.value.inicio,
       ftermino: this.cursoNuevo.value.fin,
       descripcion: this.cursoNuevo.value.descripcion,
-      disponibilidad: this.cursoNuevo.value.disponibilidad
+      comision:this.cursoNuevo.value.comision,
+      num_horas: this.cursoNuevo.value.num_horas,
+      num_clases:this.cursoNuevo.value.num_clases
     };
     this.storeCursos.dispatch(agregarCurso({curso}))
     this.dialogRef.close();

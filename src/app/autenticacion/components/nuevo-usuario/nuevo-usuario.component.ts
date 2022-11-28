@@ -1,11 +1,14 @@
-import { agregarAlumno } from './../../../alumnos/state/alumnos.actions';
+import { cargarUsuarios } from './../../../usuarios/state/usuarios.actions';
 import { Router } from '@angular/router';
 import { Alumnos } from 'src/app/models/alumnos';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
 import { Store } from '@ngrx/store';
-import { agregarUsuario, cargarUsuarios} from 'src/app/usuarios/state/usuarios.actions';
+import { agregarUsuario} from 'src/app/usuarios/state/usuarios.actions';
+import { Sesion } from 'src/app/models/sesion';
+import { sesionCargada } from 'src/app/core/state/sesion.actions';
+import { SesionService } from 'src/app/core/services/sesion.service';
 
 @Component({
   selector: 'app-nuevo-usuario',
@@ -16,12 +19,13 @@ export class NuevoUsuarioComponent implements OnInit {
 
   formulario!:FormGroup;
   hide:boolean = true;
-  id!:number;
+  id:number=0;
 
   constructor(
     private storeUsuarios: Store<Usuario>,
-    private storeAlumnos: Store<Alumnos>,
-    private ruta: Router
+    private ruta: Router,
+    private sesionService: SesionService,
+    private storeSesion: Store<Sesion>,
     ) {
     }
 
@@ -29,35 +33,33 @@ export class NuevoUsuarioComponent implements OnInit {
     this.formulario= new FormGroup({
       nameUsuario: new FormControl(''),
       contrasena: new FormControl(''),
-      nombre: new FormControl(''),
-      apellido: new FormControl(''),
       correo: new FormControl(''),
       admin: new FormControl(false),
-
+      direccion: new FormControl(''),
+      telefono: new FormControl('')
     })
   }
 
 
   crearUsuario(){
 
-    const a:Alumnos= {
-      idAlumno:this.id,
-      nombre: this.formulario.value.nombre,
-      apellido: this.formulario.value.apellido,
-      correo: this.formulario.value.correo
-    };
-
     const u:Usuario ={
       nameUsuario:this.formulario.value.nameUsuario,
       contrasena: this.formulario.value.contrasena,
-      estudiante:a,
       admin:this.formulario.value.admin,
-      id: this.id
+      id: this.id,
+      correo: this.formulario.value.correo,
+      direccion: this.formulario.value.direccion,
+      telefono: this.formulario.value.telefono
     };
 
-    this.storeAlumnos.dispatch(agregarAlumno({alumno:a}));
     this.storeUsuarios.dispatch(agregarUsuario({usuario:u}));
-    this.ruta.navigate(['autenticacion/login']);
+    this.storeUsuarios.dispatch(cargarUsuarios())
+    this.sesionService.login(u).subscribe((usuario: Usuario) => {
+      this.storeSesion.dispatch(sesionCargada({usuarioActivo: usuario}));
+      this.ruta.navigate(['inicio']);
+    });
+
   }
 
   retroceder(){

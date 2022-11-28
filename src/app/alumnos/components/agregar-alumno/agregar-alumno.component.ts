@@ -1,16 +1,13 @@
-import { selectAlumnos } from './../../state/alumnos.selectors';
-import { alumnosCargados, cargarAlumnos } from './../../state/alumnos.actions';
-import { cursosCargados } from './../../../cursos/state/cursos.actions';
-import { Subscription } from 'rxjs';
-import { selectCursos, selectCursosCargando, selectCursosState } from './../../../cursos/state/cursos.selectors';
+import { map, Observable, Subscription } from 'rxjs';
+import { selectCursos} from './../../../cursos/state/cursos.selectors';
 import { Curso } from '../../../models/curso';
 import { Component,OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Alumnos } from 'src/app/models/alumnos';
 import { Store } from '@ngrx/store';
 import { MatDialogRef} from '@angular/material/dialog';
-import { CursosService } from 'src/app/cursos/services/cursos.service';
 import { agregarAlumno } from '../../state/alumnos.actions';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -22,16 +19,18 @@ import { agregarAlumno } from '../../state/alumnos.actions';
 export class AgregarAlumnoComponent implements OnInit {
 
   alumnoNuevo!: FormGroup;
-  cursos: Array<any>=[];
+  cursos$!:Observable<Curso[]>;
   suscripcionCursos!:Subscription;
   id!:number;
+  cursoListado!:Curso;
 
   constructor(
     private storeAlumnos: Store<Alumnos>,
     private storeCursos: Store<Curso>,
     public dialogRef: MatDialogRef<AgregarAlumnoComponent>
+
   ) {
-    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos)=>{this.cursos=cursos}));
+    this.cursos$= this.storeCursos.select(selectCursos)
 
   }
 
@@ -40,18 +39,23 @@ export class AgregarAlumnoComponent implements OnInit {
     this.alumnoNuevo= new FormGroup({
       nombre: new FormControl ('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]) ,
       apellido:new FormControl ('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
-      correo: new FormControl('', [Validators.required,Validators.pattern('^[^@]+@[^@]+\.[a-zA-Z]{2,}$')]),
       curso: new FormControl('',[Validators.required])
     })
-
   }
 
   ngOnDestroy(): void {
   }
 
   asociarCurso(){
-    const cursoListado= this.cursos.find(curso=> curso.nombre === this.alumnoNuevo.value.curso);
-    return this.alumnoNuevo.value.curso=cursoListado;
+
+    this.cursos$.subscribe((cursos)=>{
+      cursos.find((curso)=> {
+        if (curso.nombre===this.alumnoNuevo.value.curso) {
+          this.cursoListado=curso
+        }
+      }
+    )})
+    return this.cursoListado
   }
 
   agregarAlumno(){
@@ -59,9 +63,23 @@ export class AgregarAlumnoComponent implements OnInit {
       idAlumno:this.id,
       nombre: this.alumnoNuevo.value.nombre,
       apellido: this.alumnoNuevo.value.apellido,
-      correo: this.alumnoNuevo.value.correo,
       cursoActual: this.asociarCurso()
     };
+
+    Swal.fire({
+      toast: true,
+      position: "top",
+      iconColor: "white",
+      customClass: {
+        popup: "colored-toast",
+      },
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: false,
+      icon: "success",
+      title: `${alumno.nombre} ${alumno.apellido} agregado`,
+    })
+
     this.storeAlumnos.dispatch(agregarAlumno({alumno}))
     this.dialogRef.close()
   }

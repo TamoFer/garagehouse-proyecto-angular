@@ -41,8 +41,8 @@ export class MenuComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.sesionStore.dispatch(cerrarSesion())
+        this.rutas.navigate(['autenticacion/login'])
       }
-      this.rutas.navigate(['autenticacion/login'])
     })
   }
 

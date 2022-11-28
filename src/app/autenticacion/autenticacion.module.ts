@@ -1,3 +1,4 @@
+import { UsuariosModule } from './../usuarios/usuarios.module';
 import { SharedModule } from './../shared/shared.module';
 import { MaterialModule } from './../material.module';
 import { NgModule } from '@angular/core';
@@ -19,7 +20,8 @@ import { AutenticacionOpcionesComponent } from './components/autenticacion-opcio
     CommonModule,
     MaterialModule,
     AutenticacionRoutingModule,
-    SharedModule
+    SharedModule,
+    UsuariosModule
   ]
 })
 export class AutenticacionModule { }

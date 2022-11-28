@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { editarUsuario } from '../../state/usuarios.actions';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
 import { Curso } from 'src/app/models/curso';
 import { cursosCargados } from 'src/app/cursos/state/cursos.actions';
@@ -22,7 +22,6 @@ export class EditarUsuarioComponent implements OnInit {
 
   formulario!: FormGroup;
   hide=true;
-  cursos: Array<any> = [];
   suscripcionCursos!: Subscription;
 
 
@@ -38,44 +37,30 @@ export class EditarUsuarioComponent implements OnInit {
       nameUsuario: new FormControl(this.usuario.nameUsuario),
       contrasena: new FormControl(this.usuario.contrasena),
       admin: new FormControl(this.usuario.admin),
-      nombre: new FormControl(this.usuario.estudiante?.nombre),
-      apellido: new FormControl(this.usuario.estudiante?.apellido),
-      correo: new FormControl(this.usuario.estudiante?.correo),
-      cursoActual: new FormControl(this.usuario.estudiante?.cursoActual?.nombre),
-      idAlumno: new FormControl(this.usuario.estudiante?.idAlumno)
+      correo: new FormControl(this.usuario.correo),
+      direccion: new FormControl(this.usuario.direccion),
+      telefono: new FormControl(this.usuario.telefono)
     })
   }
 
   ngOnInit(): void {
-    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos) => { this.cursos = cursos }));
   }
 
   editarUsuario(){
-    const estudiante: Alumnos = {
-      idAlumno: this.formulario.value.idAlumno,
-      nombre: this.formulario.value.nombre,
-      apellido: this.formulario.value.apellido,
-      correo: this.formulario.value.correo,
-      cursoActual: this.asociarCurso()
-    }
-
     const u:Usuario = {
       id: this.usuario.id,
       nameUsuario: this.formulario.value.nameUsuario,
       contrasena: this.formulario.value.contrasena,
       admin: this.formulario.value.admin,
-      estudiante: estudiante
+      direccion: this.formulario.value.direccion,
+      telefono: this.formulario.value.telefono,
+      correo: this.formulario.value.correo,
     }
 
-    this.storeAlumnos.dispatch(editarAlumno({alumno:estudiante}))
     this.storeUsuario.dispatch(editarUsuario({usuario:u}))
     this.dialogRef.close();
   }
 
-  asociarCurso(){
-    const cursoListado= this.cursos.find(curso=> curso.nombre === this.formulario.value.cursoActual);
-    return this.formulario.value.cursoActual=cursoListado;
-  }
 
   retroceder(){
     this.dialogRef.close();

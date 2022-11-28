@@ -13,6 +13,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
     imports: [
@@ -30,7 +35,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
         MatDatepickerModule,
         MatSlideToggleModule,
         MatNativeDateModule,
-        MatSidenavModule
+        MatSidenavModule,
+        MatListModule,
+        MatTabsModule,
+        MatExpansionModule,
+        MatTooltipModule,
+        MatSnackBarModule
 
 
     ],
@@ -49,7 +59,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
         MatDatepickerModule,
         MatSlideToggleModule,
         MatNativeDateModule,
-        MatSidenavModule
+        MatSidenavModule,
+        MatListModule,
+        MatTabsModule,
+        MatExpansionModule,
+        MatTooltipModule,
+        MatSnackBarModule
     ],
     declarations: [
     ]

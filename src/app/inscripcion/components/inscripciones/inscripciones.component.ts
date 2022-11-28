@@ -1,20 +1,21 @@
-import { eliminarInscripcion, inscripcionesCargadas } from './../../state/inscripcion.actions';
+import { eliminarInscripcion, agregarInscripcion, cargarInscripciones } from './../../state/inscripcion.actions';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { map, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Inscripcion } from 'src/app/models/inscripcion';
-import { InscripcionState } from 'src/app/models/models-state/inscripcion.state';
 import { Sesion } from 'src/app/models/sesion';
 import { Usuario } from 'src/app/models/usuario';
-import { cargarInscripciones } from '../../state/inscripcion.actions';
 import { selectInscripciones } from '../../state/inscripcion.selectors';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { EditarInscripcionComponent } from '../editar-inscripcion/editar-inscripcion.component';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
-import { ListaInscripcionesService } from '../../service/lista-inscripciones.service';
+import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
+import { Alumnos } from 'src/app/models/alumnos';
+import { Curso } from 'src/app/models/curso';
+import { AgregarInscripcionComponent } from '../agregar-inscripcion/agregar-inscripcion.component';
+
+
 
 @Component({
   selector: 'app-inscripciones',
@@ -25,13 +26,15 @@ export class InscripcionesComponent implements OnInit {
 
   suscripcionSesion!: Subscription;
   suscripcionInscripcionData!: Subscription;
-  suscripcionInscripciones!: Subscription;
+
+
+
   dataSource: MatTableDataSource<Inscripcion>= new MatTableDataSource<Inscripcion>();
-  usuarioActivo?: Usuario;
-  columnasUsuario: string[] = ['estudiante', 'curso', 'fechaInscripcion'];
-  columnasAdmin: string[] = ['estudiante', 'curso', 'fechaInscripcion', 'acciones'];
-  formulario!: FormGroup;
+  columnasUsuario: string[] = ['id_alumno', 'id_curso','id_usuario', 'fechaInscripcion'];
+  columnasAdmin: string[] = ['id_alumno', 'id_curso','id_usuario', 'fechaInscripcion', 'acciones'];
+
   seccion: string='Inscripciones';
+  usuarioActivo?: Usuario;
 
   constructor(
     private storeInscripciones: Store<Inscripcion>,
@@ -40,8 +43,7 @@ export class InscripcionesComponent implements OnInit {
     private toolbarService: ToolbarTitleService
 
   ) {
-
-    this.storeInscripciones.dispatch(cargarInscripciones());
+    this.storeInscripciones.dispatch(cargarInscripciones())
   }
 
   ngOnInit(): void {
@@ -51,11 +53,6 @@ export class InscripcionesComponent implements OnInit {
 
     this.suscripcionSesion= this.storeSesion.select(selectSesionActiva).subscribe((sesion: Sesion) => {
       this.usuarioActivo = sesion.usuarioActivo;
-    })
-
-    this.formulario= new FormGroup({
-      estudiante: new FormControl ('',[]),
-      curso: new FormControl('', [])
     })
 
     this.toolbarService.editarTitleComponent(this.seccion)
@@ -77,38 +74,9 @@ export class InscripcionesComponent implements OnInit {
     this.storeInscripciones.dispatch(eliminarInscripcion({inscripcion}));
   }
 
-  buscarXEstudiante(){
-    const valorObtenido = this.formulario.get('estudiante')?.value;
-    this.storeInscripciones.select(selectInscripciones).pipe(
-      map((inscripciones:Inscripcion[])=> inscripciones.filter((i:Inscripcion)=>
-        (i.alumno?.nombre+' '+i.alumno?.apellido).toLowerCase()=== valorObtenido.toLowerCase())
-        )
-      ).subscribe((inscripcion)=>{
-        this.dataSource.data = inscripcion;
-      })
-  }
-  vaciarCampoEstudiante(){
-    this.formulario.get('estudiante')?.reset();
-    this.storeInscripciones.select(selectInscripciones).subscribe((inscripcion:Inscripcion[])=>{
-      this.dataSource= new MatTableDataSource<Inscripcion>(inscripcion)
-    })
+  agregarInscripcion(){
+    this.dialog.open(AgregarInscripcionComponent)
   }
 
-  buscarXCurso(){
-    const valorObtenido = this.formulario.get('curso')?.value;
-    this.storeInscripciones.select(selectInscripciones).pipe(
-      map((inscripciones:Inscripcion[])=> inscripciones.filter((i:Inscripcion)=>
-        i.curso.nombre.toLowerCase() === valorObtenido.toLowerCase())
-        )
-      ).subscribe((inscripcion)=>{
-        this.dataSource.data = inscripcion;
-      })
-  }
-  vaciarCampoCurso(){
-    this.formulario.get('curso')?.reset();
-    this.storeInscripciones.select(selectInscripciones).subscribe((inscripcion:Inscripcion[])=>{
-      this.dataSource= new MatTableDataSource<Inscripcion>(inscripcion)
-    })
-  }
 
 }

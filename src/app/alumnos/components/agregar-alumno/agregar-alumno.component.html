@@ -37,21 +37,9 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Email del alumno</mat-label>
-        <input
-          matInput
-          formControlName="correo"
-          [ngClass]="{'is-invalid':alumnoNuevo.get('correo')?.touched && alumnoNuevo.get('correo')?.errors?.['required'] || alumnoNuevo.get('correo')?.errors?.['pattern'] }"
-        />
-        <div class="invalid-feedback">
-          <small>El campo es requerido</small>
-        </div>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
         <mat-label>Cursos Disponibles</mat-label>
         <mat-select formControlName="curso" [ngClass]="{'is-invalid':alumnoNuevo.get('curso')?.errors?.['required']}" >
-          <mat-option  *ngFor="let curso of cursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
+          <mat-option  *ngFor="let curso of cursos$ | async" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
         </mat-select>
         <div class="invalid-feedback">
           <small>El campo es requerido</small>

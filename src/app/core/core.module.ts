@@ -13,7 +13,7 @@ import { reducer, sesionFeatureKey } from './state/sesion.reducer';
 @NgModule({
   declarations: [
     InicioComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,

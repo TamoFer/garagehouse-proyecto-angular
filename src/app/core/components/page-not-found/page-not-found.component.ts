@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
+import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 
 @Component({
   selector: 'app-page-not-found',

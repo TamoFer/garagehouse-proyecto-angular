@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TablesComponent } from './components/lista-alumnos/tables.component';
 import { StoreModule } from '@ngrx/store';
 import { alumnosFeatureKey, alumnosReducer } from './state/alumnos.reducer';
-import { MatDialogRef } from '@angular/material/dialog';
+import { VerDetallesComponent } from './components/ver-detalles/ver-detalles.component';
 
 
 @NgModule({
@@ -20,7 +20,8 @@ import { MatDialogRef } from '@angular/material/dialog';
     TablesComponent,
     AgregarAlumnoComponent,
     EditarAlumnoComponent,
-    InicioAlumnosComponent
+    InicioAlumnosComponent,
+    VerDetallesComponent
   ],
   providers: [
 

@@ -41,7 +41,30 @@
           </div>
         </mat-form-field>
 
-        <mat-slide-toggle formControlName="disponibilidad">Inscripcion abierta</mat-slide-toggle>
+        <mat-form-field appearance="fill" >
+          <mat-label>Comision del curso</mat-label>
+          <textarea matInput formControlName="comision" [ngClass]="{'is-invalid': form.get('descripcion')?.errors}"></textarea>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Carga horaria del curso</mat-label>
+          <textarea matInput type="number" formControlName="num_horas" [ngClass]="{'is-invalid': form.get('descripcion')?.errors}"></textarea>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Numero de clases del curso</mat-label>
+          <textarea matInput type="number" formControlName="num_clases" [ngClass]="{'is-invalid': form.get('descripcion')?.errors}"></textarea>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
 
       </form>
     </div>

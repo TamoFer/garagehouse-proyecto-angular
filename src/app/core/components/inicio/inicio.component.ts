@@ -5,7 +5,7 @@ import { cargarAlumnos } from './../../../alumnos/state/alumnos.actions';
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Curso } from 'src/app/models/curso';
-import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
+import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 import { Alumnos } from 'src/app/models/alumnos';
 import { Store } from '@ngrx/store';
 import { Usuario } from 'src/app/models/usuario';

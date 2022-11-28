@@ -1,25 +1,24 @@
-import { cargarCursos } from './../../../cursos/state/cursos.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { EditarAlumnoComponent } from './../editar-alumno/editar-alumno.component';
 import { selectAlumnos } from './../../state/alumnos.selectors';
-import { alumnosCargados, editarAlumno, eliminarAlumno, cargarAlumnos } from './../../state/alumnos.actions';
+import { eliminarAlumno } from './../../state/alumnos.actions';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { Alumnos } from 'src/app/models/alumnos';
 import { Component, OnInit, } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
-import { map, Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
 import { Store } from '@ngrx/store';
 import { Sesion } from 'src/app/models/sesion';
 import { AlumnoState } from 'src/app/models/models-state/alumno.state';
 import { AgregarAlumnoComponent } from '../agregar-alumno/agregar-alumno.component';
-import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
-import { CursosService } from 'src/app/cursos/services/cursos.service';
+import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 import { Curso } from 'src/app/models/curso';
-import { cursosCargados } from 'src/app/cursos/state/cursos.actions';
 import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
+import { VerDetallesComponent } from '../ver-detalles/ver-detalles.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarsNotisService } from 'src/app/core/services/snackbars-notis.service';
 
 @Component({
   selector: 'app-tables',
@@ -29,17 +28,15 @@ import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
 export class TablesComponent implements OnInit {
 
   suscripcionSesion!: Subscription;
-  suscripcionAlumnos!: Subscription;
   suscripcionAlumnosData!: Subscription;
-  suscripcionCursos!: Subscription;
 
   usuarioActivo?: Usuario;
-  columnasAdmin: string[] = ['nombre', 'apellido', 'correo', 'cursando', 'actions'];
-  columnasUsuario: string[] = ['nombre', 'apellido', 'correo', 'cursando'];
+  columnasAdmin: string[] = ['nombre', 'apellido', 'cursando', 'actions'];
+  columnasUsuario: string[] = ['nombre', 'apellido', 'cursando'];
   data: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>();
   busquedaEnTabla!: FormGroup;
   seccion: string = 'Alumnos'
-  cursos: Array<any> = [];
+  cursos$!:Observable<Curso[]>;
 
 
   constructor(
@@ -47,14 +44,16 @@ export class TablesComponent implements OnInit {
     private storeSesion: Store<Sesion>,
     private storeAlumnos: Store<AlumnoState>,
     private storeCursos: Store<Curso>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private notificacionService: SnackbarsNotisService
+
   ) {
     this.toolbarService.editarTitleComponent(this.seccion)
   }
 
   ngOnInit(): void {
 
-    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos) => { this.cursos = cursos }));
+    this.cursos$=this.storeCursos.select(selectCursos)
 
     this.suscripcionSesion = this.storeSesion.select(selectSesionActiva).subscribe((datos) => {
       this.usuarioActivo = datos.usuarioActivo
@@ -115,6 +114,7 @@ export class TablesComponent implements OnInit {
 
   agregarAlumno() {
     this.dialog.open(AgregarAlumnoComponent, {})
+
   }
 
   editarAlumno(alumno: Alumnos) {
@@ -124,9 +124,17 @@ export class TablesComponent implements OnInit {
   }
 
   borrarAlumno(alumno: Alumnos) {
-    this.storeAlumnos.dispatch(eliminarAlumno({ alumno }))
+    this.storeAlumnos.dispatch(eliminarAlumno({ alumno }));
+    this.notificacionService.eliminar(alumno)
   }
 
+  verDetalles(alumno: Alumnos) {
+    this.dialog.open(VerDetallesComponent, {
+      data:alumno,
+      width: '50rem',
+      height: 'auto'
+    })
+  }
 
 }
 

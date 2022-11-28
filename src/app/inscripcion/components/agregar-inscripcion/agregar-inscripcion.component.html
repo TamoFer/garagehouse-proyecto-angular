@@ -1,0 +1,33 @@
+<div class="dialog">
+  <h1 mat-dialog-title>Nueva inscripcion</h1>
+    <div mat-dialog-content>
+      <form [formGroup]="formulario">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Cursos </mat-label>
+          <mat-select formControlName="curso">
+            <mat-option  *ngFor="let curso of cursos$ | async" [value]="curso.id" >{{ curso.nombre }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Alumnos</mat-label>
+          <mat-select formControlName="alumno">
+            <mat-option  *ngFor="let alumno of alumnos$ | async" [value]="alumno.idAlumno" >{{ alumno.nombre + ' ' + alumno.apellido }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </form>
+    </div>
+    <div mat-dialog-actions>
+      <div class="botones">
+        <div class="">
+          <button mat-raised-button color="primary" (click)="agregarInscripto()" >Agregar inscripto</button>
+        </div>
+        <div class="">
+          <button mat-raised-button color="primary" type="button" (click)="retroceder()" >Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

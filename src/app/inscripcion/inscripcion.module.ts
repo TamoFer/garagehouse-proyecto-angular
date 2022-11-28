@@ -9,12 +9,14 @@ import { InscripcionRoutingModule } from './inscripcion-routing.module';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
 import { inscripcionFeatureKey, inscripcionReducer } from './state/inscripcion.reducer';
 import { EditarInscripcionComponent } from './components/editar-inscripcion/editar-inscripcion.component';
+import { AgregarInscripcionComponent } from './components/agregar-inscripcion/agregar-inscripcion.component';
 
 
 @NgModule({
   declarations: [
     InscripcionesComponent,
-    EditarInscripcionComponent
+    EditarInscripcionComponent,
+    AgregarInscripcionComponent
   ],
   imports: [
     CommonModule,

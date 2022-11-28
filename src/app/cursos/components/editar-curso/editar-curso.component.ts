@@ -1,4 +1,3 @@
-import { editarAlumno } from './../../../alumnos/state/alumnos.actions';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Curso } from 'src/app/models/curso';
@@ -7,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { editarCurso } from '../../state/cursos.actions';
 import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
 import { Alumnos } from 'src/app/models/alumnos';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { alumnosCargados } from 'src/app/alumnos/state/alumnos.actions';
 import { selectAlumnos } from 'src/app/alumnos/state/alumnos.selectors';
 
@@ -19,26 +18,19 @@ import { selectAlumnos } from 'src/app/alumnos/state/alumnos.selectors';
 export class EditarCursoComponent implements OnInit {
 
   form!:FormGroup;
-  alumnos:Array<any>=[];
+  alumnos$!:Observable<Alumnos[]>
   suscripcionAlumnos!:Subscription;
 
   constructor(
     public dialogRef: MatDialogRef<EditarCursoComponent>,
     @Inject(MAT_DIALOG_DATA) public curso:Curso,
     private storeCursos: Store<Curso>,
-    private alumnosService: ListaAlumnosService,
     private storeAlumnos: Store<Alumnos>
 
   ) { }
 
   ngOnInit(): void {
-    this.suscripcionAlumnos= this.alumnosService.obtenerAlumnos().subscribe({
-      next: (alumnos:Alumnos[]) =>{
-        this.storeAlumnos.dispatch(alumnosCargados({alumnos}))
-      }
-    })
-
-    this.alumnos.push(this.storeAlumnos.select(selectAlumnos).subscribe((alumnos)=> {this.alumnos= alumnos}))
+    this.alumnos$=this.storeAlumnos.select(selectAlumnos)
 
     this.form= new FormGroup({
         nombre: new FormControl(this.curso.nombre, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
@@ -46,7 +38,9 @@ export class EditarCursoComponent implements OnInit {
         inicio: new FormControl(this.curso.finicio),
         fin: new FormControl(this.curso.ftermino),
         descripcion: new FormControl(this.curso.descripcion, [Validators.minLength(10), Validators.maxLength(25)]),
-        disponibilidad:new FormControl(this.curso.disponibilidad)
+        comision: new FormControl(this.curso.comision),
+        num_horas: new FormControl(this.curso.num_horas),
+        num_clases: new FormControl(this.curso.num_clases)
     })
   }
 
@@ -59,7 +53,9 @@ export class EditarCursoComponent implements OnInit {
         finicio: this.form.value.inicio,
         ftermino: this.form.value.fin,
         descripcion: this.form.value.descripcion,
-        disponibilidad:this.form.value.disponibilidad
+        comision: this.form.value.comision,
+        num_horas: this.form.value.num_horas,
+        num_clases: this.form.value.num_clases
     }
 
     this.storeCursos.dispatch(editarCurso({curso:cursoEditado}))

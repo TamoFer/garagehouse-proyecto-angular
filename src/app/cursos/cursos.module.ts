@@ -12,6 +12,7 @@ import { MaterialModule } from '../material.module';
 import { InicioCursosComponent } from './components/inicio-cursos/inicio-cursos.component';
 import { CardsComponent } from './components/cards/cards.component';
 import { CursosService } from './services/cursos.service';
+import { VerDetallesComponent } from './components/ver-detalles/ver-detalles.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CursosService } from './services/cursos.service';
     AgregarCursoComponent,
     EditarCursoComponent,
     InicioCursosComponent,
-    CardsComponent
+    CardsComponent,
+    VerDetallesComponent
   ],
 
   imports: [

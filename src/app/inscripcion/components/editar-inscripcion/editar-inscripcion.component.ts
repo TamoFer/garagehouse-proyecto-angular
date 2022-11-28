@@ -6,9 +6,9 @@ import { Store } from '@ngrx/store';
 import { Curso } from 'src/app/models/curso';
 import { Inscripcion } from 'src/app/models/inscripcion';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CursosService } from 'src/app/cursos/services/cursos.service';
-import { editarInscripcion } from '../../state/inscripcion.actions';
+import { Alumnos } from 'src/app/models/alumnos';
 
 @Component({
   selector: 'app-editar-inscripcion',
@@ -19,18 +19,21 @@ export class EditarInscripcionComponent implements OnInit {
 
   formulario!: FormGroup;
   suscripcionCursos!: Subscription;
-  cursos: Array<any> = [];
+  cursos$!:Observable<Curso[]>;
+  alumnos$!:Observable<Alumnos[]>
 
   constructor(
     private dialogRef: MatDialogRef<EditarInscripcionComponent>,
     private cursosService: CursosService,
     private storeCursos: Store<Curso>,
+    private storeAlumnos: Store<Alumnos>,
     private storeInscripciones: Store<Inscripcion>,
     @Inject(MAT_DIALOG_DATA) public inscripcion: Inscripcion
   ) {
     this.formulario = new FormGroup({
-      curso: new FormControl(this.inscripcion.curso.nombre),
-      alumno: new FormControl(this.inscripcion.alumno?.nombre + ' ' + this.inscripcion.alumno?.apellido),
+      id_curso: new FormControl(this.inscripcion.id_curso),
+      id_alumno: new FormControl(this.inscripcion.id_alumno),
+      id_usuario: new FormControl(this.inscripcion.id_usuario),
       fechaInscripcion: new FormControl(new Date(this.inscripcion.fechaInscripcion).toLocaleDateString()),
     })
   }
@@ -42,7 +45,7 @@ export class EditarInscripcionComponent implements OnInit {
       }
     });
 
-    this.cursos.push(this.storeCursos.select(selectCursos).subscribe((cursos) => { this.cursos = cursos }));
+    this.cursos$=this.storeCursos.select(selectCursos)
 
   }
 
@@ -50,21 +53,16 @@ export class EditarInscripcionComponent implements OnInit {
     this.suscripcionCursos.unsubscribe();
   }
 
-  asociarCurso() {
-    const cursoListado = this.cursos.find(curso => curso.nombre === this.formulario.value.curso);
-    return cursoListado;
-  }
-
-  editarInscripcion() {
-    const i: Inscripcion = {
-      id: this.inscripcion.id,
-      curso: this.asociarCurso(),
-      alumno: this.inscripcion.alumno,
-      fechaInscripcion: this.formulario.get('fechaInscripcion')?.touched ? this.formulario.value.fechaInscripcion : this.inscripcion.fechaInscripcion
-    }
-    this.storeInscripciones.dispatch(editarInscripcion({ inscripcion: i }))
-    this.dialogRef.close()
-  }
+  // editarInscripcion() {
+  //   const i: Inscripcion = {
+  //     id: this.inscripcion.id,
+  //     curso: this.asociarCurso(),
+  //     alumno: this.inscripcion.alumno,
+  //     fechaInscripcion: this.formulario.get('fechaInscripcion')?.touched ? this.formulario.value.fechaInscripcion : this.inscripcion.fechaInscripcion
+  //   }
+  //   this.storeInscripciones.dispatch(editarInscripcion({ inscripcion: i }))
+  //   this.dialogRef.close()
+  // }
 
   retroceder() {
     this.dialogRef.close()

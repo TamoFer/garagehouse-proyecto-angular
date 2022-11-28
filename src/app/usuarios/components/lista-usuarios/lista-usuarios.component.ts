@@ -1,21 +1,15 @@
-import { selectAlumnos } from './../../../alumnos/state/alumnos.selectors';
-import { alumnosCargados } from './../../../alumnos/state/alumnos.actions';
 import { selectUsuarios } from './../../state/usuarios.selectors';
-import { editarUsuario, eliminarUsuario, usuariosCargados, cargarUsuarios } from './../../state/usuarios.actions';
-import { UsuarioState } from './../../../models/models-state/usuario.state';
+import { eliminarUsuario, cargarUsuarios } from './../../state/usuarios.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { map, Subscription } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario';
-import { UsuariosService } from '../../services/usuarios.service';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { EditarUsuarioComponent } from '../editar-usuario/editar-usuario.component';
 import { AltaUsuarioComponent } from '../alta-usuario/alta-usuario.component';
-import { ToolbarTitleService } from 'src/app/service/toolbar-title.service';
-import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
-import { Alumnos } from 'src/app/models/alumnos';
+import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -26,21 +20,19 @@ export class ListaUsuariosComponent implements OnInit {
 
   suscripcionUsuariosData!: Subscription;
 
-  columnas: string[] = ['id', 'usuario', 'admin','estudiante', 'actions'];
+  columnas: string[] = ['id','usuario', 'admin','email','direccion','telefono', 'actions'];
 
   data: MatTableDataSource<Usuario> = new MatTableDataSource<Usuario>();
 
   formulario!: FormGroup;
 
   seccion:string ='Usuarios';
-  alumnos:Array<any>=[];
 
 
   constructor(
     private storeUsuarios: Store<Usuario>,
     private dialog: MatDialog,
     private toolbarService: ToolbarTitleService,
-    private storeAlumnos: Store<Alumnos>,
 
   ) {
     this.toolbarService.editarTitleComponent(this.seccion);
@@ -48,7 +40,6 @@ export class ListaUsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.alumnos.push(this.storeAlumnos.select(selectAlumnos).subscribe((alumnos)=>{this.alumnos=alumnos}));
 
     this.suscripcionUsuariosData = this.storeUsuarios.select(selectUsuarios).subscribe((usuarios: Usuario[]) => {
       this.data = new MatTableDataSource<Usuario>(usuarios)

@@ -1,41 +1,34 @@
 <div class="contenido" >
   <div class="table" >
     <table mat-table [dataSource]="data" >
-        <ng-container matColumnDef="nombre">
+
+      <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef>Curso</th>
             <td mat-cell *matCellDef="let curso">{{ curso.nombre}}</td>
         </ng-container>
+
         <ng-container matColumnDef="profesor">
           <th mat-header-cell *matHeaderCellDef>Profesor</th>
           <td mat-cell *matCellDef="let curso">{{ curso.profesor}}</td>
         </ng-container>
-        <ng-container matColumnDef="disponibilidad">
-          <th mat-header-cell *matHeaderCellDef>Disponibilidad</th>
-          <td mat-cell *matCellDef="let curso" [ngSwitch]="curso.disponibilidad" [ngClass]="curso.disponibilidad?'disponible':'noDisponible'">
-            <span *ngSwitchCase="true" > Disponible </span>
-            <span *ngSwitchCase="false" > No disponible </span>
-          </td>
+
+        <ng-container matColumnDef="comision">
+          <th mat-header-cell *matHeaderCellDef>Comision</th>
+          <td mat-cell *matCellDef="let curso">{{ curso.comision}}</td>
         </ng-container>
-        <ng-container matColumnDef="inscripcion">
-          <th mat-header-cell *matHeaderCellDef>Inscripciones</th>
-          <td mat-cell *matCellDef="let curso" [ngSwitch]="curso.disponibilidad">
-            <span *ngSwitchCase="true" >
-              <button mat-raised-button color="primary" (click)="inscribirme(curso)">Abierta</button>
-            </span>
-            <span *ngSwitchCase="false" >
-              <button mat-raised-button  disabled>Cerrada</button>
-            </span>
-          </td>
-        </ng-container>
+
         <ng-container [ngSwitch]="usuarioActivo?.admin" matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Acciones</th>
             <td mat-cell *matCellDef="let curso">
                 <button mat-icon-button >
-                    <mat-icon (click)="editarDatos(curso)" color="primary">edit_note</mat-icon>
+                    <mat-icon matTooltip="Editar"  (click)="editarDatos(curso)" color="primary">edit_note</mat-icon>
                 </button>
                 <button mat-icon-button>
-                    <mat-icon (click)="eliminarCurso(curso)" color="warn">delete_forever</mat-icon>
+                    <mat-icon matTooltip="Eliminar" (click)="eliminarCurso(curso)" color="warn">delete_forever</mat-icon>
                 </button>
+                <button mat-icon-button>
+                  <mat-icon matTooltip="Detalles" (click)="verDetalles(curso)">visibility</mat-icon>
+              </button>
             </td>
         </ng-container>
         <div [ngSwitch]="usuarioActivo?.admin">
@@ -57,16 +50,6 @@
         <button mat-raised-button color="primary" (click)="agregarCurso()">Agregar Curso</button>
       </div>
       <form [formGroup]="formulario" >
-        <div class="">
-          <mat-form-field appearance="fill" class="fill">
-            <p>Buscar por profesor</p>
-            <input type="text" formControlName="profesor" matInput/>
-          </mat-form-field>
-          <div class="botones">
-            <button  mat-raised-button color="primary"  (click)="buscarXProfesor()">Buscar</button>
-            <button mat-raised-button color="primary"  (click)="vaciarCampoProfesor()">Vaciar</button>
-          </div>
-        </div>
         <div class="">
           <mat-form-field appearance="fill" class="fill">
             <p>Buscar por curso</p>

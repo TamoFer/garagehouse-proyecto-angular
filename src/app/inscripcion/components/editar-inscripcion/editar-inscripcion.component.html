@@ -4,13 +4,18 @@
       <form [formGroup]="formulario">
 
         <mat-form-field appearance="fill" >
-          <mat-label>Curso inscripto</mat-label>
-          <input matInput type="text" formControlName="curso" readonly/>
+          <mat-label>ID_Curso inscripto</mat-label>
+          <input matInput type="text" formControlName="id_curso" readonly/>
         </mat-form-field>
 
         <mat-form-field appearance="fill" >
-          <mat-label>Alumno inscripto</mat-label>
-          <input matInput type="text" formControlName="alumno" readonly/>
+          <mat-label>ID-Alumno inscripto</mat-label>
+          <input matInput type="text" formControlName="id_alumno" readonly/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>ID-Usuario inscripto</mat-label>
+          <input matInput type="text" formControlName="id_usuario" readonly/>
         </mat-form-field>
 
         <mat-form-field appearance="fill" >
@@ -18,7 +23,7 @@
           <input matInput type="text" formControlName="fechaInscripcion" readonly/>
         </mat-form-field>
 
-        <div>
+        <!-- <div>
           <p>Reasignar curso</p>
           <mat-form-field appearance="fill">
             <mat-label>Cursos Disponibles</mat-label>
@@ -26,7 +31,7 @@
               <mat-option  *ngFor="let curso of cursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
+        </div> -->
 
         <div>
           <p>Corregir fecha de inscripcion</p>
@@ -42,8 +47,9 @@
     </div>
     <div mat-dialog-actions>
       <div class="botones">
+        <!-- (click)="editarInscripcion()"  -->
         <div class="">
-          <button mat-raised-button color="primary" (click)="editarInscripcion()" >Terminar edicion</button>
+          <button mat-raised-button color="primary" >Terminar edicion</button>
         </div>
         <div class="">
           <button mat-raised-button color="primary" type="button" (click)="retroceder()" >Cancelar</button>

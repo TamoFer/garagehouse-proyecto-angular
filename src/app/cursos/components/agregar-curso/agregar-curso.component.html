@@ -2,6 +2,7 @@
   <h1 mat-dialog-title>NUEVO ALUMNO</h1>
     <div mat-dialog-content>
       <form [formGroup]="cursoNuevo" >
+
         <mat-form-field appearance="fill" >
           <mat-label>Nombre del curso</mat-label>
           <input matInput type="text" formControlName="nombre" [ngClass]="{'is-invalid': cursoNuevo.get('nombre')?.errors && cursoNuevo.get('nombre')?.touched}" />
@@ -46,7 +47,30 @@
           </div>
         </mat-form-field>
 
-        <mat-slide-toggle formControlName="disponibilidad">Inscripcion abierta</mat-slide-toggle>
+        <mat-form-field appearance="fill" >
+          <mat-label>Comision del curso</mat-label>
+          <textarea matInput type="text" formControlName="comision" [ngClass]="{'is-invalid': cursoNuevo.get('descripcion')?.errors && cursoNuevo.get('descripcion')?.touched}"></textarea>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Cantidad de horas del curso</mat-label>
+          <textarea matInput type="number" formControlName="num_horas" [ngClass]="{'is-invalid': cursoNuevo.get('descripcion')?.errors && cursoNuevo.get('descripcion')?.touched}"></textarea>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Cantidad de clases del curso</mat-label>
+          <textarea matInput type="number" formControlName="num_clases" [ngClass]="{'is-invalid': cursoNuevo.get('descripcion')?.errors && cursoNuevo.get('descripcion')?.touched}"></textarea>
+          <div class="invalid-feedback">
+            <small>El campo es requerido</small>
+          </div>
+        </mat-form-field>
+
 
       </form>
     </div>

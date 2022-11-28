@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs';
-import { UsuariosService } from 'src/app/usuarios/services/usuarios.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,7 @@ export class SesionService {
   usuario?:Usuario;
 
   constructor(
-    private http: HttpClient,
-    private usuariosService: UsuariosService
+    private http: HttpClient
   ) {
     const sesion: Sesion = {
       sesionActiva: false

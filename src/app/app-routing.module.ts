@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: 'usuarios', component:ListaUsuariosComponent , loadChildren: () => import('./usuarios/usuarios.module').then((m) => m.UsuariosModule), canActivate: [AutenticacionGuard, AdminGuard] },
   { path: 'autenticacion',component: AutenticacionOpcionesComponent,loadChildren: () => import('./autenticacion/autenticacion.module').then((m) => m.AutenticacionModule) },
   { path: 'autenticacion/login', component: LoginComponent },
-  { path: 'autenticacion/nuevo-usuario', component: NuevoUsuarioComponent },
+  { path: 'autenticacion/nuevo-usuario', component: NuevoUsuarioComponent},
   { path: '', redirectTo: 'autenticacion/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 

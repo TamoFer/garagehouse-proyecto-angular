@@ -1,9 +1,9 @@
-import { Alumnos } from "./alumnos";
-
 export interface Usuario{
-  nameUsuario:string;
-  contrasena: string;
-  estudiante?:Alumnos;
-  admin:boolean;
   id: number;
+  correo:string;
+  contrasena: string;
+  nameUsuario:string;
+  direccion:string;
+  telefono:number;
+  admin:boolean;
 }

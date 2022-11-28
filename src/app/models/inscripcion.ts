@@ -1,9 +1,7 @@
-import { Alumnos } from 'src/app/models/alumnos';
-import { Curso } from "./curso";
-
 export interface Inscripcion {
   id: number;
-  curso: Curso;
-  alumno?: Alumnos;
+  id_curso: number;
+  id_alumno: number;
+  id_usuario?:number
   fechaInscripcion: Date;
 }

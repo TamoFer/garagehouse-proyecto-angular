@@ -1,29 +1,43 @@
 <div class="body">
-  <div class="login" >
-      <form [formGroup]="formulario" (ngSubmit)="login()">
-        <h1>iniciar sesion</h1>
-        <mat-form-field appearance="fill" class="fill">
-          <mat-label>Nombre de usuario</mat-label>
-          <input matInput formControlName="nameUsuario" type="text" [ngClass]="{'is-invalid':formulario.get('nameUsuario')?.touched && formulario.get('nameUsuario')?.errors?.['required']
+  <div class="login">
+    <form [formGroup]="formulario" (ngSubmit)="login()">
+      <h1>iniciar sesion</h1>
+      <mat-form-field appearance="fill" class="fill">
+        <mat-label>Nombre de usuario</mat-label>
+        <input matInput type="text" formControlName="nameUsuario" [ngClass]="{'is-invalid':formulario.get('nameUsuario')?.touched && formulario.get('nameUsuario')?.errors?.['required']
         }" />
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="fill">
-          <mat-label>Contraseña</mat-label>
-          <input matInput formControlName="contrasena" type="password" [ngClass]="{'is-invalid':formulario.get('contrasena')?.touched && formulario.get('contrasena')?.errors?.['required']}"/>
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
-        </mat-form-field>
-        <div class="botones">
-          <button type="submit" mat-raised-button color="primary" [disabled]="formulario.invalid">Login</button>
-          <button type ="button" mat-raised-button color="primary" (click)="vaciarCampos()">Vaciar campos</button>
-          <button type="button" mat-raised-button color="primary" (click)="nuevoUsuario()" >Crear Usuario</button>
-
+        <div class="invalid-feedback">
+          <small>El campo es requerido</small>
         </div>
-      </form>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="fill">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="contrasena" type="password"
+          [ngClass]="{'is-invalid':formulario.get('contrasena')?.touched && formulario.get('contrasena')?.errors?.['required']}" />
+        <div class="invalid-feedback">
+          <small>El campo es requerido</small>
+        </div>
+      </mat-form-field>
+      <div class="botones">
+        <button type="button" mat-raised-button color="primary" (click)="usuarioAdmin()">
+          Admin
+        </button>
+        <button type="button" mat-raised-button color="primary" (click)="usuarioNoAdmin()">
+          NO Admin
+        </button>
+      </div>
+      <div class="botones">
+        <button type="submit" mat-raised-button color="primary" [disabled]="formulario.invalid">
+          Login
+        </button>
+        <button type="button" mat-raised-button color="primary" (click)="vaciarCampos()">
+          Vaciar campos
+        </button>
+        <button type="button" mat-raised-button color="primary" (click)="nuevoUsuario()">
+          Crear Usuario
+        </button>
+
+      </div>
+    </form>
   </div>
 </div>
-

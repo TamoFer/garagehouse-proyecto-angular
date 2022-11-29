@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { Curso } from 'src/app/models/curso';
 import { agregarCurso } from '../../state/cursos.actions';
@@ -17,7 +18,8 @@ export class AgregarCursoComponent implements OnInit {
 
   constructor(
     private storeCursos: Store<Curso>,
-    public dialogRef: MatDialogRef<AgregarCursoComponent>
+    public dialogRef: MatDialogRef<AgregarCursoComponent>,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +48,12 @@ export class AgregarCursoComponent implements OnInit {
       num_clases:this.cursoNuevo.value.num_clases
     };
     this.storeCursos.dispatch(agregarCurso({curso}))
+    this.snackBar.open(` Curso ${curso.nombre} agregado `,'' , {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-accent'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
     this.dialogRef.close();
 
   }

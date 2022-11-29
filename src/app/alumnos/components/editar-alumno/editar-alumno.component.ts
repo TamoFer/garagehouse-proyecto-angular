@@ -1,17 +1,14 @@
 import { cargarCursos } from './../../../cursos/state/cursos.actions';
-import { selectAlumnos } from './../../state/alumnos.selectors';
 import { editarAlumno, alumnosCargados, cargarAlumnos } from './../../state/alumnos.actions';
 import { Curso } from '../../../models/curso';
-import { CursosService } from 'src/app/cursos/services/cursos.service';
 import { Alumnos } from '../../../models/alumnos';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
-import { map, Observable, Subscription } from 'rxjs';
+import { Observable} from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { cursosCargados } from 'src/app/cursos/state/cursos.actions';
 import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
-import { ListaAlumnosService } from '../../services/lista-alumnos.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-editar-alumno',
@@ -31,7 +28,8 @@ export class EditarAlumnoComponent implements OnInit {
     public dialogRef: MatDialogRef<EditarAlumnoComponent>,
     @Inject(MAT_DIALOG_DATA) public alumno: Alumnos,
     private storeCursos: Store<Curso>,
-    private storeAlumnos: Store<Alumnos>
+    private storeAlumnos: Store<Alumnos>,
+    private snackBar: MatSnackBar
 
   ) {
     this.storeCursos.dispatch(cargarCursos())
@@ -57,6 +55,12 @@ export class EditarAlumnoComponent implements OnInit {
     }
 
     this.storeAlumnos.dispatch(editarAlumno({ alumno: alumnoEditado }))
+    this.snackBar.open(`Editado con exito`, '', {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-primary'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
     this.dialogRef.close();
   }
 

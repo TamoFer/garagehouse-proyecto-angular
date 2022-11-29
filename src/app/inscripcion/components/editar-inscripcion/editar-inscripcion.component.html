@@ -1,5 +1,5 @@
 <div class="dialog">
-  <h1 mat-dialog-title>NUEVO ALUMNO</h1>
+  <h1 mat-dialog-title>Editar Inscripcion</h1>
     <div mat-dialog-content>
       <form [formGroup]="formulario">
 
@@ -14,7 +14,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill" >
-          <mat-label>ID-Usuario inscripto</mat-label>
+          <mat-label>ID-Usuario creador inscripcion </mat-label>
           <input matInput type="text" formControlName="id_usuario" readonly/>
         </mat-form-field>
 
@@ -23,15 +23,25 @@
           <input matInput type="text" formControlName="fechaInscripcion" readonly/>
         </mat-form-field>
 
-        <!-- <div>
+        <div>
           <p>Reasignar curso</p>
           <mat-form-field appearance="fill">
-            <mat-label>Cursos Disponibles</mat-label>
+            <mat-label>Cursos disponibles</mat-label>
             <mat-select formControlName="curso">
-              <mat-option  *ngFor="let curso of cursos" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
+              <mat-option  *ngFor="let curso of cursos$ | async" [value]="curso.id" >{{ curso.nombre }}</mat-option>
             </mat-select>
           </mat-form-field>
-        </div> -->
+        </div>
+
+        <div>
+          <p>Reasignar alumno</p>
+          <mat-form-field appearance="fill">
+            <mat-label>Alumnos registrados</mat-label>
+            <mat-select formControlName="alumno">
+              <mat-option  *ngFor="let alumno of alumnos$ | async" [value]="alumno.idAlumno" >{{ alumno.nombre+' '+alumno.apellido }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
         <div>
           <p>Corregir fecha de inscripcion</p>
@@ -47,9 +57,8 @@
     </div>
     <div mat-dialog-actions>
       <div class="botones">
-        <!-- (click)="editarInscripcion()"  -->
         <div class="">
-          <button mat-raised-button color="primary" >Terminar edicion</button>
+          <button mat-raised-button color="primary" (click)="editarInscripcion()" >Terminar edicion</button>
         </div>
         <div class="">
           <button mat-raised-button color="primary" type="button" (click)="retroceder()" >Cancelar</button>

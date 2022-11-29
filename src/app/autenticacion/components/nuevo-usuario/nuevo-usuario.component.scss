@@ -1,40 +1,44 @@
 form{
-  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  gap: 1rem;
   padding: 1rem;
-  height: 18rem;
-  width: 100%;
+  border: 1px solid black;
+  border-radius: 20px;
   mat-form-field{
     width: 100%;
   }
+  h1{
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
 }
 
-mat-dialog-content{
-    display: flex;
-    flex-direction: column;
-
-}
-
-mat-dialog-actions{
-  flex-direction: column;
+.body{
+  width: 100vw;
+  height: 100vh;
+  background-color: azure;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
 .botones{
   display: flex;
   flex-direction: row;
-  // justify-content: center;
-  gap: 0.5rem;
-  // margin-top: 2rem;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
 
-h1{
-  text-align: center;
-  text-decoration: underline;
+.newUser{
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+  height: 45rem;
 }
 
-button{
-  &:hover{
-    color: black;
-  }
-}

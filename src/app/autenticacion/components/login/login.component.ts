@@ -2,11 +2,10 @@ import { sesionCargada } from './../../../core/state/sesion.actions';
 import { Sesion } from './../../../models/sesion';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 import { SesionService } from 'src/app/core/services/sesion.service';
 import { Usuario } from 'src/app/models/usuario';
 import { Store } from '@ngrx/store';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-login',
@@ -18,23 +17,21 @@ export class LoginComponent implements OnInit {
   formulario: FormGroup;
 
   constructor(
+
     private ruta: Router,
     private sesionService: SesionService,
-    private storeSesion: Store<Sesion>,
+    private storeSesion: Store<Sesion>
+
   ) {
     this.formulario = new FormGroup({
-      nameUsuario: new FormControl ('Solon10',[Validators.required]),
-      contrasena: new FormControl('5TuX1ZNMnslOtuP', [Validators.required]),
+      nameUsuario: new FormControl ('',[Validators.required]),
+      contrasena: new FormControl('', [Validators.required]),
     })
 
   }
 
   ngOnInit(): void {
   }
-
-  ngOnDestroy(): void {
-  }
-
 
   login(){
     let u: Usuario = {
@@ -54,6 +51,22 @@ export class LoginComponent implements OnInit {
 
   vaciarCampos(){
     this.formulario.reset()
+  }
+
+  usuarioNoAdmin(){
+    this.formulario.reset()
+    this.formulario.patchValue({
+      nameUsuario:'Arlie68',
+      contrasena:'HpYczBiILVgaKjm',
+    });
+  }
+
+  usuarioAdmin(){
+    this.formulario.reset()
+    this.formulario.patchValue({
+      nameUsuario:'Reta3',
+      contrasena:'RLaRCN5gSfnPq6m',
+    });
   }
 
   nuevoUsuario(){

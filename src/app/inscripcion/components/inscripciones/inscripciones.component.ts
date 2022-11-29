@@ -14,6 +14,7 @@ import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service
 import { Alumnos } from 'src/app/models/alumnos';
 import { Curso } from 'src/app/models/curso';
 import { AgregarInscripcionComponent } from '../agregar-inscripcion/agregar-inscripcion.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -40,10 +41,12 @@ export class InscripcionesComponent implements OnInit {
     private storeInscripciones: Store<Inscripcion>,
     private storeSesion: Store<Sesion>,
     private dialog: MatDialog,
-    private toolbarService: ToolbarTitleService
+    private toolbarService: ToolbarTitleService,
+    private snackBar: MatSnackBar
 
   ) {
     this.storeInscripciones.dispatch(cargarInscripciones())
+    this.toolbarService.editarTitleComponent(this.seccion)
   }
 
   ngOnInit(): void {
@@ -55,7 +58,6 @@ export class InscripcionesComponent implements OnInit {
       this.usuarioActivo = sesion.usuarioActivo;
     })
 
-    this.toolbarService.editarTitleComponent(this.seccion)
 
   }
 
@@ -72,6 +74,12 @@ export class InscripcionesComponent implements OnInit {
 
   eliminar(inscripcion: Inscripcion){
     this.storeInscripciones.dispatch(eliminarInscripcion({inscripcion}));
+    this.snackBar.open( `Inscripcion #${inscripcion?.id} eliminada`,'' , {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-warn'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   agregarInscripcion(){

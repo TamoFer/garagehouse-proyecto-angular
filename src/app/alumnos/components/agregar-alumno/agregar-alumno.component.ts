@@ -7,7 +7,7 @@ import { Alumnos } from 'src/app/models/alumnos';
 import { Store } from '@ngrx/store';
 import { MatDialogRef} from '@angular/material/dialog';
 import { agregarAlumno } from '../../state/alumnos.actions';
-import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -27,7 +27,8 @@ export class AgregarAlumnoComponent implements OnInit {
   constructor(
     private storeAlumnos: Store<Alumnos>,
     private storeCursos: Store<Curso>,
-    public dialogRef: MatDialogRef<AgregarAlumnoComponent>
+    private dialogRef: MatDialogRef<AgregarAlumnoComponent>,
+    private snackBar: MatSnackBar
 
   ) {
     this.cursos$= this.storeCursos.select(selectCursos)
@@ -66,21 +67,13 @@ export class AgregarAlumnoComponent implements OnInit {
       cursoActual: this.asociarCurso()
     };
 
-    Swal.fire({
-      toast: true,
-      position: "top",
-      iconColor: "white",
-      customClass: {
-        popup: "colored-toast",
-      },
-      showConfirmButton: false,
-      timer: 1000,
-      timerProgressBar: false,
-      icon: "success",
-      title: `${alumno.nombre} ${alumno.apellido} agregado`,
-    })
-
     this.storeAlumnos.dispatch(agregarAlumno({alumno}))
+    this.snackBar.open(`${alumno.nombre} ${alumno.apellido} agregado `, '', {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-accent'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
     this.dialogRef.close()
   }
 

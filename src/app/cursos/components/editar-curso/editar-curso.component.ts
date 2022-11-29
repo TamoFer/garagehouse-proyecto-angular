@@ -9,6 +9,7 @@ import { Alumnos } from 'src/app/models/alumnos';
 import { Observable, Subscription } from 'rxjs';
 import { alumnosCargados } from 'src/app/alumnos/state/alumnos.actions';
 import { selectAlumnos } from 'src/app/alumnos/state/alumnos.selectors';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-editar-curso',
@@ -25,7 +26,8 @@ export class EditarCursoComponent implements OnInit {
     public dialogRef: MatDialogRef<EditarCursoComponent>,
     @Inject(MAT_DIALOG_DATA) public curso:Curso,
     private storeCursos: Store<Curso>,
-    private storeAlumnos: Store<Alumnos>
+    private storeAlumnos: Store<Alumnos>,
+    private snackBar: MatSnackBar
 
   ) { }
 
@@ -59,6 +61,12 @@ export class EditarCursoComponent implements OnInit {
     }
 
     this.storeCursos.dispatch(editarCurso({curso:cursoEditado}))
+    this.snackBar.open(` Curso editado exitosamente `,'' , {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-primary'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
     this.dialogRef.close();
 
   }

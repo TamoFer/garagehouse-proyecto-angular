@@ -18,7 +18,6 @@ import { Curso } from 'src/app/models/curso';
 import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
 import { VerDetallesComponent } from '../ver-detalles/ver-detalles.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarsNotisService } from 'src/app/core/services/snackbars-notis.service';
 
 @Component({
   selector: 'app-tables',
@@ -45,8 +44,7 @@ export class TablesComponent implements OnInit {
     private storeAlumnos: Store<AlumnoState>,
     private storeCursos: Store<Curso>,
     private dialog: MatDialog,
-    private notificacionService: SnackbarsNotisService
-
+    private snackBar: MatSnackBar
   ) {
     this.toolbarService.editarTitleComponent(this.seccion)
   }
@@ -67,8 +65,6 @@ export class TablesComponent implements OnInit {
       apellido: new FormControl('', []),
       curso: new FormControl('', [])
     })
-
-
   }
 
   ngOnDestroy(): void {
@@ -114,7 +110,6 @@ export class TablesComponent implements OnInit {
 
   agregarAlumno() {
     this.dialog.open(AgregarAlumnoComponent, {})
-
   }
 
   editarAlumno(alumno: Alumnos) {
@@ -125,7 +120,12 @@ export class TablesComponent implements OnInit {
 
   borrarAlumno(alumno: Alumnos) {
     this.storeAlumnos.dispatch(eliminarAlumno({ alumno }));
-    this.notificacionService.eliminar(alumno)
+    this.snackBar.open(`${alumno.nombre} ${alumno.apellido} eliminado `, '', {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-warn'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   verDetalles(alumno: Alumnos) {

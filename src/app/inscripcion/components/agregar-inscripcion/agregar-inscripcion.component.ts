@@ -12,6 +12,7 @@ import { agregarInscripcion } from '../../state/inscripcion.actions';
 import { Sesion } from 'src/app/models/sesion';
 import { Usuario } from 'src/app/models/usuario';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-agregar-inscripcion',
@@ -32,7 +33,8 @@ export class AgregarInscripcionComponent implements OnInit {
     private storeCursos: Store<Curso>,
     private storeInscripciones: Store<Inscripcion>,
     private storeSesion: Store<Sesion>,
-    private dialogRef: MatDialogRef<AgregarInscripcionComponent>
+    private dialogRef: MatDialogRef<AgregarInscripcionComponent>,
+    private snackBar: MatSnackBar
 
   ) {
     this.alumnos$ = this.storeAlumnos.select(selectAlumnos);
@@ -64,6 +66,12 @@ export class AgregarInscripcionComponent implements OnInit {
       fechaInscripcion: new Date()
     }
     this.storeInscripciones.dispatch(agregarInscripcion({inscripcion:i}))
+    this.snackBar.open( `Inscripcion agregada`,'' , {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-accent'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
     this.dialogRef.close()
   }
 

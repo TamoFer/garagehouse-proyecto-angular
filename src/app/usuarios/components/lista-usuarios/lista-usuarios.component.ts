@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditarUsuarioComponent } from '../editar-usuario/editar-usuario.component';
 import { AltaUsuarioComponent } from '../alta-usuario/alta-usuario.component';
 import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -33,6 +34,7 @@ export class ListaUsuariosComponent implements OnInit {
     private storeUsuarios: Store<Usuario>,
     private dialog: MatDialog,
     private toolbarService: ToolbarTitleService,
+    private snackBar: MatSnackBar
 
   ) {
     this.toolbarService.editarTitleComponent(this.seccion);
@@ -66,7 +68,13 @@ export class ListaUsuariosComponent implements OnInit {
   }
 
   eliminarUser(user: Usuario) {
-    this.storeUsuarios.dispatch(eliminarUsuario({usuario:user}))
+    this.storeUsuarios.dispatch(eliminarUsuario({usuario:user}));
+    this.snackBar.open( `${user.nameUsuario} eliminado `,'' , {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-warn'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   buscarXUser() {

@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Usuario } from 'src/app/models/usuario';
 import { Alumnos } from 'src/app/models/alumnos';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-alta-usuario',
@@ -19,7 +20,7 @@ export class AltaUsuarioComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AltaUsuarioComponent>,
     private storeUsuarios: Store<Usuario>,
-    private storeAlumnos: Store<Alumnos>
+    private snackBar: MatSnackBar
 
 
   ) {
@@ -51,7 +52,13 @@ export class AltaUsuarioComponent implements OnInit {
       telefono: this.formulario.value.telefono
     };
 
-    this.storeUsuarios.dispatch(agregarUsuario({usuario:u}))
+    this.storeUsuarios.dispatch(agregarUsuario({usuario:u}));
+    this.snackBar.open( `${u.nameUsuario} agregado `,'' , {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-accent'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
     this.dialogRef.close();
 
   }

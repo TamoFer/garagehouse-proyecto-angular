@@ -15,6 +15,7 @@ import { AgregarCursoComponent } from '../agregar-curso/agregar-curso.component'
 import { EditarCursoComponent } from '../editar-curso/editar-curso.component';
 import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 import { VerDetallesComponent } from '../ver-detalles/ver-detalles.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cards',
@@ -40,7 +41,8 @@ export class CardsComponent implements OnInit {
     private storeCursos: Store<CursoState>,
     private storeSesion: Store<Sesion>,
     private dialog: MatDialog,
-    private toolbarService: ToolbarTitleService
+    private toolbarService: ToolbarTitleService,
+    private snackBar: MatSnackBar
   ) {
     this.formulario = new FormGroup({
       curso: new FormControl('', []),
@@ -76,7 +78,13 @@ export class CardsComponent implements OnInit {
   }
 
   eliminarCurso(curso: Curso) {
-    this.storeCursos.dispatch(eliminarCurso({curso}))
+    this.storeCursos.dispatch(eliminarCurso({curso}));
+    this.snackBar.open(` Curso ${curso.nombre} eliminado `,'' , {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-warn'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   buscarXCurso() {
@@ -101,8 +109,7 @@ export class CardsComponent implements OnInit {
   verDetalles(curso:Curso) {
     this.dialog.open(VerDetallesComponent,{
       data: curso,
-      width: '50rem',
-      height: 'auto'
+      width: '50rem'
     })
   }
 

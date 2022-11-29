@@ -12,6 +12,7 @@ import { cursosCargados } from 'src/app/cursos/state/cursos.actions';
 import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
 import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
 import { Alumnos } from 'src/app/models/alumnos';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-editar-usuario',
@@ -29,8 +30,7 @@ export class EditarUsuarioComponent implements OnInit {
     private dialogRef: MatDialogRef<EditarUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public usuario:Usuario,
     private storeUsuario: Store<Usuario>,
-    private storeCursos: Store<Curso>,
-    private storeAlumnos: Store<Alumnos>
+    private snackBar: MatSnackBar
 
   ) {
     this.formulario= new FormGroup({
@@ -57,7 +57,13 @@ export class EditarUsuarioComponent implements OnInit {
       correo: this.formulario.value.correo,
     }
 
-    this.storeUsuario.dispatch(editarUsuario({usuario:u}))
+    this.storeUsuario.dispatch(editarUsuario({usuario:u}));
+    this.snackBar.open( `Usuario editado exitosamente `,'' , {
+      duration: 1500,
+      panelClass: ['mat-toolbar', 'mat-accent'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
     this.dialogRef.close();
   }
 

@@ -28,6 +28,7 @@ export class CardsComponent implements OnInit {
   suscripcionCursos!: Subscription;
   suscripcionSesion!: Subscription;
   suscripcionCursoData!: Subscription;
+  opened=false;
 
   usuarioActivo?: Usuario;
   formulario!: FormGroup;

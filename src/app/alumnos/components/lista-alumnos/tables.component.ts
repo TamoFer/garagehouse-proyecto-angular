@@ -28,6 +28,7 @@ export class TablesComponent implements OnInit {
 
   suscripcionSesion!: Subscription;
   suscripcionAlumnosData!: Subscription;
+  opened=false;
 
   usuarioActivo?: Usuario;
   columnasAdmin: string[] = ['nombre', 'apellido', 'cursando', 'actions'];

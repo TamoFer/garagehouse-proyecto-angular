@@ -1,7 +1,26 @@
 .menu-lateral {
-  width: 10rem;
-  height: 100%;
-  background-color: coral;
+  width: 15rem;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-top: 2rem;
+  padding-bottom:10rem ;
+  background-color: #cdcdcd;
+  color: black;
+  justify-content: space-between;
+  border-right: 1px solid black;
+  a{
+    width: 100%;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    text-align: start;
+    &:hover{
+      color: black;
+    }
+    mat-icon{
+      margin-bottom: 0.3rem;
+      margin-right: 0.5rem;
+    }
+  }
+
 }

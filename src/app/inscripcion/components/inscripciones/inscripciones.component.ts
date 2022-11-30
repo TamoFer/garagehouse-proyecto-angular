@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Inscripcion } from 'src/app/models/inscripcion';
 import { Sesion } from 'src/app/models/sesion';
 import { Usuario } from 'src/app/models/usuario';
@@ -11,8 +11,6 @@ import { selectInscripciones } from '../../state/inscripcion.selectors';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 import { EditarInscripcionComponent } from '../editar-inscripcion/editar-inscripcion.component';
 import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
-import { Alumnos } from 'src/app/models/alumnos';
-import { Curso } from 'src/app/models/curso';
 import { AgregarInscripcionComponent } from '../agregar-inscripcion/agregar-inscripcion.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -27,6 +25,7 @@ export class InscripcionesComponent implements OnInit {
 
   suscripcionSesion!: Subscription;
   suscripcionInscripcionData!: Subscription;
+  opened=false;
 
 
 

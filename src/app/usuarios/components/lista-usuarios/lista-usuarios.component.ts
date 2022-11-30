@@ -20,14 +20,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ListaUsuariosComponent implements OnInit {
 
   suscripcionUsuariosData!: Subscription;
+  opened=false;
+  formulario!: FormGroup;
+  seccion:string ='Usuarios';
+
 
   columnas: string[] = ['id','usuario', 'admin','email','direccion','telefono', 'actions'];
-
   data: MatTableDataSource<Usuario> = new MatTableDataSource<Usuario>();
 
-  formulario!: FormGroup;
-
-  seccion:string ='Usuarios';
 
 
   constructor(

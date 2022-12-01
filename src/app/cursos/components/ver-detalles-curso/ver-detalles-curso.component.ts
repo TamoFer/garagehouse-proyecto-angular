@@ -1,4 +1,4 @@
-import { editarAlumno } from './../../../alumnos/state/alumnos.actions';
+import { editarAlumno } from '../../../alumnos/state/alumnos.actions';
 import { selectAlumnos } from 'src/app/alumnos/state/alumnos.selectors';
 import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,10 +10,10 @@ import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-ver-detalles',
-  templateUrl: './ver-detalles.component.html',
-  styleUrls: ['./ver-detalles.component.scss']
+  templateUrl: './ver-detalles-curso.component.html',
+  styleUrls: ['./ver-detalles-curso.component.scss']
 })
-export class VerDetallesComponent implements OnInit {
+export class VerDetallesComponentCurso implements OnInit {
 
   data!: MatTableDataSource<Alumnos>;
   columnas: string[] = ['alumno'];
@@ -21,7 +21,7 @@ export class VerDetallesComponent implements OnInit {
   listaAlumnos:Array<any> =[]
 
   constructor(
-    private dialogRef: MatDialogRef<VerDetallesComponent>,
+    private dialogRef: MatDialogRef<VerDetallesComponentCurso>,
     @Inject (MAT_DIALOG_DATA) public curso:Curso,
     private storeAlumnos: Store<Alumnos>
   ) {

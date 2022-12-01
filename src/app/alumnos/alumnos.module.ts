@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TablesComponent } from './components/lista-alumnos/tables.component';
 import { StoreModule } from '@ngrx/store';
 import { alumnosFeatureKey, alumnosReducer } from './state/alumnos.reducer';
-import { VerDetallesComponent } from './components/ver-detalles/ver-detalles.component';
+import { VerDetallesComponentAlumno } from './components/ver-detalles-alumno/ver-detalles-alumno.component';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { VerDetallesComponent } from './components/ver-detalles/ver-detalles.com
     AgregarAlumnoComponent,
     EditarAlumnoComponent,
     InicioAlumnosComponent,
-    VerDetallesComponent
+    VerDetallesComponentAlumno
   ],
   providers: [
 

@@ -16,8 +16,9 @@ import { AgregarAlumnoComponent } from '../agregar-alumno/agregar-alumno.compone
 import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 import { Curso } from 'src/app/models/curso';
 import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
-import { VerDetallesComponent } from '../ver-detalles/ver-detalles.component';
+import { VerDetallesComponentAlumno } from '../ver-detalles-alumno/ver-detalles-alumno.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tables',
@@ -115,22 +116,35 @@ export class TablesComponent implements OnInit {
 
   editarAlumno(alumno: Alumnos) {
     this.dialog.open(EditarAlumnoComponent, {
-      data: alumno
+      data: alumno,
+      width:'auto',
+      height:'36rem'
     })
   }
 
   borrarAlumno(alumno: Alumnos) {
-    this.storeAlumnos.dispatch(eliminarAlumno({ alumno }));
-    this.snackBar.open(`${alumno.nombre} ${alumno.apellido} eliminado `, '', {
-      duration: 1500,
-      panelClass: ['mat-toolbar', 'mat-warn'],
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    Swal.fire({
+      title: `¿Estas seguro de borrar a ${alumno.nombre}?`,
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.storeAlumnos.dispatch(eliminarAlumno({ alumno }));
+        this.snackBar.open(`${alumno.nombre} ${alumno.apellido} eliminado `, '', {
+          duration: 1500,
+          panelClass: ['mat-toolbar', 'mat-warn'],
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }
+    })
+
   }
 
   verDetalles(alumno: Alumnos) {
-    this.dialog.open(VerDetallesComponent, {
+    this.dialog.open(VerDetallesComponentAlumno, {
       data:alumno,
       width: '50rem',
       height: 'auto'
@@ -138,4 +152,3 @@ export class TablesComponent implements OnInit {
   }
 
 }
-

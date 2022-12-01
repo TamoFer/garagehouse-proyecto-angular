@@ -14,7 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AgregarCursoComponent } from '../agregar-curso/agregar-curso.component';
 import { EditarCursoComponent } from '../editar-curso/editar-curso.component';
 import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
-import { VerDetallesComponent } from '../ver-detalles/ver-detalles.component';
+import { VerDetallesComponentCurso } from '../ver-detalles-curso/ver-detalles-curso.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -108,7 +108,7 @@ export class CardsComponent implements OnInit {
   }
 
   verDetalles(curso:Curso) {
-    this.dialog.open(VerDetallesComponent,{
+    this.dialog.open(VerDetallesComponentCurso,{
       data: curso,
       width: '50rem'
     })

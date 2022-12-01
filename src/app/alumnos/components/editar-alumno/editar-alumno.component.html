@@ -1,8 +1,8 @@
 <div class="dialog">
-  <h1 mat-dialog-title>NUEVO ALUMNO</h1>
+  <h1 mat-dialog-title>Datos de {{alumno.nombre}}</h1>
     <div mat-dialog-content>
       <form [formGroup]="form" >
-        <mat-form-field appearance="fill" >
+        <mat-form-field appearance="outline" >
           <mat-label>Nombre del alumno</mat-label>
           <input matInput type="text" formControlName="nombre" [ngClass]="{
             'is-invalid':form.get('nombre')?.errors}"/>
@@ -11,7 +11,7 @@
           </div>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" >
+        <mat-form-field appearance="outline" >
           <mat-label>Apellido del alumno </mat-label>
           <input matInput type="text" formControlName="apellido" [ngClass]="{
             'is-invalid':form.get('apellido')?.errors}"/>
@@ -20,14 +20,14 @@
           </div>
         </mat-form-field>
 
-        <mat-form-field appearance="fill"  >
+        <mat-form-field appearance="outline"  >
           <mat-label>Curso actual del alumno</mat-label>
           <input matInput type="text" formControlName="cursoActual" readonly/>
         </mat-form-field>
 
         <div>
           <p>Elegi el curso a cambiar</p>
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="outline">
             <mat-label>Cursos Disponibles</mat-label>
             <mat-select formControlName="cursoActual">
               <mat-option  *ngFor="let curso of cursos$ | async" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>

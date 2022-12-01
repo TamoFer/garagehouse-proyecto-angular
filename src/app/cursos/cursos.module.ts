@@ -12,7 +12,7 @@ import { MaterialModule } from '../material.module';
 import { InicioCursosComponent } from './components/inicio-cursos/inicio-cursos.component';
 import { CardsComponent } from './components/cards/cards.component';
 import { CursosService } from './services/cursos.service';
-import { VerDetallesComponent } from './components/ver-detalles/ver-detalles.component';
+import { VerDetallesComponentCurso } from './components/ver-detalles-curso/ver-detalles-curso.component';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { VerDetallesComponent } from './components/ver-detalles/ver-detalles.com
     EditarCursoComponent,
     InicioCursosComponent,
     CardsComponent,
-    VerDetallesComponent
+    VerDetallesComponentCurso
   ],
 
   imports: [

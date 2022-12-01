@@ -3,27 +3,34 @@ form{
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
-  mat-form-field{
-    width: 100%;
-  }
+  // mat-form-field{
+  //   width: 100%;
+  // }
 }
+
+// .dialog{
+//   display: flex;
+//   flex-direction: column;
+//   justify-items: space-around;
+// }
 
 .botones{
   display: flex;
   flex-direction: row;
+  width: 100%;
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
 }
 
 
-h1{
-  text-align: center;
-  text-decoration: underline;
-}
 
 button{
   &:hover{
     color: black;
   }
+}
+
+.mat-dialog-title{
+  text-align: center;
 }

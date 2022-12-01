@@ -18,6 +18,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
     imports: [
@@ -40,7 +41,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         MatTabsModule,
         MatExpansionModule,
         MatTooltipModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatCheckboxModule
 
 
     ],
@@ -64,7 +66,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         MatTabsModule,
         MatExpansionModule,
         MatTooltipModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatCheckboxModule
     ],
     declarations: [
     ]

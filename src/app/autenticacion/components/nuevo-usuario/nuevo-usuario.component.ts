@@ -19,7 +19,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class NuevoUsuarioComponent implements OnInit {
 
   formulario!:FormGroup;
-  hide:boolean = true;
   id:number=0;
 
   constructor(

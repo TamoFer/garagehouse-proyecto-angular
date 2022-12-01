@@ -2,28 +2,14 @@ form{
   display: flex;
   flex-direction: column;
   background-color: white;
-  gap: 1rem;
   padding: 1rem;
-  border: 1px solid black;
-  border-radius: 20px;
-  mat-form-field{
-    width: 100%;
-  }
-  h1{
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: underline;
-  }
-
 }
 
 .body{
   width: 100vw;
   height: 100vh;
-  background-color: azure;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-image: url(../../../../assets/images/fondo-login.jpg);
+  background-size: cover;
 }
 
 .botones{
@@ -38,7 +24,30 @@ form{
 .newUser{
   display: flex;
   flex-direction: column;
-  width: 40rem;
+  width: 25rem;
   height: 45rem;
+  margin-top: 5rem;
+
 }
 
+.fondo-blur{
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+}
+
+.newUser-header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 7rem;
+  mat-icon{
+    width: auto;
+    height: auto;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(81, 208, 247);
+  }
+}

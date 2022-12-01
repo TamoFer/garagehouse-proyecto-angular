@@ -15,6 +15,7 @@ import { Store } from '@ngrx/store';
 export class LoginComponent implements OnInit {
 
   formulario: FormGroup;
+  hide:boolean=true;
 
   constructor(
 
@@ -24,8 +25,8 @@ export class LoginComponent implements OnInit {
 
   ) {
     this.formulario = new FormGroup({
-      nameUsuario: new FormControl ('',[Validators.required]),
-      contrasena: new FormControl('', [Validators.required]),
+      nameUsuario: new FormControl ('',[Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
+      contrasena: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]),
     })
 
   }
@@ -69,7 +70,4 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  nuevoUsuario(){
-    this.ruta.navigate(['autenticacion/nuevo-usuario']);
-  }
 }

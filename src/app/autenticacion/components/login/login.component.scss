@@ -4,26 +4,18 @@ form{
   background-color: white;
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid black;
-  border-radius: 20px;
-  mat-form-field{
-    width: 100%;
+  mat-checkbox{
+    font-size: small;
+    font-weight: 200;
   }
-  h1{
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: underline;
-  }
-
 }
 
 .body{
   width: 100vw;
   height: 100vh;
-  background-color: azure;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-image: url(../../../../assets/images/fondo-login.jpg);
+  background-size: cover;
+
 }
 
 .botones{
@@ -38,7 +30,65 @@ form{
 .login{
   display: flex;
   flex-direction: column;
-  width: 40rem;
-  height: 40rem;
+  width: 25rem;
+  height: 45rem;
+  margin-top: 5rem;
 }
 
+.login-header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 10rem;
+  mat-icon{
+    width: auto;
+    height: auto;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(81, 208, 247);
+  }
+}
+
+.opciones-login{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.usuarios{
+  display: flex;
+  flex-direction: column;
+  height: 6rem;
+  justify-content: space-around;
+  margin-top: 5rem;
+  button{
+    padding: 0rem;
+    background: transparent;
+    border: none;
+    mat-icon{
+      width: 2.5rem;
+      height: auto;
+      font-size: 1.5rem;
+      color: rgb(231, 224, 224);
+      &:hover{
+        color: rgb(81, 208, 247);
+        font-size: 2.2rem;
+      }
+    }
+  }
+
+}
+
+.nuevo-usuario{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.fondo-blur{
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+}

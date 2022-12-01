@@ -4,7 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
 import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
 import { Component, OnInit } from '@angular/core';
-import { map,Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { Sesion } from 'src/app/models/sesion';
 import { Store } from '@ngrx/store';
 import { Curso } from 'src/app/models/curso';
@@ -16,6 +16,7 @@ import { EditarCursoComponent } from '../editar-curso/editar-curso.component';
 import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 import { VerDetallesComponentCurso } from '../ver-detalles-curso/ver-detalles-curso.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cards',
@@ -28,7 +29,7 @@ export class CardsComponent implements OnInit {
   suscripcionCursos!: Subscription;
   suscripcionSesion!: Subscription;
   suscripcionCursoData!: Subscription;
-  opened=false;
+  opened = false;
 
   usuarioActivo?: Usuario;
   formulario!: FormGroup;
@@ -36,7 +37,7 @@ export class CardsComponent implements OnInit {
   columnasAdmin: string[] = ['nombre', 'profesor', 'comision', 'actions'];
   columnasUsuario: string[] = ['nombre', 'profesor', 'comision'];
   data: MatTableDataSource<Curso> = new MatTableDataSource<Curso>();
-  seccion: string='Cursos';
+  seccion: string = 'Cursos';
 
   constructor(
     private storeCursos: Store<CursoState>,
@@ -68,7 +69,7 @@ export class CardsComponent implements OnInit {
   }
 
   agregarCurso() {
-    this.dialog.open(AgregarCursoComponent,{})
+    this.dialog.open(AgregarCursoComponent, {})
   }
 
 
@@ -78,15 +79,6 @@ export class CardsComponent implements OnInit {
     })
   }
 
-  eliminarCurso(curso: Curso) {
-    this.storeCursos.dispatch(eliminarCurso({curso}));
-    this.snackBar.open(` Curso ${curso.nombre} eliminado `,'' , {
-      duration: 1500,
-      panelClass: ['mat-toolbar', 'mat-warn'],
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
-  }
 
   buscarXCurso() {
     const valorObtenido = this.formulario.get('curso')?.value;
@@ -107,11 +99,31 @@ export class CardsComponent implements OnInit {
     })
   }
 
-  verDetalles(curso:Curso) {
-    this.dialog.open(VerDetallesComponentCurso,{
+  verDetalles(curso: Curso) {
+    this.dialog.open(VerDetallesComponentCurso, {
       data: curso,
       width: '50rem'
     })
   }
 
+  eliminarCurso(curso: Curso) {
+    Swal.fire({
+      title: `¿Borrar el curso ${curso.nombre}?`,
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Borrar',
+      cancelButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.storeCursos.dispatch(eliminarCurso({ curso }));
+        this.snackBar.open(` Curso ${curso.nombre} eliminado `, '', {
+          duration: 1500,
+          panelClass: ['mat-toolbar', 'mat-warn'],
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }
+    })
+  }
 }
+

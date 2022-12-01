@@ -13,6 +13,7 @@ import { EditarInscripcionComponent } from '../editar-inscripcion/editar-inscrip
 import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 import { AgregarInscripcionComponent } from '../agregar-inscripcion/agregar-inscripcion.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 
 
@@ -25,15 +26,15 @@ export class InscripcionesComponent implements OnInit {
 
   suscripcionSesion!: Subscription;
   suscripcionInscripcionData!: Subscription;
-  opened=false;
+  opened = false;
 
 
 
-  dataSource: MatTableDataSource<Inscripcion>= new MatTableDataSource<Inscripcion>();
-  columnasUsuario: string[] = ['id_alumno', 'id_curso','id_usuario', 'fechaInscripcion'];
-  columnasAdmin: string[] = ['id_alumno', 'id_curso','id_usuario', 'fechaInscripcion', 'acciones'];
+  dataSource: MatTableDataSource<Inscripcion> = new MatTableDataSource<Inscripcion>();
+  columnasUsuario: string[] = ['id_alumno', 'id_curso', 'id_usuario', 'fechaInscripcion'];
+  columnasAdmin: string[] = ['id_alumno', 'id_curso', 'id_usuario', 'fechaInscripcion', 'acciones'];
 
-  seccion: string='Inscripciones';
+  seccion: string = 'Inscripciones';
   usuarioActivo?: Usuario;
 
   constructor(
@@ -49,11 +50,11 @@ export class InscripcionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.suscripcionInscripcionData= this.storeInscripciones.select(selectInscripciones).subscribe((inscripciones: Inscripcion[]) => {
+    this.suscripcionInscripcionData = this.storeInscripciones.select(selectInscripciones).subscribe((inscripciones: Inscripcion[]) => {
       this.dataSource = new MatTableDataSource<Inscripcion>(inscripciones);
     });
 
-    this.suscripcionSesion= this.storeSesion.select(selectSesionActiva).subscribe((sesion: Sesion) => {
+    this.suscripcionSesion = this.storeSesion.select(selectSesionActiva).subscribe((sesion: Sesion) => {
       this.usuarioActivo = sesion.usuarioActivo;
     })
 
@@ -65,25 +66,35 @@ export class InscripcionesComponent implements OnInit {
     this.suscripcionSesion.unsubscribe();
   }
 
-  editar(inscripcion: Inscripcion){
+  editar(inscripcion: Inscripcion) {
     this.dialog.open(EditarInscripcionComponent, {
       data: inscripcion
     })
   }
 
-  eliminar(inscripcion: Inscripcion){
-    this.storeInscripciones.dispatch(eliminarInscripcion({inscripcion}));
-    this.snackBar.open( `Inscripcion #${inscripcion?.id} eliminada`,'' , {
-      duration: 1500,
-      panelClass: ['mat-toolbar', 'mat-warn'],
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
-  }
 
-  agregarInscripcion(){
+  agregarInscripcion() {
     this.dialog.open(AgregarInscripcionComponent)
   }
 
+  eliminar(inscripcion: Inscripcion) {
+    Swal.fire({
+      title: `¿Borrar inscripcion?`,
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.storeInscripciones.dispatch(eliminarInscripcion({ inscripcion }));
+        this.snackBar.open(`Inscripcion #${inscripcion?.id} eliminada`, '', {
+          duration: 1500,
+          panelClass: ['mat-toolbar', 'mat-warn'],
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }
+    })
+  }
 
 }

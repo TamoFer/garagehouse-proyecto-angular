@@ -1,26 +1,26 @@
-.dialog {
+table{
+  width: 100%;
+}
+
+h3{
+  text-transform: capitalize;
+}
+
+
+.titulo-detalles{
   display: flex;
-  flex-direction: column;
-  height: 20rem;
   justify-content: space-between;
-}
-
-.contenido {
-  display: flex;
-}
-
-.botones{
-  display: flex;
-  justify-content: center;
-}
-
-.datos{
-  width: 25%;
-}
-
-.tabla-cursos{
-  width: 75%;
-  table{
-    width: 100%;
+  mat-icon{
+    width: auto;
+    height: auto;
+    font-size: 3rem;
+  }
+  p{
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+  }
+  .alumno{
+    display: flex;
   }
 }

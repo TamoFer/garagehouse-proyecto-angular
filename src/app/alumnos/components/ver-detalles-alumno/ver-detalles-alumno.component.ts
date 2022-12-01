@@ -5,6 +5,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Alumnos } from 'src/app/models/alumnos';
 import { Curso } from 'src/app/models/curso';
 import { Store } from '@ngrx/store';
+import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-ver-detalles',
@@ -20,10 +22,14 @@ export class VerDetallesComponentAlumno implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<VerDetallesComponentAlumno>,
     @Inject (MAT_DIALOG_DATA) public alumno:Alumnos,
-    private storeAlumnos: Store<Alumnos>
+    private storeAlumnos: Store<Alumnos>,
+    private snackBar: MatSnackBar
   ) {
-    this.cursos.push(this.alumno.cursoActual)
-    this.data= new MatTableDataSource<Curso>(this.cursos)
+    if (this.alumno.cursoActual.nombre!='') {
+      this.cursos.push(this.alumno.cursoActual)
+      this.data= new MatTableDataSource<Curso>(this.cursos)
+    }
+
   }
 
   ngOnInit(): void {
@@ -48,7 +54,24 @@ export class VerDetallesComponentAlumno implements OnInit {
         num_clases:0
       }
     }
-    this.storeAlumnos.dispatch(editarAlumno({alumno:a}))
-    this.cerrarDetalles()
+
+    Swal.fire({
+      title: `¿Quieres darte de baja del curso ${this.alumno.cursoActual.nombre}?`,
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.storeAlumnos.dispatch(editarAlumno({alumno:a}))
+        this.alumno = a
+        this.snackBar.open(`Dado de baja`, '', {
+          duration: 1500,
+          panelClass: ['mat-toolbar', 'mat-warn'],
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }
+    })
   }
 }

@@ -1,4 +1,70 @@
-<div class="dialog">
+<div class="titulo-detalles">
+  <div class="alumno" >
+    <mat-icon>person</mat-icon>
+    <p>{{alumno.nombre}}</p>
+  </div>
+  <div>
+    <button mat-raised-button color="primary" (click)="cerrarDetalles()">cerrar</button>
+  </div>
+</div>
+<mat-tab-group>
+  <mat-tab label="Información">
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Nombre</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{alumno.nombre}}</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Apellido</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{alumno.apellido}}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-tab>
+
+  <mat-tab label="Cursando">
+
+    <p *ngIf="alumno.cursoActual.nombre===''">
+      Por el momento no esta cursando nada
+    </p>
+
+    <table mat-table [dataSource]="data" *ngIf="alumno.cursoActual.nombre!=''">
+      <ng-container matColumnDef="curso">
+        <th mat-header-cell *matHeaderCellDef> Curso inscripto  </th>
+        <td mat-cell *matCellDef="let curso"> {{curso.nombre}}   </td>
+      </ng-container>
+
+      <ng-container matColumnDef="comision">
+        <th mat-header-cell *matHeaderCellDef> Comision  </th>
+        <td mat-cell *matCellDef="let curso"> {{curso.comision}}   </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Acciones  </th>
+        <td mat-cell *matCellDef="let curso">
+          <button mat-button (click)="darBaja()">
+            <mat-icon color="warn">rule</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+
+    </table>
+  </mat-tab>
+
+</mat-tab-group>
+
+
+
+
+
+
+<!-- <div class="dialog">
   <div>
     <h3>Datos del alumno</h3>
     <div class="contenido">
@@ -39,4 +105,4 @@
   <div class="botones">
     <button mat-raised-button color="primary" (click)="cerrarDetalles()">Cerrar</button>
   </div>
-</div>
+</div> -->

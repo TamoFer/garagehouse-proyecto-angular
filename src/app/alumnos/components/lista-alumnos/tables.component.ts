@@ -124,7 +124,7 @@ export class TablesComponent implements OnInit {
 
   borrarAlumno(alumno: Alumnos) {
     Swal.fire({
-      title: `¿Estas seguro de borrar a ${alumno.nombre}?`,
+      title: `¿Estas seguro de borrar a ${alumno.nombre.toLocaleUpperCase()}?`,
       showConfirmButton: true,
       showCancelButton: true,
       confirmButtonText: 'Eliminar',

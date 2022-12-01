@@ -11,6 +11,7 @@ import { EditarUsuarioComponent } from '../editar-usuario/editar-usuario.compone
 import { AltaUsuarioComponent } from '../alta-usuario/alta-usuario.component';
 import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -20,12 +21,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ListaUsuariosComponent implements OnInit {
 
   suscripcionUsuariosData!: Subscription;
-  opened=false;
+  opened = false;
   formulario!: FormGroup;
-  seccion:string ='Usuarios';
+  seccion: string = 'Usuarios';
 
 
-  columnas: string[] = ['id','usuario', 'admin','email','direccion','telefono', 'actions'];
+  columnas: string[] = ['id', 'usuario', 'admin', 'email', 'direccion', 'telefono', 'actions'];
   data: MatTableDataSource<Usuario> = new MatTableDataSource<Usuario>();
 
 
@@ -64,18 +65,9 @@ export class ListaUsuariosComponent implements OnInit {
   }
 
   editarUser(user: Usuario) {
-    this.dialog.open(EditarUsuarioComponent,{data: user})
+    this.dialog.open(EditarUsuarioComponent, { data: user })
   }
 
-  eliminarUser(user: Usuario) {
-    this.storeUsuarios.dispatch(eliminarUsuario({usuario:user}));
-    this.snackBar.open( `${user.nameUsuario} eliminado `,'' , {
-      duration: 1500,
-      panelClass: ['mat-toolbar', 'mat-warn'],
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
-  }
 
   buscarXUser() {
     const valorObtenido = this.formulario.get('nameUser')?.value;
@@ -113,4 +105,23 @@ export class ListaUsuariosComponent implements OnInit {
     });
   }
 
+  eliminarUser(user: Usuario) {
+    Swal.fire({
+      title: `¿Estas seguro de borrar a ${user.nameUsuario}?`,
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Borrar',
+      cancelButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.storeUsuarios.dispatch(eliminarUsuario({ usuario: user }));
+        this.snackBar.open(`${user.nameUsuario} eliminado `, '', {
+          duration: 1500,
+          panelClass: ['mat-toolbar', 'mat-warn'],
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }}
+    )
+  }
 }

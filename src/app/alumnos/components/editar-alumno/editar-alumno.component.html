@@ -20,13 +20,18 @@
           </div>
         </mat-form-field>
 
-        <mat-form-field appearance="outline"  >
-          <mat-label>Curso actual del alumno</mat-label>
-          <input matInput type="text" formControlName="cursoActual" readonly/>
-        </mat-form-field>
+        <div *ngIf="alumno.cursoActual.nombre!=''">
+          <mat-form-field appearance="outline"  >
+            <mat-label>Curso actual del alumno</mat-label>
+            <input matInput type="text" formControlName="cursoActual" readonly/>
+          </mat-form-field>
+        </div>
 
         <div>
-          <p>Elegi el curso a cambiar</p>
+          <div [ngSwitch]="alumno.cursoActual.nombre!=''">
+            <p *ngSwitchCase="true">Cambiar a</p>
+            <p *ngSwitchCase="false">Asignar curso</p>
+          </div>
           <mat-form-field appearance="outline">
             <mat-label>Cursos Disponibles</mat-label>
             <mat-select formControlName="cursoActual">

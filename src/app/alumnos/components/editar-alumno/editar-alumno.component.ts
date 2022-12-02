@@ -34,8 +34,8 @@ export class EditarAlumnoComponent implements OnInit {
   ) {
     this.storeCursos.dispatch(cargarCursos())
     this.form = new FormGroup({
-      nombre: new FormControl(this.alumno.nombre, [Validators.minLength(3), Validators.maxLength(25)]),
-      apellido: new FormControl(this.alumno.apellido, [Validators.minLength(3), Validators.maxLength(25)]),
+      nombre: new FormControl(this.alumno.nombre, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+      apellido: new FormControl(this.alumno.apellido, [Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
       cursoActual: new FormControl(this.alumno.cursoActual?.nombre),
     })
   }

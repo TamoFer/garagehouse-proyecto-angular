@@ -14,16 +14,19 @@ form{
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
+  button{
+    &:hover{
+      color: black;
+    }
+  }
 }
 
+.mat-dialog-actions{
+  display: flex;
+  flex-direction: column;
+}
 
 h1{
   text-align: center;
   text-transform: capitalize;
-}
-
-button{
-  &:hover{
-    color: black;
-  }
 }

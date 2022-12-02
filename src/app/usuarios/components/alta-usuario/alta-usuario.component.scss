@@ -14,16 +14,18 @@ form{
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
+  button{
+    &:hover{
+      color: black;
+    }
+  }
 }
 
 
 h1{
   text-align: center;
-  text-decoration: underline;
+  text-transform: capitalize;
+
 }
 
-button{
-  &:hover{
-    color: black;
-  }
-}
+

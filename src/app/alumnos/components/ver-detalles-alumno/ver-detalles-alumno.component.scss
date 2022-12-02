@@ -1,5 +1,19 @@
 table{
   width: 100%;
+  border: 1px solid black;
+  .mat-header-cell{
+    background-color: grey;
+    font-size: 0.8rem;
+    font-weight:  500;
+    text-align: center;
+  }
+  .mat-cell{
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom:1px solid;
+
+  }
 }
 
 h3{

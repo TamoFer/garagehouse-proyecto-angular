@@ -1,17 +1,10 @@
-import { editarAlumno } from './../../../alumnos/state/alumnos.actions';
 import { Usuario } from 'src/app/models/usuario';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { editarUsuario } from '../../state/usuarios.actions';
-import { Observable, Subscription } from 'rxjs';
-import { CursosService } from 'src/app/cursos/services/cursos.service';
-import { Curso } from 'src/app/models/curso';
-import { cursosCargados } from 'src/app/cursos/state/cursos.actions';
-import { selectCursos } from 'src/app/cursos/state/cursos.selectors';
-import { ListaAlumnosService } from 'src/app/alumnos/services/lista-alumnos.service';
-import { Alumnos } from 'src/app/models/alumnos';
+import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -34,14 +27,14 @@ export class EditarUsuarioComponent implements OnInit {
 
   ) {
     this.formulario= new FormGroup({
-      nameUsuario: new FormControl(this.usuario.nameUsuario),
-      contrasena: new FormControl(this.usuario.contrasena),
-      admin: new FormControl(this.usuario.admin),
-      correo: new FormControl(this.usuario.correo),
-      direccion: new FormControl(this.usuario.direccion),
-      telefono: new FormControl(this.usuario.telefono)
+      nameUsuario: new FormControl(this.usuario.nameUsuario,[Validators.required]),
+      contrasena: new FormControl(this.usuario.contrasena,[Validators.required]),
+      admin: new FormControl(this.usuario.admin,[Validators.required]),
+      correo: new FormControl(this.usuario.correo,[Validators.required]),
+      direccion: new FormControl(this.usuario.direccion,[Validators.required]),
+      telefono: new FormControl(this.usuario.telefono,[Validators.required])
     })
-  }
+  } //agregar validators desde alta-usuario
 
   ngOnInit(): void {
   }

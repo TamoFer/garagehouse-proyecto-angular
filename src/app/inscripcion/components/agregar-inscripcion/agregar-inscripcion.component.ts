@@ -3,7 +3,7 @@ import { selectCursos } from './../../../cursos/state/cursos.selectors';
 import { selectAlumnos } from 'src/app/alumnos/state/alumnos.selectors';
 import { Inscripcion } from 'src/app/models/inscripcion';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, Observable, Subscription } from 'rxjs';
 import { Alumnos } from 'src/app/models/alumnos';
 import { Curso } from 'src/app/models/curso';
@@ -45,8 +45,8 @@ export class AgregarInscripcionComponent implements OnInit {
     })
 
     this.formulario = new FormGroup({
-      alumno: new FormControl(''),
-      curso: new FormControl('')
+      alumno: new FormControl('',[Validators.required]),
+      curso: new FormControl('',[Validators.required])
     });
   }
 

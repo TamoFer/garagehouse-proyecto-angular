@@ -72,9 +72,9 @@ export class EditarInscripcionComponent implements OnInit {
 
   ngOnInit(): void {
     this.formulario = new FormGroup({
-      id_curso: new FormControl(this.inscripcion.id_curso + '-' + this.curso_id.nombre),
-      id_alumno: new FormControl(this.inscripcion.id_alumno + '-' + this.alumno_id.nombre + ' ' + this.alumno_id.apellido),
-      id_usuario: new FormControl(this.inscripcion.id_usuario + '-' + this.usuario_id.nameUsuario),
+      id_curso: new FormControl(this.inscripcion.id_curso+ '-' + ' ' + this.curso_id.nombre),
+      id_alumno: new FormControl(this.inscripcion.id_alumno + '-' + ' ' + this.alumno_id.nombre + ' ' + this.alumno_id.apellido),
+      id_usuario: new FormControl(this.inscripcion.id_usuario + '-' + ' ' + this.usuario_id.nameUsuario),
       fechaInscripcion: new FormControl(new Date(this.inscripcion.fechaInscripcion).toLocaleDateString()),
       curso: new FormControl(''),
       alumno: new FormControl('')

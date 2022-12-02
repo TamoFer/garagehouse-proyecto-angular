@@ -5,7 +5,7 @@
         <mat-form-field appearance="outline" >
           <mat-label>Nombre del alumno</mat-label>
           <input matInput type="text" formControlName="nombre" [ngClass]="{
-            'is-invalid':form.get('nombre')?.errors}"/>
+            'is-invalid':form.get('nombre')?.errors && form.get('nombre')?.errors?.['required']}"/>
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
@@ -14,7 +14,7 @@
         <mat-form-field appearance="outline" >
           <mat-label>Apellido del alumno </mat-label>
           <input matInput type="text" formControlName="apellido" [ngClass]="{
-            'is-invalid':form.get('apellido')?.errors}"/>
+            'is-invalid':form.get('apellido')?.errors && form.get('apellido')?.errors?.['required']}"/>
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>

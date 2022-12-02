@@ -1,6 +1,6 @@
 import { agregarUsuario} from './../../state/usuarios.actions';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Usuario } from 'src/app/models/usuario';
@@ -26,12 +26,12 @@ export class AltaUsuarioComponent implements OnInit {
   ) {
 
     this.formulario= new FormGroup({
-      nameUsuario: new FormControl(''),
-      contrasena: new FormControl(''),
-      correo: new FormControl(''),
+      nameUsuario: new FormControl('',[Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
+      contrasena: new FormControl('',[Validators.required]),
+      correo: new FormControl('',[Validators.required]),
       admin: new FormControl(''),
-      direccion: new FormControl(''),
-      telefono: new FormControl('')
+      direccion: new FormControl('',[Validators.required,Validators.minLength(5), Validators.maxLength(15)]),
+      telefono: new FormControl('',[Validators.required])
     })
 
   }

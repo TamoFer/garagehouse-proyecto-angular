@@ -14,32 +14,17 @@ form{
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
-}
-
-
-h1{
-  text-align: center;
-  text-decoration: underline;
-}
-
-button{
-  &:hover{
-    color: black;
+  button{
+    &:hover{
+      color: black;
+    }
   }
 }
 
-/* estilo de texto sweetalert */
-.colored-toast.swal2-icon-success {
-  background-color: #a5dc86 !important;
-  font-size: 1.4rem;
+h1{
+  text-align: center;
+  text-transform: capitalize;
+
 }
 
-.colored-toast.swal2-icon-error {
-  background-color: #f27474 !important;
-  font-size: 1.4rem;
-}
 
-.colored-toast.swal2-icon-warning {
-  background-color: #f8bb86 !important;
-  font-size: 1.4rem;
-}

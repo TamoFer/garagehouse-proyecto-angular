@@ -68,7 +68,9 @@ export class InscripcionesComponent implements OnInit {
 
   editar(inscripcion: Inscripcion) {
     this.dialog.open(EditarInscripcionComponent, {
-      data: inscripcion
+      data: inscripcion,
+      width:'35rem',
+      height:'auto'
     })
   }
 

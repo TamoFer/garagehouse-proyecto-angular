@@ -1,68 +1,82 @@
 <div class="dialog">
-  <h1 mat-dialog-title>Editar Inscripcion</h1>
-    <div mat-dialog-content>
-      <form [formGroup]="formulario">
+  <div class="cabecera">
+    <mat-icon color="primary">fact_check</mat-icon>
+    <h1 mat-dialog-title>Datos de la inscripcion</h1>
+  </div>
 
-        <mat-form-field appearance="fill" >
+  <div mat-dialog-content>
+    <form [formGroup]="formulario">
+
+      <div class="renglones">
+        <mat-form-field appearance="outline">
           <mat-label>ID_Curso inscripto</mat-label>
-          <input matInput type="text" formControlName="id_curso" readonly/>
+          <input matInput type="text" formControlName="id_curso" readonly />
         </mat-form-field>
-
-        <mat-form-field appearance="fill" >
+        <mat-form-field appearance="outline">
           <mat-label>ID-Alumno inscripto</mat-label>
-          <input matInput type="text" formControlName="id_alumno" readonly/>
+          <input matInput type="text" formControlName="id_alumno" readonly />
         </mat-form-field>
+      </div>
 
-        <mat-form-field appearance="fill" >
+      <div class="renglones">
+        <mat-form-field appearance="outline">
           <mat-label>ID-Usuario creador inscripcion </mat-label>
-          <input matInput type="text" formControlName="id_usuario" readonly/>
+          <input matInput type="text" formControlName="id_usuario" readonly />
         </mat-form-field>
-
-        <mat-form-field appearance="fill" >
+        <mat-form-field appearance="outline">
           <mat-label>Fecha de inscripcion</mat-label>
-          <input matInput type="text" formControlName="fechaInscripcion" readonly/>
+          <input matInput type="text" formControlName="fechaInscripcion" readonly />
         </mat-form-field>
+      </div>
 
-        <div>
-          <p>Reasignar curso</p>
-          <mat-form-field appearance="fill">
-            <mat-label>Cursos disponibles</mat-label>
-            <mat-select formControlName="curso">
-              <mat-option  *ngFor="let curso of cursos$ | async" [value]="curso.id" >{{ curso.nombre }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+      <div class="renglones">
+          <div>
+            <p>Reasignar curso</p>
+            <mat-form-field appearance="outline">
+              <mat-label>Cursos disponibles</mat-label>
+              <mat-select formControlName="curso">
+                <mat-option *ngFor="let curso of cursos$ | async" [value]="curso.id">{{ curso.nombre }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <p>Reasignar alumno</p>
+            <mat-form-field appearance="outline">
+              <mat-label>Alumnos registrados</mat-label>
+              <mat-select formControlName="alumno">
+                <mat-option *ngFor="let alumno of alumnos$ | async" [value]="alumno.idAlumno">{{ alumno.nombre + " " +
+                  alumno.apellido }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+      </div>
 
-        <div>
-          <p>Reasignar alumno</p>
-          <mat-form-field appearance="fill">
-            <mat-label>Alumnos registrados</mat-label>
-            <mat-select formControlName="alumno">
-              <mat-option  *ngFor="let alumno of alumnos$ | async" [value]="alumno.idAlumno" >{{ alumno.nombre+' '+alumno.apellido }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
+      <div class="renglones">
         <div>
           <p>Corregir fecha de inscripcion</p>
-          <mat-form-field appearance="fill" >
+          <mat-form-field appearance="outline">
             <mat-label>Fecha de inscripcion</mat-label>
-            <input matInput [matDatepicker]="nuevaFecha" formControlName="fechaInscripcion"/>
+            <input matInput [matDatepicker]="nuevaFecha" formControlName="fechaInscripcion" />
             <mat-datepicker-toggle matSuffix [for]="nuevaFecha"></mat-datepicker-toggle>
             <mat-datepicker #nuevaFecha></mat-datepicker>
           </mat-form-field>
         </div>
+      </div>
+    </form>
+  </div>
 
-      </form>
-    </div>
-    <div mat-dialog-actions>
-      <div class="botones">
-        <div class="">
-          <button mat-raised-button color="primary" (click)="editarInscripcion()" >Terminar edicion</button>
-        </div>
-        <div class="">
-          <button mat-raised-button color="primary" type="button" (click)="retroceder()" >Cancelar</button>
-        </div>
+  <div mat-dialog-actions>
+    <div class="botones">
+      <div class="">
+        <button mat-raised-button color="primary" (click)="editarInscripcion()">
+          Terminar edicion
+        </button>
+      </div>
+      <div class="">
+        <button mat-raised-button color="primary" type="button" (click)="retroceder()">
+          Cancelar
+        </button>
       </div>
     </div>
   </div>
+</div>

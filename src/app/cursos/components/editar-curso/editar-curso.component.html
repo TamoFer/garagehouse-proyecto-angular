@@ -1,82 +1,132 @@
 <div class="dialog">
-  <h1 mat-dialog-title>NUEVO ALUMNO</h1>
-    <div mat-dialog-content>
-      <form [formGroup]="form" >
-
-        <mat-form-field appearance="fill" >
+  <div class="cabecera">
+    <mat-icon color="primary">drive_file_rename_outline</mat-icon>
+    <h1 mat-dialog-title>Editando el curso: {{ curso.nombre }}</h1>
+  </div>
+  <div mat-dialog-content>
+    <form [formGroup]="form">
+      <div class="renglones">
+        <mat-form-field appearance="outline">
           <mat-label>Nombre del curso</mat-label>
-          <input matInput type="text" formControlName="nombre" [ngClass]="{'is-invalid': form.get('nombre')?.errors }"/>
+          <input
+            matInput
+            type="text"
+            formControlName="nombre"
+            [ngClass]="{ 'is-invalid': form.get('nombre')?.errors }"
+          />
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
-
-        <mat-form-field appearance="fill" >
+        <mat-form-field appearance="outline">
           <mat-label>Nombre del profesor</mat-label>
-          <input matInput type="text" formControlName="profe" [ngClass]="{'is-invalid': form.get('profe')?.errors}" />
+          <input
+            matInput
+            type="text"
+            formControlName="profe"
+            [ngClass]="{ 'is-invalid': form.get('profe')?.errors }"
+          />
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
+      </div>
 
-        <mat-form-field appearance="fill" >
+      <div class="renglones">
+        <mat-form-field appearance="outline">
           <mat-label>Inicio del curso</mat-label>
-          <input matInput [matDatepicker]="fechaInicio" formControlName="inicio"/>
-          <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+          <input
+            matInput
+            [matDatepicker]="fechaInicio"
+            formControlName="inicio"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="fechaInicio"
+          ></mat-datepicker-toggle>
           <mat-datepicker #fechaInicio></mat-datepicker>
         </mat-form-field>
-
-        <mat-form-field appearance="fill" >
+        <mat-form-field appearance="outline">
           <mat-label>Fin del curso</mat-label>
-          <input matInput [matDatepicker]="fechaFin" formControlName="fin"/>
-          <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+          <input matInput [matDatepicker]="fechaFin" formControlName="fin" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="fechaFin"
+          ></mat-datepicker-toggle>
           <mat-datepicker #fechaFin></mat-datepicker>
         </mat-form-field>
+      </div>
 
-        <mat-form-field appearance="fill" >
+      <div class="renglones">
+        <mat-form-field appearance="outline">
           <mat-label>Descripcion del curso</mat-label>
-          <textarea matInput formControlName="descripcion" [ngClass]="{'is-invalid': form.get('descripcion')?.errors}"></textarea>
+          <textarea
+            matInput
+            formControlName="descripcion"
+            [ngClass]="{ 'is-invalid': form.get('descripcion')?.errors }"
+          ></textarea>
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
-
-        <mat-form-field appearance="fill" >
+        <mat-form-field appearance="outline">
           <mat-label>Comision del curso</mat-label>
-          <textarea matInput formControlName="comision" [ngClass]="{'is-invalid': form.get('descripcion')?.errors}"></textarea>
+          <textarea
+            matInput
+            formControlName="comision"
+            [ngClass]="{ 'is-invalid': form.get('comision')?.errors }"
+          ></textarea>
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
+      </div>
 
-        <mat-form-field appearance="fill" >
+      <div class="renglones">
+        <mat-form-field appearance="outline">
           <mat-label>Carga horaria del curso</mat-label>
-          <textarea matInput type="number" formControlName="num_horas" [ngClass]="{'is-invalid': form.get('descripcion')?.errors}"></textarea>
+          <textarea
+            matInput
+            type="number"
+            formControlName="num_horas"
+            [ngClass]="{ 'is-invalid': form.get('num_horas')?.errors }"
+          ></textarea>
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
-
-        <mat-form-field appearance="fill" >
+        <mat-form-field appearance="outline">
           <mat-label>Numero de clases del curso</mat-label>
-          <textarea matInput type="number" formControlName="num_clases" [ngClass]="{'is-invalid': form.get('descripcion')?.errors}"></textarea>
+          <textarea
+            matInput
+            type="number"
+            formControlName="num_clases"
+            [ngClass]="{ 'is-invalid': form.get('num_clases')?.errors }"
+          ></textarea>
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
-
-
-      </form>
-    </div>
-    <div mat-dialog-actions>
-      <div class="botones">
-        <div class="">
-          <button mat-raised-button color="primary" (click)="editarCurso()">Terminar edicion</button>
-        </div>
-        <div class="">
-          <button mat-raised-button color="primary" type="button" (click)="retroceder()" >Cancelar</button>
-        </div>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <div class="botones">
+      <div class="">
+        <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="editarCurso()">
+          Terminar edicion
+        </button>
+      </div>
+      <div class="">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="retroceder()"
+        >
+          Cancelar
+        </button>
       </div>
     </div>
-
   </div>
+</div>

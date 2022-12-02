@@ -1,67 +1,122 @@
-
 <div class="dialog">
-  <h1 mat-dialog-title>EDITAR USUARIO</h1>
-    <div mat-dialog-content>
-      <form [formGroup]="formulario">
-        <mat-form-field appearance="fill">
+  <div class="cabecera">
+    <mat-icon color="primary">drive_file_rename_outline</mat-icon>
+    <h1 mat-dialog-title>Editando el usuario: {{ usuario.nameUsuario }}</h1>
+  </div>
+  <div mat-dialog-content>
+    <form [formGroup]="formulario">
+      <div class="renglones">
+        <mat-form-field appearance="outline">
           <mat-label>Nombre usuario</mat-label>
-          <input matInput type="text"formControlName="nameUsuario" [ngClass]="{'is-invalid':formulario.get('nameUsuario')?.errors &&
-            formulario.get('nameUsuario')?.touched}"/>
+          <input
+            matInput
+            type="text"
+            formControlName="nameUsuario"
+            [ngClass]="{
+              'is-invalid':
+                formulario.get('nameUsuario')?.errors
+            }"
+          />
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Contraseña</mat-label>
-          <input matInput formControlName="contrasena" [type]="hide ? 'password' : 'text'">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input
+            matInput
+            formControlName="contrasena"
+            [type]="hide ? 'password' : 'text'"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
+      </div>
 
-        <mat-slide-toggle formControlName="admin">Admin</mat-slide-toggle>
-
-        <mat-form-field appearance="fill" >
+      <div class="renglones">
+        <div>
+          <p>¿Este usuario va a tener derechos de admin?</p>
+          <mat-slide-toggle formControlName="admin">SI</mat-slide-toggle>
+        </div>
+        <mat-form-field appearance="outline">
           <mat-label>Correo del usuario</mat-label>
-          <input matInput type="email" formControlName="correo" [ngClass]="{
-            'is-invalid':formulario.get('correo')?.errors}"/>
+          <input
+            matInput
+            type="email"
+            formControlName="correo"
+            [ngClass]="{
+              'is-invalid': formulario.get('correo')?.errors
+            }"
+          />
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
+      </div>
 
-        <mat-form-field appearance="fill" >
+      <div class="renglones">
+        <mat-form-field appearance="outline">
           <mat-label>Direccion del usuario </mat-label>
-          <input matInput type="text" formControlName="direccion" [ngClass]="{
-            'is-invalid':formulario.get('direccion')?.errors}"/>
+          <input
+            matInput
+            type="text"
+            formControlName="direccion"
+            [ngClass]="{
+              'is-invalid': formulario.get('direccion')?.errors
+            }"
+          />
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
-
-        <mat-form-field appearance="fill" >
+        <mat-form-field appearance="outline">
           <mat-label>Telefono del usuario</mat-label>
-          <input matInput type="email" formControlName="telefono" [ngClass]="{'is-invalid':formulario.get('telefono')?.errors?.['required'] && formulario.get('telefono')?.errors?.['pattern'] }"/>
+          <input
+            matInput
+            type="email"
+            formControlName="telefono"
+            [ngClass]="{'is-invalid':formulario.get('telefono')?.errors?.['required'] && formulario.get('telefono')?.errors?.['pattern'] }"
+          />
           <div class="invalid-feedback">
             <small>El campo es requerido</small>
           </div>
         </mat-form-field>
-      </form>
-    </div>
+      </div>
+    </form>
+  </div>
 
-    <div mat-dialog-actions>
-      <div class="botones">
-          <div class="">
-            <button mat-raised-button color="primary" [disabled]="formulario.invalid" (click)="editarUsuario()">Editar usuario</button>
-          </div>
-          <div class="">
-            <button mat-raised-button type="button" color="primary" (click)="retroceder()">Cancelar</button>
-          </div>
+  <div mat-dialog-actions>
+    <div class="botones">
+      <div class="">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="formulario.invalid"
+          (click)="editarUsuario()"
+        >
+          Editar usuario
+        </button>
+      </div>
+      <div class="">
+        <button
+          mat-raised-button
+          type="button"
+          color="primary"
+          (click)="retroceder()"
+        >
+          Cancelar
+        </button>
       </div>
     </div>
-
   </div>
+</div>

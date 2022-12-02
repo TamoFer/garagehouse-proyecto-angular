@@ -1,8 +1,8 @@
 <div class="dialog">
-<h1 mat-dialog-title>NUEVO ALUMNO</h1>
+<h1 mat-dialog-title>Alumno nuevo</h1>
   <div mat-dialog-content>
     <form [formGroup]="alumnoNuevo">
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Nombre del alumno</mat-label>
         <input
           matInput
@@ -19,7 +19,7 @@
         </div>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Apellido del alumno</mat-label>
         <input
           matInput
@@ -36,14 +36,11 @@
         </div>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Cursos Disponibles</mat-label>
         <mat-select formControlName="curso" [ngClass]="{'is-invalid':alumnoNuevo.get('curso')?.errors?.['required']}" >
           <mat-option  *ngFor="let curso of cursos$ | async" [value]="curso.nombre" >{{ curso.nombre }}</mat-option>
         </mat-select>
-        <div class="invalid-feedback">
-          <small>El campo es requerido</small>
-        </div>
       </mat-form-field>
     </form>
   </div>

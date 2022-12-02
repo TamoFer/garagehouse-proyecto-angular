@@ -1,73 +1,70 @@
 <div class="dialog">
-  <h1 mat-dialog-title>NUEVO ALUMNO</h1>
-    <div mat-dialog-content>
-      <form [formGroup]="formulario">
-        <mat-form-field appearance="fill">
-          <mat-label>Nombre usuario</mat-label>
-          <input matInput type="text"formControlName="nameUsuario" [ngClass]="{'is-invalid':formulario.get('nameUsuario')?.errors &&
-            formulario.get('nameUsuario')?.touched}"/>
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
-        </mat-form-field>
+  <h1 mat-dialog-title>Usuario nuevo</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="formulario">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre usuario</mat-label>
+        <input matInput type="text" formControlName="nameUsuario" [ngClass]="{'is-invalid':formulario.get('nameUsuario')?.errors &&
+            formulario.get('nameUsuario')?.touched}" />
+        <div class="invalid-feedback">
+          <small>El campo es requerido</small>
+        </div>
+      </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Contraseña</mat-label>
-          <input
-            matInput
-            type="password"
-            formControlName="contrasena"
-            [ngClass]="{
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="contrasena" [ngClass]="{
               'is-invalid':
                 formulario.get('contrasena')?.errors &&
                 formulario.get('contrasena')?.touched
-            }"
-          />
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
-        </mat-form-field>
+            }" />
+        <div class="invalid-feedback">
+          <small>El campo es requerido</small>
+        </div>
+      </mat-form-field>
 
-        <mat-slide-toggle formControlName="admin">Admin</mat-slide-toggle>
+      <mat-slide-toggle formControlName="admin">Admin</mat-slide-toggle>
 
-        <mat-form-field appearance="fill" >
-          <mat-label>Correo</mat-label>
-          <input matInput type="email" formControlName="correo" [ngClass]="{
-            'is-invalid':formulario.get('correo')?.errors}"/>
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
-        </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Correo</mat-label>
+        <input matInput type="email" formControlName="correo"
+        [ngClass]="{'is-invalid':formulario.get('correo')?.errors?.['required'] && formulario.get('correo')?.touched}" />
+        <div class="invalid-feedback">
+          <small>El campo es requerido</small>
+        </div>
+      </mat-form-field>
 
-        <mat-form-field appearance="fill" >
-          <mat-label>Direccion</mat-label>
-          <input matInput type="text" formControlName="direccion" [ngClass]="{
-            'is-invalid':formulario.get('direccion')?.errors}"/>
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
-        </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Direccion</mat-label>
+        <input matInput type="text" formControlName="direccion" [ngClass]="{
+            'is-invalid':formulario.get('direccion')?.errors && formulario.get('direccion')?.touched}" />
+        <div class="invalid-feedback">
+          <small>El campo es requerido</small>
+        </div>
+      </mat-form-field>
 
-        <mat-form-field appearance="fill" >
-          <mat-label>Telefono</mat-label>
-          <input matInput type="number" formControlName="telefono" [ngClass]="{'is-invalid':formulario.get('telefono')?.errors?.['required'] && formulario.get('telefono')?.errors?.['pattern'] }"/>
-          <div class="invalid-feedback">
-            <small>El campo es requerido</small>
-          </div>
-        </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Telefono</mat-label>
+        <input matInput type="number" formControlName="telefono"
+          [ngClass]="{'is-invalid':formulario.get('telefono')?.errors?.['required'] && formulario.get('telefono')?.touched }" />
+        <div class="invalid-feedback">
+          <small>El campo es requerido</small>
+        </div>
+      </mat-form-field>
 
-      </form>
-    </div>
+    </form>
+  </div>
 
-    <div mat-dialog-actions>
-      <div class="botones">
-          <div class="">
-            <button mat-raised-button color="primary" [disabled]="formulario.invalid" (click)="agregarUsuario()">Agregar usuario</button>
-          </div>
-          <div class="">
-            <button mat-raised-button type="button" color="primary" (click)="retroceder()">Cancelar</button>
-          </div>
+  <div mat-dialog-actions>
+    <div class="botones">
+      <div class="">
+        <button mat-raised-button color="primary" [disabled]="formulario.invalid" (click)="agregarUsuario()">Agregar
+          usuario</button>
+      </div>
+      <div class="">
+        <button mat-raised-button type="button" color="primary" (click)="retroceder()">Cancelar</button>
       </div>
     </div>
-
   </div>
+
+</div>

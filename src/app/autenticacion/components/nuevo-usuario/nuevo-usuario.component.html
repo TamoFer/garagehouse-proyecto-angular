@@ -52,8 +52,7 @@
             formControlName="correo"
             [ngClass]="{
               'is-invalid':
-                formulario.get('correo')?.errors &&
-                formulario.get('correo')?.touched
+              formulario.get('correo')?.errors?.['required'] && formulario.get('correo')?.touched && formulario.get('correo')?.errors
             }"
           />
           <mat-icon matSuffix>mail</mat-icon>

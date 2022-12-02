@@ -26,7 +26,6 @@ import Swal from 'sweetalert2';
 
 export class CardsComponent implements OnInit {
 
-  suscripcionCursos!: Subscription;
   suscripcionSesion!: Subscription;
   suscripcionCursoData!: Subscription;
   opened = false;
@@ -64,8 +63,13 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.suscripcionCursoData.unsubscribe();
-    this.suscripcionSesion.unsubscribe();
+    if (this.suscripcionCursoData!=undefined) {
+      this.suscripcionCursoData.unsubscribe();
+    }
+
+    if (this.suscripcionSesion!=undefined) {
+      this.suscripcionSesion.unsubscribe();
+    }
   }
 
   agregarCurso() {
@@ -94,9 +98,9 @@ export class CardsComponent implements OnInit {
 
   vaciarCampoCurso() {
     this.formulario.get('curso')?.reset()
-    this.storeCursos.select(selectCursos).subscribe((cursos: Curso[]) => {
+    this.suscripcionCursoData = this.storeCursos.select(selectCursos).subscribe((cursos: Curso[]) => {
       this.data = new MatTableDataSource<Curso>(cursos);
-    })
+    });
   }
 
   verDetalles(curso: Curso) {

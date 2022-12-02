@@ -1,4 +1,4 @@
-import { eliminarInscripcion, agregarInscripcion, cargarInscripciones } from './../../state/inscripcion.actions';
+import { eliminarInscripcion, cargarInscripciones } from './../../state/inscripcion.actions';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -28,8 +28,6 @@ export class InscripcionesComponent implements OnInit {
   suscripcionInscripcionData!: Subscription;
   opened = false;
 
-
-
   dataSource: MatTableDataSource<Inscripcion> = new MatTableDataSource<Inscripcion>();
   columnasUsuario: string[] = ['id_alumno', 'id_curso', 'id_usuario', 'fechaInscripcion'];
   columnasAdmin: string[] = ['id_alumno', 'id_curso', 'id_usuario', 'fechaInscripcion', 'acciones'];
@@ -57,20 +55,22 @@ export class InscripcionesComponent implements OnInit {
     this.suscripcionSesion = this.storeSesion.select(selectSesionActiva).subscribe((sesion: Sesion) => {
       this.usuarioActivo = sesion.usuarioActivo;
     })
-
-
   }
 
   ngOnDestroy(): void {
-    this.suscripcionInscripcionData.unsubscribe();
-    this.suscripcionSesion.unsubscribe();
+    if (this.suscripcionInscripcionData) {
+      this.suscripcionInscripcionData.unsubscribe();
+    }
+    if (this.suscripcionSesion) {
+      this.suscripcionSesion.unsubscribe();
+    }
   }
 
   editar(inscripcion: Inscripcion) {
     this.dialog.open(EditarInscripcionComponent, {
       data: inscripcion,
-      width:'35rem',
-      height:'auto'
+      width: '35rem',
+      height: 'auto'
     })
   }
 

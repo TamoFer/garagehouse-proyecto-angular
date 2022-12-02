@@ -19,6 +19,8 @@ export class ToolbarComponent implements OnInit {
   estadoSesion!: any;
   usuarioActivo!: any;
   seccion!: string;
+  suscripcionSesion!: Subscription;
+  suscripcionToolbar!: Subscription;
 
   constructor(
     private sesionStore:Store<Sesion>,
@@ -28,15 +30,24 @@ export class ToolbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    if (this.suscripcionSesion!=undefined) {
+      this.suscripcionSesion.unsubscribe();
+    }
+    if (this.suscripcionToolbar!=undefined) {
+      this.suscripcionToolbar.unsubscribe();
+    }
+  }
+
   ngAfterContentChecked(): void {
     this.comprobarSesion()
-    this.toolbarService.obtenerTitleComponent().subscribe((dato)=>{
+    this.suscripcionToolbar=this.toolbarService.obtenerTitleComponent().subscribe((dato)=>{
       this.seccion=dato
     });
   }
 
   comprobarSesion(){
-    this.sesionStore.select(selectSesionActiva).subscribe((datosSesion)=>{
+    this.suscripcionSesion=this.sesionStore.select(selectSesionActiva).subscribe((datosSesion)=>{
       this.estadoSesion= datosSesion.sesionActiva,
       this.usuarioActivo= datosSesion.usuarioActivo
     })

@@ -1,4 +1,3 @@
-import { getCurrencySymbol } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -6,7 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/app/material.module';
-import { Alumnos } from 'src/app/models/alumnos';
 
 import { TablesComponent } from './tables.component';
 
@@ -64,28 +62,28 @@ describe('TablesComponent', () => {
 
   });
 
-  it('busqueda por apellido', () => {
-    const formulario = component.busquedaEnTabla;
-    const curso= formulario.controls['apellido'];
-    const boton=fixture.debugElement.query(By.css('#buscarXApellido'))
-    const contenido=fixture.debugElement.query(By.css('#tablaDatos'))
+  // it('busqueda por apellido', () => {
+  //   const formulario = component.busquedaEnTabla;
+  //   const curso= formulario.controls['apellido'];
+  //   const boton=fixture.debugElement.query(By.css('#buscarXApellido'))
+  //   const contenido=fixture.debugElement.query(By.css('#tablaDatos'))
 
-    const lista= component.lista= [
-      { "nombre": "Tamia", "apellido": "McDermott", "correo": "Sammy_Lubowitz@gmail.com", "cursoActual": { "nombre": "Security", "profesor": "Robin Rosenbaum", "finicio": "2022-10-30T07:17:50.501Z", "ftermino": "2023-03-08T03:39:58.362Z", "descripcion": "descripcion 3", "disponibilidad": true, "img": "http://loremflickr.com/640/480/technics", "id": "3", }, "idAlumno": "1" }, { "nombre": "Ryley", "apellido": "Kovacek", "correo": "Madalyn79@gmail.com", "cursoActual": { "nombre": "Security", "profesor": "Robin Rosenbaum", "finicio": "2022-10-30T07:17:50.501Z", "ftermino": "2023-03-08T03:39:58.362Z", "descripcion": "descripcion 3", "disponibilidad": true, "img": "http://loremflickr.com/640/480/technics", "id": "3", }, "idAlumno": "2" }
-    ];
+  //   const lista= component.lista= [
+  //     { "nombre": "Tamia", "apellido": "McDermott", "correo": "Sammy_Lubowitz@gmail.com", "cursoActual": { "nombre": "Security", "profesor": "Robin Rosenbaum", "finicio": "2022-10-30T07:17:50.501Z", "ftermino": "2023-03-08T03:39:58.362Z", "descripcion": "descripcion 3", "disponibilidad": true, "img": "http://loremflickr.com/640/480/technics", "id": "3", }, "idAlumno": "1" }, { "nombre": "Ryley", "apellido": "Kovacek", "correo": "Madalyn79@gmail.com", "cursoActual": { "nombre": "Security", "profesor": "Robin Rosenbaum", "finicio": "2022-10-30T07:17:50.501Z", "ftermino": "2023-03-08T03:39:58.362Z", "descripcion": "descripcion 3", "disponibilidad": true, "img": "http://loremflickr.com/640/480/technics", "id": "3", }, "idAlumno": "2" }
+  //   ];
 
-    let data= new MatTableDataSource<[
-      { "nombre": "Tamia", "apellido": "McDermott", "correo": "Sammy_Lubowitz@gmail.com", "cursoActual": { "nombre": "Security", "profesor": "Robin Rosenbaum", "finicio": "2022-10-30T07:17:50.501Z", "ftermino": "2023-03-08T03:39:58.362Z", "descripcion": "descripcion 3", "disponibilidad": true, "img": "http://loremflickr.com/640/480/technics", "id": "3" }, "idAlumno": "1" }, { "nombre": "Ryley", "apellido": "Kovacek", "correo": "Madalyn79@gmail.com", "cursoActual": { "nombre": "Security", "profesor": "Robin Rosenbaum", "finicio": "2022-10-30T07:17:50.501Z", "ftermino": "2023-03-08T03:39:58.362Z", "descripcion": "descripcion 3", "disponibilidad": true, "img": "http://loremflickr.com/640/480/technics", "id": "3" }, "idAlumno": "2" }
-    ]>();
+  //   let data= new MatTableDataSource<[
+  //     { "nombre": "Tamia", "apellido": "McDermott", "correo": "Sammy_Lubowitz@gmail.com", "cursoActual": { "nombre": "Security", "profesor": "Robin Rosenbaum", "finicio": "2022-10-30T07:17:50.501Z", "ftermino": "2023-03-08T03:39:58.362Z", "descripcion": "descripcion 3", "disponibilidad": true, "img": "http://loremflickr.com/640/480/technics", "id": "3" }, "idAlumno": "1" }, { "nombre": "Ryley", "apellido": "Kovacek", "correo": "Madalyn79@gmail.com", "cursoActual": { "nombre": "Security", "profesor": "Robin Rosenbaum", "finicio": "2022-10-30T07:17:50.501Z", "ftermino": "2023-03-08T03:39:58.362Z", "descripcion": "descripcion 3", "disponibilidad": true, "img": "http://loremflickr.com/640/480/technics", "id": "3" }, "idAlumno": "2" }
+  //   ]>();
 
-    console.log(contenido.nativeElement);
+  //   console.log(contenido.nativeElement);
 
 
-    curso.setValue('MCDERMOTT')
-    boton.nativeElement.click()
+  //   curso.setValue('MCDERMOTT')
+  //   boton.nativeElement.click()
 
     //hasta aca pude logicar, mas no
-  });
+  // });
 
 
 

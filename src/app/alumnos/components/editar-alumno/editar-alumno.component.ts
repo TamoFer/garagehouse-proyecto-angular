@@ -1,5 +1,5 @@
 import { cargarCursos } from './../../../cursos/state/cursos.actions';
-import { editarAlumno, alumnosCargados, cargarAlumnos } from './../../state/alumnos.actions';
+import { editarAlumno} from './../../state/alumnos.actions';
 import { Curso } from '../../../models/curso';
 import { Alumnos } from '../../../models/alumnos';
 import { FormGroup, FormControl, Validators } from '@angular/forms';

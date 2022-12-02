@@ -12,13 +12,22 @@ import { map } from 'rxjs';
 export class SesionService {
 
   sesion$!: Observable<Sesion>;
-  usuario?:Usuario;
+  usuarioVacio:Usuario={
+    id: 0,
+    correo:'',
+    contrasena: '',
+    nameUsuario:'',
+    direccion:'',
+    telefono:0,
+    admin:false
+  }
 
   constructor(
     private http: HttpClient
   ) {
     const sesion: Sesion = {
-      sesionActiva: false
+      sesionActiva: false,
+      usuarioActivo: this.usuarioVacio
     };
   }
 

@@ -34,6 +34,12 @@ export class InicioComponent implements OnInit {
     private storeInscripciones: Store<Inscripcion>
   ) { }
 
+  ngOnDestroy(): void {
+    if (this.suscripcionSesion!=undefined) {
+      this.suscripcionSesion.unsubscribe();
+    }
+  }
+
   ngOnInit(): void {
     this.toolbarService.editarTitleComponent(this.seccion);
     this.suscripcionSesion= this.storeSesion.select(selectSesionActiva).subscribe((datos)=>{

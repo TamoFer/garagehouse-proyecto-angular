@@ -14,7 +14,7 @@ import { Usuario } from 'src/app/models/usuario';
 })
 export class MenuComponent implements OnInit {
   estadoSesion!:boolean;
-  usuarioActivo?:Usuario;
+  usuarioActivo!:Usuario;
 
   constructor(
     private sesionStore: Store<Sesion>,

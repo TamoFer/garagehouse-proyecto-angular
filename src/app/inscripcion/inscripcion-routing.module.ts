@@ -8,18 +8,26 @@ import { AdminGuard } from '../core/guards/admin.guard';
 
 const routes: Routes = [
   {
-    path: 'inscripciones', component: InscripcionesComponent, canActivate: [AutenticacionGuard],
-    children:
-      [
-        { path: 'editar-inscripcion', component: EditarInscripcionComponent, canActivate: [AutenticacionGuard, AdminGuard] },
-        { path: 'agregar-inscripcion', component: AgregarInscripcionComponent, canActivate: [AutenticacionGuard] },
-
-      ]
-  }
+    path: 'inscripciones',
+    component: InscripcionesComponent,
+    canActivate: [AutenticacionGuard],
+    children: [
+      {
+        path: 'editar-inscripcion',
+        component: EditarInscripcionComponent,
+        canActivate: [AutenticacionGuard, AdminGuard],
+      },
+      {
+        path: 'agregar-inscripcion',
+        component: AgregarInscripcionComponent,
+        canActivate: [AutenticacionGuard],
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class InscripcionRoutingModule { }

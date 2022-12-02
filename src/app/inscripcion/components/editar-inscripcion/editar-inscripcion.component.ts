@@ -1,5 +1,4 @@
 import { selectAlumnos } from 'src/app/alumnos/state/alumnos.selectors';
-import { cursosCargados } from './../../../cursos/state/cursos.actions';
 import { selectCursos } from './../../../cursos/state/cursos.selectors';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -8,7 +7,6 @@ import { Curso } from 'src/app/models/curso';
 import { Inscripcion } from 'src/app/models/inscripcion';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { CursosService } from 'src/app/cursos/services/cursos.service';
 import { Alumnos } from 'src/app/models/alumnos';
 import { Usuario } from 'src/app/models/usuario';
 import { selectUsuarios } from 'src/app/usuarios/state/usuarios.selectors';
@@ -23,7 +21,6 @@ import { editarInscripcion } from '../../state/inscripcion.actions';
 export class EditarInscripcionComponent implements OnInit {
 
   formulario!: FormGroup;
-  suscripcionCursos!: Subscription;
   cursos$!: Observable<Curso[]>;
   alumnos$!: Observable<Alumnos[]>;
   usuarios$!: Observable<Usuario[]>;

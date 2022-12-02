@@ -98,16 +98,16 @@ export class TablesComponent implements OnInit {
 
   vaciarCampoCurso() {
     this.busquedaEnTabla.get('curso')?.reset();
-    this.storeAlumnos.select(selectAlumnos).subscribe((alumnos: Alumnos[]) => {
+    this.suscripcionAlumnosData = this.storeAlumnos.select(selectAlumnos).subscribe((alumnos: Alumnos[]) => {
       this.data = new MatTableDataSource<Alumnos>(alumnos)
-    });
+    })
   }
 
   vaciarCampoApellido() {
     this.busquedaEnTabla.get('apellido')?.reset();
-    this.storeAlumnos.select(selectAlumnos).subscribe((alumnos: Alumnos[]) => {
+    this.suscripcionAlumnosData = this.storeAlumnos.select(selectAlumnos).subscribe((alumnos: Alumnos[]) => {
       this.data = new MatTableDataSource<Alumnos>(alumnos)
-    });
+    })
   }
 
   agregarAlumno() {

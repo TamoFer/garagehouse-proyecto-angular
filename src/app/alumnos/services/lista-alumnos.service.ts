@@ -12,9 +12,7 @@ export class ListaAlumnosService {
 
   constructor(
     private http:HttpClient
-  ) {
-
-  }
+  ) {}
 
   obtenerAlumnos():Observable<Alumnos[]> {
     return this.http.get<Alumnos[]>(`${environment.api}/Alumnos`);

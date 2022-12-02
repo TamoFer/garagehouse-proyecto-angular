@@ -27,14 +27,14 @@ export class EditarUsuarioComponent implements OnInit {
 
   ) {
     this.formulario= new FormGroup({
-      nameUsuario: new FormControl(this.usuario.nameUsuario,[Validators.required]),
+      nameUsuario: new FormControl(this.usuario.nameUsuario,[Validators.required,Validators.minLength(3), Validators.maxLength(25)]),
       contrasena: new FormControl(this.usuario.contrasena,[Validators.required]),
-      admin: new FormControl(this.usuario.admin,[Validators.required]),
+      admin: new FormControl(this.usuario.admin),
       correo: new FormControl(this.usuario.correo,[Validators.required]),
-      direccion: new FormControl(this.usuario.direccion,[Validators.required]),
+      direccion: new FormControl(this.usuario.direccion,[Validators.required,Validators.minLength(5), Validators.maxLength(15)]),
       telefono: new FormControl(this.usuario.telefono,[Validators.required])
     })
-  } //agregar validators desde alta-usuario
+  }
 
   ngOnInit(): void {
   }

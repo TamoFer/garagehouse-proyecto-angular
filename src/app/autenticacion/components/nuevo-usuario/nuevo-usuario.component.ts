@@ -1,6 +1,5 @@
 import { cargarUsuarios } from './../../../usuarios/state/usuarios.actions';
 import { Router } from '@angular/router';
-import { Alumnos } from 'src/app/models/alumnos';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';

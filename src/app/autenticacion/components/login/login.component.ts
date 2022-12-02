@@ -6,6 +6,8 @@ import { Router} from '@angular/router';
 import { SesionService } from 'src/app/core/services/sesion.service';
 import { Usuario } from 'src/app/models/usuario';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +18,9 @@ export class LoginComponent implements OnInit {
 
   formulario: FormGroup;
   hide:boolean=true;
+  suscripcionLogin!: Subscription;
 
   constructor(
-
     private ruta: Router,
     private sesionService: SesionService,
     private storeSesion: Store<Sesion>
@@ -34,6 +36,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    if (this.suscripcionLogin!=undefined) {
+      this.suscripcionLogin.unsubscribe();
+    }
+  }
+
   login(){
     let u: Usuario = {
       id: 0,
@@ -44,9 +52,18 @@ export class LoginComponent implements OnInit {
       direccion:'',
       telefono:0
     }
-    this.sesionService.login(u).subscribe((usuario: Usuario) => {
-      this.storeSesion.dispatch(sesionCargada({usuarioActivo: usuario}));
-      this.ruta.navigate(['inicio']);
+
+    this.suscripcionLogin= this.sesionService.login(u).subscribe((usuario: Usuario) => {
+      if (usuario!=undefined) {
+        this.storeSesion.dispatch(sesionCargada({usuarioActivo: usuario}));
+        this.ruta.navigate(['inicio']);
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No existe el usuario ingresado'
+        })
+      }
     });
   }
 
@@ -57,16 +74,16 @@ export class LoginComponent implements OnInit {
   usuarioNoAdmin(){
     this.formulario.reset()
     this.formulario.patchValue({
-      nameUsuario:'Arlie68',
-      contrasena:'HpYczBiILVgaKjm',
+      nameUsuario:'Jaunita_Feen',
+      contrasena:'f3vCMeIXg6RA5xV',
     });
   }
 
   usuarioAdmin(){
     this.formulario.reset()
     this.formulario.patchValue({
-      nameUsuario:'Reta3',
-      contrasena:'RLaRCN5gSfnPq6m',
+      nameUsuario:'Federico_Lowe',
+      contrasena:'ru8h2E21qQXj8FJ',
     });
   }
 

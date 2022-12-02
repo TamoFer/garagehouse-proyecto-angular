@@ -18,7 +18,6 @@ export class EditarCursoComponent implements OnInit {
 
   form!:FormGroup;
   alumnos$!:Observable<Alumnos[]>
-  suscripcionAlumnos!:Subscription;
 
   constructor(
     public dialogRef: MatDialogRef<EditarCursoComponent>,

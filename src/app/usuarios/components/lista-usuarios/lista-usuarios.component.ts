@@ -12,6 +12,8 @@ import { AltaUsuarioComponent } from '../alta-usuario/alta-usuario.component';
 import { ToolbarTitleService } from 'src/app/core/services/toolbar-title.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
+import { Sesion } from 'src/app/models/sesion';
+import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -21,9 +23,12 @@ import Swal from 'sweetalert2';
 export class ListaUsuariosComponent implements OnInit {
 
   suscripcionUsuariosData!: Subscription;
+  suscripcionSesion!: Subscription;
   opened = false;
   formulario!: FormGroup;
   seccion: string = 'Usuarios';
+  usuarioActivo!: Usuario;
+
 
 
   columnas: string[] = ['id', 'usuario', 'admin', 'email', 'direccion', 'telefono', 'actions'];
@@ -35,11 +40,15 @@ export class ListaUsuariosComponent implements OnInit {
     private storeUsuarios: Store<Usuario>,
     private dialog: MatDialog,
     private toolbarService: ToolbarTitleService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private sesionStore: Store<Sesion>
 
   ) {
     this.toolbarService.editarTitleComponent(this.seccion);
-    this.storeUsuarios.dispatch(cargarUsuarios())
+    this.storeUsuarios.dispatch(cargarUsuarios());
+    this.suscripcionSesion= this.sesionStore.select(selectSesionActiva).subscribe((datosSesion)=>{
+      this.usuarioActivo= datosSesion.usuarioActivo
+    })
   }
 
   ngOnInit(): void {
@@ -56,7 +65,12 @@ export class ListaUsuariosComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.suscripcionUsuariosData.unsubscribe();
+    if (this.suscripcionUsuariosData!=undefined) {
+      this.suscripcionUsuariosData.unsubscribe();
+    }
+    if (this.suscripcionSesion!=undefined) {
+      this.suscripcionSesion.unsubscribe();
+    }
   }
 
   agregarUser() {
@@ -82,7 +96,7 @@ export class ListaUsuariosComponent implements OnInit {
 
   vaciarCampoUser() {
     this.formulario.get('nameUser')?.reset();
-    this.storeUsuarios.select(selectUsuarios).subscribe((usuarios: Usuario[]) => {
+    this.suscripcionUsuariosData=this.storeUsuarios.select(selectUsuarios).subscribe((usuarios: Usuario[]) => {
       this.data = new MatTableDataSource<Usuario>(usuarios)
     });
   }
@@ -100,7 +114,7 @@ export class ListaUsuariosComponent implements OnInit {
   }
   vaciarCampoId() {
     this.formulario.get('id')?.reset();
-    this.storeUsuarios.select(selectUsuarios).subscribe((usuarios: Usuario[]) => {
+    this.suscripcionUsuariosData=this.storeUsuarios.select(selectUsuarios).subscribe((usuarios: Usuario[]) => {
       this.data = new MatTableDataSource<Usuario>(usuarios)
     });
   }

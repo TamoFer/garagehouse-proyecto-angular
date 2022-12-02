@@ -4,7 +4,7 @@ import { selectAlumnos } from 'src/app/alumnos/state/alumnos.selectors';
 import { Inscripcion } from 'src/app/models/inscripcion';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { map, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Alumnos } from 'src/app/models/alumnos';
 import { Curso } from 'src/app/models/curso';
 import { Store } from '@ngrx/store';
@@ -54,7 +54,9 @@ export class AgregarInscripcionComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.suscripcionSesion.unsubscribe();
+    if (this.suscripcionSesion!=undefined) {
+      this.suscripcionSesion.unsubscribe();
+    }
   }
 
   agregarInscripto(){

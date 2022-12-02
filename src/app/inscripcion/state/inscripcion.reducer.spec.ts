@@ -1,13 +1,13 @@
-import { reducer, initialState } from './inscripcion.reducer';
+import { inscripcionReducer, estadoInicial } from './inscripcion.reducer';
 
 describe('Inscripcion Reducer', () => {
   describe('an unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
 
-      const result = reducer(initialState, action);
+      const result = inscripcionReducer(estadoInicial, action);
 
-      expect(result).toBe(initialState);
+      expect(result).toBe(estadoInicial);
     });
   });
 });

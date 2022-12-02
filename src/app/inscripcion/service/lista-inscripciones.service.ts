@@ -1,6 +1,6 @@
 import { Inscripcion } from './../../models/inscripcion';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -11,9 +11,7 @@ export class ListaInscripcionesService {
 
   constructor(
     private http:HttpClient
-  ) {
-
-  }
+  ) {}
 
   obtenerInscripciones():Observable<Inscripcion[]> {
     return this.http.get<Inscripcion[]>(`${environment.api}/inscripciones`);

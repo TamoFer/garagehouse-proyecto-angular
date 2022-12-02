@@ -2,11 +2,8 @@
   <div class="menu-lateral">
     <div>
         <a mat-button routerLink="alumnos/lista-alumnos"> <mat-icon>groups</mat-icon> Alumnos </a>
-
         <a mat-button routerLink="cursos/cursos-cards"> <mat-icon>view_cozy</mat-icon> Cursos</a>
-
         <a mat-button routerLink="inscripciones"><mat-icon>event_note</mat-icon> Inscripciones</a>
-
         <a mat-button *ngIf="usuarioActivo?.admin" routerLink="usuarios"> <mat-icon>group</mat-icon> Usuarios</a>
     </div>
     <div>

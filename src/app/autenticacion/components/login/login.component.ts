@@ -74,16 +74,16 @@ export class LoginComponent implements OnInit {
   usuarioNoAdmin(){
     this.formulario.reset()
     this.formulario.patchValue({
-      nameUsuario:'Jaunita_Feen',
-      contrasena:'f3vCMeIXg6RA5xV',
+      nameUsuario:'Ramiro_Gleichner61',
+      contrasena:'xm3KMOjscPVKIB3'
     });
   }
 
   usuarioAdmin(){
     this.formulario.reset()
     this.formulario.patchValue({
-      nameUsuario:'Federico_Lowe',
-      contrasena:'ru8h2E21qQXj8FJ',
+      nameUsuario:'Jaunita_Feen',
+      contrasena:'f3vCMeIXg6RA5xV'
     });
   }
 

@@ -6,31 +6,31 @@ import { MaterialModule } from 'src/app/material.module';
 
 import { AgregarCursoComponent } from './agregar-curso.component';
 
-describe('AgregarCursoComponent', () => {
-  let component: AgregarCursoComponent;
-  let fixture: ComponentFixture<AgregarCursoComponent>;
+// describe('AgregarCursoComponent', () => {
+//   let component: AgregarCursoComponent;
+//   let fixture: ComponentFixture<AgregarCursoComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ AgregarCursoComponent ],
-      imports:[
-        BrowserAnimationsModule,
-        MaterialModule,
-        HttpClientTestingModule,
-        HttpClientModule,
-      ]
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       declarations: [ AgregarCursoComponent ],
+//       imports:[
+//         BrowserAnimationsModule,
+//         MaterialModule,
+//         HttpClientTestingModule,
+//         HttpClientModule,
+//       ]
 
-    })
-    .compileComponents();
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(AgregarCursoComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(AgregarCursoComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
 
 
-});
+// });

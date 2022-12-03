@@ -16,7 +16,6 @@ describe('AgregarAlumnoComponent', () => {
       declarations: [ AgregarAlumnoComponent ],
       imports:[
         BrowserAnimationsModule,
-        HttpClientTestingModule,
         MaterialModule,
         HttpClientModule
 
@@ -38,15 +37,13 @@ describe('AgregarAlumnoComponent', () => {
     const formulario = component.alumnoNuevo;
     const nombre=formulario.controls['nombre'];
     const apellido=formulario.controls['apellido'];
-    const correo=formulario.controls['correo'];
     const curso=formulario.controls['curso'];
 
     nombre.setValue('Pedro');
     apellido.setValue('Gomez');
-    correo.setValue('pedro@gomez.com');
     curso.setValue('');
 
-    expect(formulario.valid).toBeFalse();
+    expect(formulario.invalid).toBeTruthy();
 
   })
 

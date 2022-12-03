@@ -1,7 +1,7 @@
+import { AlumnoState } from 'src/app/models/models-state/alumno.state';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatTableDataSource } from '@angular/material/table';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/app/material.module';
@@ -12,7 +12,6 @@ describe('TablesComponent', () => {
   let component: TablesComponent;
   let fixture: ComponentFixture<TablesComponent>;
 
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TablesComponent],
@@ -21,7 +20,7 @@ describe('TablesComponent', () => {
         HttpClientTestingModule,
         MaterialModule,
         HttpClientModule,
-      ]
+      ],
 
     }).compileComponents();
 
@@ -39,6 +38,11 @@ describe('TablesComponent', () => {
     const formulario = component.busquedaEnTabla;
     const boton = fixture.debugElement.query(By.css('#borrarCampoCurso'));
     const curso= formulario.controls['curso'];
+
+    console.log(boton);
+    console.log(curso);
+    
+    
 
     curso.setValue('angular');
     boton.nativeElement.click();

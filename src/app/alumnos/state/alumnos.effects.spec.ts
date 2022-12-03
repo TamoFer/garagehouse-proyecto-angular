@@ -4,22 +4,22 @@ import { Observable } from 'rxjs';
 
 import { AlumnosEffects } from './alumnos.effects';
 
-describe('AlumnosEffects', () => {
-  let actions$: Observable<any>;
-  let effects: AlumnosEffects;
+// describe('AlumnosEffects', () => {
+//   let actions$: Observable<any>;
+//   let effects: AlumnosEffects;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        AlumnosEffects,
-        provideMockActions(() => actions$)
-      ]
-    });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       providers: [
+//         AlumnosEffects,
+//         provideMockActions(() => actions$)
+//       ]
+//     });
 
-    effects = TestBed.inject(AlumnosEffects);
-  });
+//     effects = TestBed.inject(AlumnosEffects);
+//   });
 
-  it('should be created', () => {
-    expect(effects).toBeTruthy();
-  });
-});
+//   it('should be created', () => {
+//     expect(effects).toBeTruthy();
+//   });
+// });

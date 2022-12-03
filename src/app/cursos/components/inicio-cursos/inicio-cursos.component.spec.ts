@@ -2,22 +2,22 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InicioCursosComponent } from './inicio-cursos.component';
 
-describe('InicioCursosComponent', () => {
-  let component: InicioCursosComponent;
-  let fixture: ComponentFixture<InicioCursosComponent>;
+// describe('InicioCursosComponent', () => {
+//   let component: InicioCursosComponent;
+//   let fixture: ComponentFixture<InicioCursosComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ InicioCursosComponent ]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       declarations: [ InicioCursosComponent ]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(InicioCursosComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(InicioCursosComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

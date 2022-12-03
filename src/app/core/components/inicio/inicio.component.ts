@@ -22,7 +22,7 @@ export class InicioComponent implements OnInit {
 
   cursos$!:Observable<Curso[]>
   seccion:string='Inicio'
-  usuarioActivo?: Usuario;
+  usuarioActivo!: Usuario;
   suscripcionSesion!:Subscription;
 
   constructor(

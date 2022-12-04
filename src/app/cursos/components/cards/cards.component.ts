@@ -63,11 +63,11 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.suscripcionCursoData!=undefined) {
+    if (this.suscripcionCursoData != undefined) {
       this.suscripcionCursoData.unsubscribe();
     }
 
-    if (this.suscripcionSesion!=undefined) {
+    if (this.suscripcionSesion != undefined) {
       this.suscripcionSesion.unsubscribe();
     }
   }
@@ -86,13 +86,22 @@ export class CardsComponent implements OnInit {
 
   buscarXCurso() {
     const valorObtenido = this.formulario.get('curso')?.value;
-    this.storeCursos.select(selectCursos).pipe(
-      map((cursos: Curso[]) => cursos.filter((c: Curso) =>
-        c.nombre.toLowerCase() === valorObtenido.toLowerCase())
-      )
-    ).subscribe((cursos) => {
-      this.data.data = cursos
-    })
+    if (valorObtenido === '' || valorObtenido === null || valorObtenido === undefined) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ingresa el nombre del curso para buscarlo'
+      })
+    } else {
+      this.storeCursos.select(selectCursos).pipe(
+        map((cursos: Curso[]) => cursos.filter((c: Curso) =>
+          c.nombre.toLowerCase() === valorObtenido.toLowerCase())
+        )
+      ).subscribe((cursos) => {
+        this.data.data = cursos
+      })
+    }
+
 
   }
 

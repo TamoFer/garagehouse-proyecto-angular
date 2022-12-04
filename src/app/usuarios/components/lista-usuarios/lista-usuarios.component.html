@@ -1,9 +1,12 @@
 <div class="contenido">
   <div class="table">
 
-    <p *ngIf="data.data.length===0">No hay datos que mostrar</p>
+    <div class="msj-nodatos" *ngIf="data.data.length===0">
+      <p>¡No existe el usuario buscado!</p>
+      <p> Prueba devuelta</p>
+    </div>
 
-    <table mat-table [dataSource]="data">
+    <table *ngIf="data.data.length!=0" mat-table [dataSource]="data">
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>ID</th>

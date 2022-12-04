@@ -1,6 +1,9 @@
 <div class="contenido" >
   <div class="table" >
-    <p *ngIf="data.data.length===0">No hay datos que mostrar</p>
+    <div class="msj-nodatos" *ngIf="data.data.length===0">
+      <p>¡No existe el curso buscado!</p>
+      <p> Prueba devuelta</p>
+    </div>
 
     <table mat-table [dataSource]="data" *ngIf="data.data.length>0" >
       <ng-container matColumnDef="nombre">

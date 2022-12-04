@@ -29,7 +29,7 @@ export class TablesComponent implements OnInit {
 
   suscripcionSesion!: Subscription;
   suscripcionAlumnosData!: Subscription;
-  opened=false;
+  opened = false;
 
   usuarioActivo?: Usuario;
   columnasAdmin: string[] = ['nombre', 'apellido', 'cursando', 'actions'];
@@ -37,7 +37,7 @@ export class TablesComponent implements OnInit {
   data: MatTableDataSource<Alumnos> = new MatTableDataSource<Alumnos>();
   busquedaEnTabla!: FormGroup;
   seccion: string = 'Alumnos'
-  cursos$!:Observable<Curso[]>;
+  cursos$!: Observable<Curso[]>;
 
 
   constructor(
@@ -53,7 +53,7 @@ export class TablesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.cursos$=this.storeCursos.select(selectCursos)
+    this.cursos$ = this.storeCursos.select(selectCursos)
 
     this.suscripcionSesion = this.storeSesion.select(selectSesionActiva).subscribe((datos) => {
       this.usuarioActivo = datos.usuarioActivo
@@ -70,30 +70,52 @@ export class TablesComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.suscripcionAlumnosData.unsubscribe();
-    this.suscripcionSesion.unsubscribe();
+    if (this.suscripcionAlumnosData!=undefined) {
+      this.suscripcionAlumnosData.unsubscribe();
+    }
+    if (this.suscripcionSesion!=undefined) {
+      this.suscripcionSesion.unsubscribe();
+    }
   }
 
   buscarXApellido() {
     const valorObtenido = this.busquedaEnTabla.get('apellido')?.value;
-    this.storeAlumnos.select(selectAlumnos).pipe(
-      map((alumnos: Alumnos[]) => alumnos.filter((a: Alumnos) =>
-        a.apellido.toLowerCase() == valorObtenido.toLowerCase())
-      )
-    ).subscribe((alumnos) => {
-      this.data.data = alumnos;
-    })
+    if (valorObtenido === '' || valorObtenido === null || valorObtenido === undefined) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ingresa el nombre del alumno para buscarlo'
+      })
+    } else {
+      this.storeAlumnos.select(selectAlumnos).pipe(
+        map((alumnos: Alumnos[]) => alumnos.filter((a: Alumnos) =>
+          a.apellido.toLowerCase() == valorObtenido.toLowerCase())
+        )
+      ).subscribe((alumnos) => {
+        this.data.data = alumnos;
+      })
+    }
+
   }
 
   buscarXCurso() {
     const valorObtenido = this.busquedaEnTabla.get('curso')?.value;
-    this.storeAlumnos.select(selectAlumnos).pipe(
-      map((alumnos: Alumnos[]) => alumnos.filter((a: Alumnos) =>
-        a.cursoActual?.nombre.toLowerCase() == valorObtenido.toLowerCase())
-      )
-    ).subscribe((alumnos) => {
-      this.data.data = alumnos;
-    })
+    if (valorObtenido === '' || valorObtenido === null || valorObtenido === undefined) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ingresa el nombre del curso para buscarlo'
+      })
+    } else {
+      this.storeAlumnos.select(selectAlumnos).pipe(
+        map((alumnos: Alumnos[]) => alumnos.filter((a: Alumnos) =>
+          a.cursoActual?.nombre.toLowerCase() == valorObtenido.toLowerCase())
+        )
+      ).subscribe((alumnos) => {
+        this.data.data = alumnos;
+      })
+    }
+
   }
 
   vaciarCampoCurso() {
@@ -117,8 +139,8 @@ export class TablesComponent implements OnInit {
   editarAlumno(alumno: Alumnos) {
     this.dialog.open(EditarAlumnoComponent, {
       data: alumno,
-      width:'auto',
-      height:'36rem'
+      width: 'auto',
+      height: '36rem'
     })
   }
 
@@ -145,7 +167,7 @@ export class TablesComponent implements OnInit {
 
   verDetalles(alumno: Alumnos) {
     this.dialog.open(VerDetallesComponentAlumno, {
-      data:alumno,
+      data: alumno,
       width: '50rem',
       height: 'auto'
     })

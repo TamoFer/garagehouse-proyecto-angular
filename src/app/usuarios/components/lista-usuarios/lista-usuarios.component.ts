@@ -85,13 +85,21 @@ export class ListaUsuariosComponent implements OnInit {
 
   buscarXUser() {
     const valorObtenido = this.formulario.get('nameUser')?.value;
-    this.storeUsuarios.select(selectUsuarios).pipe(
-      map((usuarios: Usuario[]) => usuarios.filter((u: Usuario) =>
-        u.nameUsuario.toLowerCase() === valorObtenido.toLowerCase())
-      )
-    ).subscribe((usuarios) => {
-      this.data.data = usuarios;
-    })
+    if (valorObtenido==='' || valorObtenido===null || valorObtenido===undefined) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ingresa el nombre de usuario para buscarlo'
+      })
+    }else{
+      this.storeUsuarios.select(selectUsuarios).pipe(
+        map((usuarios: Usuario[]) => usuarios.filter((u: Usuario) =>
+          u.nameUsuario.toLowerCase() === valorObtenido.toLowerCase())
+        )
+      ).subscribe((usuarios) => {
+        this.data.data = usuarios;
+      })
+    }
   }
 
   vaciarCampoUser() {

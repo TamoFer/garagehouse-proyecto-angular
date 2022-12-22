@@ -14,10 +14,11 @@ Para conocer este hace click en el  [link](https://project-angular-ccfb8.web.app
 * HTML 5
 * CSS 3
 * BootStrap
-* JavaScript
 * SweetAlert2
-* Typescript
 * Sass
+* Angular
+* Typescript
+* JavaScript
 * NgRx
 * Mockapi
 
